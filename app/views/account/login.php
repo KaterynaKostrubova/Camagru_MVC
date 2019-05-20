@@ -1,9 +1,9 @@
 <h3>Log in</h3>
-<form action="">
+<form action="/mvc_php/account/login" method="post">
     <p>Login</p>
-    <p><input type="text"></p>
+    <p><input type="text" name="log"></p>
     <p>Password</p>
-    <p><input type="text"></p>
-    <button>OK</button>
+    <p><input type="text" name="pass"></p>
+    <input type="submit" name="OK">
 </form>
 
