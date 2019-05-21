@@ -3,14 +3,24 @@
 namespace app\lib;
 
 use PDO;
+use PDOException;
 
 class Db {
 
     function __construct(){
-//        echo 'class DB';
-        $config = require 'app/config/db.php';
-//        debug($config);
-        $this->db = new PDO('mysql:host='.$config['host'].';dbname='.$config['name'].';charset=UTF8', $config['user'], $config['password']);
+
+        try {
+//            echo 1;
+            $config = require 'app/config/db.php';
+            $this->db = new PDO('mysql:host='.$config['host'].';dbname='.$config['name'].';charset=UTF8', $config['user'], $config['password']);
+//            echo 2;
+            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//            echo 3;
+        } catch (PDOException $e){
+//            echo 4;
+            header('Location: app/views/main/setup.php');
+            exit($e->getMessage());
+        }
     }
 
     function query($sql, $params = []){
@@ -25,10 +35,6 @@ class Db {
         $stmt->execute();
         return $stmt;
 
-//        $query = $this->db->query($sql);
-//        $result = $query->fetchColumn();
-//        debug($result);
-//        return $query;
     }
 
     public function row($sql, $params = []){

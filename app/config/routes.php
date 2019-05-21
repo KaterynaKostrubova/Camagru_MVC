@@ -5,6 +5,11 @@ return [
         'action' => 'index',
     ],
 
+    'default/setup' =>[
+        'controller' => 'main',
+        'action' => 'setup',
+    ],
+
     'account/login' =>[
         'controller' => 'account',
         'action' => 'login',
@@ -13,6 +18,11 @@ return [
     'account/signup' =>[
         'controller' => 'account',
         'action' => 'signup',
+    ],
+
+    'account/setup' =>[
+        'controller' => 'account',
+        'action' => 'setup',
     ],
 
     'new/show' =>[

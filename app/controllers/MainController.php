@@ -29,7 +29,11 @@ class MainController extends Controller {
         $this->view->render('MAIN PAGE', $vars);
     }
 
-    public function registerAction(){
+    public function signupAction(){
         echo "MainRegister page";
+    }
+
+    public function setupAction(){
+        $this->view->render('Setup');
     }
 }
