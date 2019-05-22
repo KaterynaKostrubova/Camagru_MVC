@@ -21,6 +21,7 @@ class MainController extends Controller {
 //
 //        $data = $db->column('SELECT login FROM users WHERE id = :id', $params);
 //        debug($data);
+
         $result = $this->model->getUsers();
         $vars = [
             'users' => $result
@@ -29,11 +30,11 @@ class MainController extends Controller {
         $this->view->render('MAIN PAGE', $vars);
     }
 
-    public function signupAction(){
-        echo "MainRegister page";
-    }
-
-    public function setupAction(){
-        $this->view->render('Setup');
-    }
+//    public function signupAction(){
+//        echo "MainRegister page";
+//    }
+//
+//    public function setupAction(){
+//        $this->view->render('Setup');
+//    }
 }

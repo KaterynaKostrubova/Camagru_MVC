@@ -16,11 +16,13 @@ abstract class Controller {
         $this->route =$route;
 
 //        $_SESSION['admin'] = 1;
-//        print_r($_SESSION['authorize']['id']);
+//        $_SESSION['authorize']['id'] = 1;
 //
-//        if(!$this->checkAcl()){
+        if(!$this->checkAcl()){
 //            View::errorCode(403);
-//        };
+            header('Location: /mvc_php/account/login');
+        };
+//        echo 323232;
         $this->view = new View($route);
 //        $this->before();
         $this->model = $this->loadModel($route['controller']);
@@ -37,6 +39,7 @@ abstract class Controller {
 
     public function checkAcl(){
         $this->acl = require 'app/acl/'.$this->route['controller'].'.php';
+//        print_r($this->acl);
         if ($this->isAcl('all')){
             return true;
         }
@@ -55,6 +58,8 @@ abstract class Controller {
 
 
     public function isAcl($key){
+//        debug(in_array($this->route['action'], $this->acl[$key]));
+//        print_r($this->route['action']);
         return in_array($this->route['action'], $this->acl[$key]);
     }
 }

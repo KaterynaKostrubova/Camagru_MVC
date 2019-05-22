@@ -4,6 +4,7 @@ namespace app\lib;
 
 use PDO;
 use PDOException;
+use PDOStatement;
 
 class Db {
 
@@ -17,8 +18,7 @@ class Db {
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //            echo 3;
         } catch (PDOException $e){
-//            echo 4;
-            header('Location: app/views/main/setup.php');
+            header('Location: app/config/setup.php');
             exit($e->getMessage());
         }
     }
@@ -39,12 +39,23 @@ class Db {
 
     public function row($sql, $params = []){
         $result = $this->query($sql, $params);
+        var_dump($result);
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function column($sql, $params = []){
         $result = $this->query($sql, $params);
+        var_dump($result);
         return $result->fetchColumn();
+    }
+
+    public function insert($sql){
+
+        try {
+            $this->db->exec($sql);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
     }
 
 

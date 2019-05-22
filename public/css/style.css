@@ -1,0 +1,137 @@
+
+/* GENERAL */
+body, form, p, input {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    padding: 0;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 100%;
+}
+
+body {
+    background-color: #2B3338;
+}
+
+
+/*FORM DB/LOGIN*/
+
+.log_form {
+    margin: 15% auto;
+    max-width: 400px;
+}
+
+input {
+    box-sizing: border-box;
+    padding: 0 16px;
+    width: 100%;
+    height: 50px;
+    outline: none;
+    border: none;
+    margin: 0 auto;
+    background-color: #3A4149;
+    color: #eee;
+    font-weight: bold;
+}
+
+input[type="submit"] {
+    background-color: #EA4C86;
+    color: #eee;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor:pointer;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0 100px #6a7684 inset;
+}
+
+form p span {
+    background-color: #363b41;
+    color: #606468;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+}
+
+form p {
+    display: flex;
+    margin: 5px auto;
+}
+
+.header_text {
+    color: #ffcee0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.form {
+    max-width: 600px;
+    margin: 15% auto;
+}
+
+.select {
+    display: flex;
+    width: 100%;
+    height: 3em;
+    line-height:  3em;
+    margin: 20% 0 auto;
+    list-style: none;
+    padding: 0;
+    /*margin: 20% 0 auto;*/
+}
+
+.select {
+    display: flex;
+    width: 100%;
+    height: 3em;
+    line-height:  3em;
+
+}
+
+
+.select li {
+    width: 50%;
+    height: inherit;
+    font-weight: bold;
+    text-align: center;
+}
+
+.select li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height:  inherit;
+    text-decoration: none;
+    color: #606468;
+    text-transform: uppercase;
+    font-size: 20px;
+    background: #3A4149;
+    transition: .5s ease;
+
+}
+
+
+
+.select li .active{
+    background-color: #EA4C86;
+    color: #eee;
+    outline: none;
+}
+
+.select li a:hover,
+input[type="submit"]:hover {
+    background-color: #b73a68;
+    color: #eee;
+}
+
+#sign_up {
+    display: none;
+}
+
+h1{
+    text-align: center;
+    color: #eee;
+    font-weight: lighter;
+}

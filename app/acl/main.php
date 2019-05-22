@@ -2,12 +2,13 @@
 
 return [
     'all' => [
-        'setup',
+//        'setup',
         'login',
-        'signup',
+//        'signup',
+        'index'
     ],
     'authorize' => [
-       //
+        'index',
     ],
     'guest' => [
         //

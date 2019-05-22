@@ -1,3 +1,8 @@
+<?php //include('main.php');
+//header('Location: /mvc_php/default/setup');
+//include ('main.php');
+?>
+
 <p>Main page!!!!</p>
 <!--<p>Name: <b> --><?php //echo $name; ?><!--</b></p>-->
 <!--<p>Age: <b> --><?php //echo $age; ?><!--</b></p>-->
@@ -11,5 +16,3 @@
     <p><?php echo $val['email']?></p>
         <hr>
 <?php endforeach; ?>
-<?php //include('main.php'); ?>
-
