@@ -9,10 +9,10 @@
 <div class="form">
     <ul onclick="myFunction(event)" class="select">
         <li>
-            <a href="#register" id="register">Sign Up</a>
+            <a href="#register" id="register" class="active">Sign Up</a>
         </li>
         <li>
-            <a href="#login" id="login" class="active">Log In</a>
+            <a href="#login" id="login">Log In</a>
         </li>
     </ul>
     <div class = "tab">
@@ -31,7 +31,7 @@
                     <span><i class="fas fa-key"></i></span>
                     <input type="password" name="passwd" placeholder="Set a password" required />
                 </p>
-                <p><input class="button_subm" type="submit" name="submit" value="Get started" autofocus /></p>
+                <p id="sbm"><input class="button_subm" type="submit" name="submit" value="Get started" autofocus /></p>
             </form>
         </div>
         <div id="log_in">

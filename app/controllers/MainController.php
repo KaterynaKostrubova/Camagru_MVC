@@ -22,6 +22,7 @@ class MainController extends Controller {
 //        $data = $db->column('SELECT login FROM users WHERE id = :id', $params);
 //        debug($data);
 
+
         $result = $this->model->getUsers();
         $vars = [
             'users' => $result

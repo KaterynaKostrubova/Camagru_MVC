@@ -109,7 +109,6 @@ form p {
     font-size: 20px;
     background: #3A4149;
     transition: .5s ease;
-
 }
 
 
@@ -126,8 +125,12 @@ input[type="submit"]:hover {
     color: #eee;
 }
 
-#sign_up {
+#log_in {
     display: none;
+}
+
+#sign_up {
+    display: block;
 }
 
 h1{

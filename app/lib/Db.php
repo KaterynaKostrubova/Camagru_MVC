@@ -49,8 +49,7 @@ class Db {
         return $result->fetchColumn();
     }
 
-    public function insert($sql){
-
+    public function insertto($sql){
         try {
             $this->db->exec($sql);
         } catch (PDOException $e) {

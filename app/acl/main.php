@@ -5,7 +5,7 @@ return [
 //        'setup',
         'login',
 //        'signup',
-        'index'
+//        'index'
     ],
     'authorize' => [
         'index',

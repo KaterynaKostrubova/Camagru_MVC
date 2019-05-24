@@ -16,24 +16,22 @@ class AccountController extends Controller{
 //            $this->view->message('success', 'text');
 //            $this->view->location('/mvc_php');
 
-
-
-
-
 //        $this->view->redirect('/mvc_php');
-        $db = new Db();
-
+//        $db = new Db();
 //        $form = '2; DELETE FROM users';
 //        $params = [
 //            'id' => 1,
 //        ];
-        $data = $db->insert("INSERT INTO users (login, password, email, token) VALUE ('kate', '23323', 'kate@kate', 'werw345345')");
-//            $login = $_POST['name'];
-//            $pass = hash('whirlpool', $_POST['passwd']);
-//            $email = $_POST['email'];
-//            $token = hash('whirlpool', 2333434);
-//            $this->model->addUser($login, $pass, $email, $token);
+
+            $login = $_POST['name'];
+            $pass = hash('whirlpool', $_POST['passwd']);
+            $email = $_POST['email'];
+            $token = hash('whirlpool', 2333434);
+            $this->model->addUser($login, $pass, $email, $token);
+            echo $login;
+            header("location: login");
         }
+//        echo 2;
         $this->view->render('ACCOUNT PAGE');
     }
 
