@@ -39,13 +39,11 @@ class Db {
 
     public function row($sql, $params = []){
         $result = $this->query($sql, $params);
-        var_dump($result);
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function column($sql, $params = []){
         $result = $this->query($sql, $params);
-        var_dump($result);
         return $result->fetchColumn();
     }
 
@@ -56,8 +54,5 @@ class Db {
             exit($e->getMessage());
         }
     }
-
-
-
 
 }
