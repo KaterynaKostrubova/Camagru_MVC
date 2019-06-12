@@ -20,7 +20,7 @@ class AccountController extends Controller{
         return implode('', $pieces);
     }
 
-    private function sendEmail($email){
+    private function sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message){
         $encoding = "utf-8";
         // Set preferences for Subject field
         $subject_preferences = array(
@@ -31,23 +31,21 @@ class AccountController extends Controller{
         );
         // Set mail header
         $header = "Content-type: text/html; charset=" . $encoding . " \r\n";
-        $header .= "From: " . 'Camagru' . " <" . 'Camagru' . "> \r\n";
+        $header .= "From: " . $name_from . " <" . $email_from . "> \r\n";
         $header .= "MIME-Version: 1.0 \r\n";
         $header .= "Content-Transfer-Encoding: 8bit \r\n";
         $header .= "Date: " . date("r (T)") . " \r\n";
-        $header .= iconv_mime_encode("Subject", 'test', $subject_preferences);
+        $header .= iconv_mime_encode("Subject", $email_subject, $subject_preferences);
         // Send mail
-        mail($email, 'test', 'Hello', $header);
+        mail($email_to, $email_subject, $email_message, $header);
     }
-
-
 
     public function loginAction() {
         if(!empty($_POST)){
 //            $this->view->message('success', 'text');
-//            $this->view->location('/mvc_php');
+//            $this->view->location('/camagru_mvc');
 
-//        $this->view->redirect('/mvc_php');
+//        $this->view->redirect('/camagru_mvc');
 //        $db = new Db();
 //        $form = '2; DELETE FROM users';
 //        $params = [
@@ -59,15 +57,57 @@ class AccountController extends Controller{
             $email = $_POST['email'];
             $token = hash('whirlpool', $this->random_str(32));
             if ($this->model->addUser($login, $pass, $email, $token)){
-                $this->sendEmail($email);
+                $name_from = 'kkostrub';
+                $email_from = 'kkostrub@student.unit.ua';
+                $email_to = $email;
+                $email_subject = 'Registration at website Camagru!';
+                $hostname = 'localhost';
+                $port = '8080';
+                $email_message = 'Hello '.$login.'. Please follow this link to confirm your email address and finish creating your Camagru account: http://'
+                    . $hostname.':'.$port.'/camagru_mvc/account/confirm?token='.$token;
+                $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
             };
-//            echo $login;
             header("location: login");
         }
         $this->view->render('ACCOUNT PAGE');
     }
 
-
-
-
+    public function confirmAction(){
+        $url = $_SERVER['REQUEST_URI'];
+//        echo 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+        $arr_url = explode('=', $url);
+        $token = $arr_url[1];
+        if ($this->model->checkToken($token)){
+                    echo 'token: '.$token;
+        }
+        $this->view->render('CONFIRM PAGE');
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

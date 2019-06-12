@@ -5,9 +5,10 @@ return [
         'setup',
         'login',
         'signup',
+        'confirm'
     ],
     'authorize' => [
-//        ,
+//
     ],
     'guest' => [
 //        'login',

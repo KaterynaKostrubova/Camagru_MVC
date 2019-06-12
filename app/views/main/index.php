@@ -1,5 +1,5 @@
 <?php //include('main.php');
-//header('Location: /mvc_php/default/setup');
+//header('Location: /camagru_mvc/default/setup');
 //include ('main.php');
 ?>
 

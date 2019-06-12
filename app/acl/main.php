@@ -4,7 +4,8 @@ return [
     'all' => [
 //        'setup',
         'login',
-//        'signup',
+        'signup',
+        'confirm',
 //        'index'
     ],
     'authorize' => [

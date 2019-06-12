@@ -15,6 +15,11 @@ return [
         'action' => 'login',
     ],
 
+    'account/confirm' =>[
+        'controller' => 'account',
+        'action' => 'confirm',
+    ],
+
     'account/signup' =>[
         'controller' => 'account',
         'action' => 'signup',

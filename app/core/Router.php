@@ -27,7 +27,10 @@ class Router {
     //check route
     public function match() {
 //        debug($_SERVER);
-        $rootDirPath = trim(str_replace(APP_ROOT_DIR, '', $_SERVER['DOCUMENT_ROOT'] . $_SERVER['REQUEST_URI']), '/');
+        $rootDirPath1 = trim(str_replace(APP_ROOT_DIR, '', $_SERVER['DOCUMENT_ROOT'] . $_SERVER['REQUEST_URI']), '/');
+//        echo $rootDirPath1;
+        $arr = explode("?", $rootDirPath1);
+        $rootDirPath = $arr[0];
         $url = ($rootDirPath ? $rootDirPath : 'default/index');
 //        debug(APP_ROOT_DIR);
         foreach ($this->routes as $route => $params){
@@ -51,12 +54,15 @@ class Router {
                         $controller = new $path($this->params);
                         $controller->$action();
                     } else {
+                        echo $action;
                         View::errorCode(404);
                     }
                 } else {
+                    echo "2";
                     View::errorCode(404);
                 }
         } else {
+            echo "3";
             View::errorCode(404);
         }
     }

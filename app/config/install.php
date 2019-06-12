@@ -39,4 +39,4 @@ try {
     exit($e->getMessage());
 }
 
-header('Location: /mvc_php/account/login');
+header('Location: /camagru_mvc/account/login');
