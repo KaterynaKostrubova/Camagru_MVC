@@ -6,15 +6,20 @@ use app\core\Model;
 
 class Account extends Model {
 
+    public function getUserByToken($token){
+        $result = $this->db->row("SELECT * FROM user_signup WHERE token='$token'");
+        return $result;
+    }
+
     private function checkLogin($login){
-         if ($this->db->row("SELECT login FROM users WHERE login='$login'"))
+         if ($this->db->row("SELECT login FROM user_signup WHERE login='$login'"))
              return false;
          else
              return true;
     }
 
     private function checkEmail($email){
-        if ($this->db->row("SELECT email FROM users WHERE email='$email'"))
+        if ($this->db->row("SELECT email FROM user_signup WHERE email='$email'"))
             return false;
         else
             return true;
@@ -31,16 +36,27 @@ class Account extends Model {
         }
         //elseif query??
         else {
-            $this->db->insertto("INSERT INTO users (login, password, email, token) VALUE ('$login', '$pass', '$email', '$token')");
+            $this->db->insertto("INSERT INTO user_signup (login, password, email, token) VALUE ('$login', '$pass', '$email', '$token')");
             return true;
         }
     }
 
     public function checkToken($token){
-//        var_dump($this->db->row("SELECT login, token FROM users WHERE token='$token'"));
-        if (!$this->db->row("SELECT login, token FROM users WHERE token='$token'"))
+//        var_dump($this->db->row("SELECT login, token FROM user_register WHERE token='$token'"));
+        if (!$this->db->row("SELECT login, token FROM user_signup WHERE token='$token'"))
             return false;
         else
             return true;
     }
+
+    public function newUser(){
+        $this->db->row("CREATE TABLE user_signup (
+		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		login VARCHAR(254) NOT NULL,
+		password TEXT NOT NULL,
+		email VARCHAR(254),
+		token TEXT NOT NULL,
+		isAdmin BOOLEAN NOT NULL DEFAULT FALSE");
+    }
+
 }

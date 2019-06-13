@@ -18,6 +18,7 @@ class Db {
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //            echo 3;
         } catch (PDOException $e){
+//            debug("tut");
             header('Location: app/config/setup.php');
             exit($e->getMessage());
         }

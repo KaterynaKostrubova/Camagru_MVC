@@ -47,7 +47,7 @@ class AccountController extends Controller{
 
 //        $this->view->redirect('/camagru_mvc');
 //        $db = new Db();
-//        $form = '2; DELETE FROM users';
+//        $form = '2; DELETE FROM user_register';
 //        $params = [
 //            'id' => 1,
 //        ];
@@ -78,7 +78,10 @@ class AccountController extends Controller{
         $arr_url = explode('=', $url);
         $token = $arr_url[1];
         if ($this->model->checkToken($token)){
-                    echo 'token: '.$token;
+//                    echo 'token: '.$token;
+                    $newUser = $this->model->getUserByToken($token);
+                    var_dump($newUser);
+
         }
         $this->view->render('CONFIRM PAGE');
     }

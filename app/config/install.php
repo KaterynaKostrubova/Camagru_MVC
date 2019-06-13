@@ -10,6 +10,7 @@ $login =$_POST['login'];
 $password =$_POST['passwd'];
 $server = 'localhost';
 $dsn = 'mysql:host=' . $server;
+//echo $dsn;
 
 // Connecting to a MySQL database
 
@@ -24,10 +25,11 @@ try {
 }
 
 $dsn = 'mysql:host=' . $server . ';dbname=' . $dbname . ';charset=utf8';
+//echo $dsn;
 try {
     $pdo = new PDO($dsn, $login, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->exec('CREATE TABLE users (
+    $pdo->exec('CREATE TABLE user_signup (
 		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		login VARCHAR(254) NOT NULL,
 		password TEXT NOT NULL,
@@ -38,5 +40,5 @@ try {
 } catch (PDOException $e) {
     exit($e->getMessage());
 }
-
+// debug("camagru");
 header('Location: /camagru_mvc/account/login');
