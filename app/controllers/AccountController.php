@@ -56,7 +56,7 @@ class AccountController extends Controller{
             $pass = hash('whirlpool', $_POST['passwd']);
             $email = $_POST['email'];
             $token = hash('whirlpool', $this->random_str(32));
-            if ($this->model->addUser($login, $pass, $email, $token)){
+            if ($this->model->addUserToSign($login, $pass, $email, $token, "user_signup")){
                 $name_from = 'kkostrub';
                 $email_from = 'kkostrub@student.unit.ua';
                 $email_to = $email;
@@ -74,15 +74,12 @@ class AccountController extends Controller{
 
     public function confirmAction(){
         $url = $_SERVER['REQUEST_URI'];
-//        echo 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         $arr_url = explode('=', $url);
         $token = $arr_url[1];
-        if ($this->model->checkToken($token)){
-//                    echo 'token: '.$token;
-            $this->model->UsersTable();
-//            $newUser = $this->model->getUserByToken($token);
-//            var_dump($newUser);
-
+        $userInfo = $this->model->checkToken($token);
+        if ($userInfo){
+            if($this->model->addUserToUsers($userInfo[0]["login"], $userInfo[0]["password"], $userInfo[0]["email"], 0, "users"))
+                $this->model->delUserFromSign($token);
         }
         $this->view->render('CONFIRM PAGE');
     }

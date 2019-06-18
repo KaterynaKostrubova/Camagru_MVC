@@ -12,20 +12,20 @@ class Account extends Model {
     }
 
     private function checkLogin($login){
-         if ($this->db->row("SELECT login FROM user_signup WHERE login='$login'"))
+         if ($this->db->row("SELECT login FROM users WHERE login='$login'"))
              return false;
          else
              return true;
     }
 
     private function checkEmail($email){
-        if ($this->db->row("SELECT email FROM user_signup WHERE email='$email'"))
+        if ($this->db->row("SELECT email FROM users WHERE email='$email'"))
             return false;
         else
             return true;
     }
 
-    public function addUser($login, $pass, $email, $token){
+    public function addUserToSign($login, $pass, $email, $token, $table){
         if (!$this->checkLogin($login)){
 //           modal window debug("user with the same name alredy exist");
             return false;
@@ -36,17 +36,40 @@ class Account extends Model {
         }
         //elseif query??
         else {
-            $this->db->insertto("INSERT INTO user_signup (login, password, email, token) VALUE ('$login', '$pass', '$email', '$token')");
+            $this->db->insertto("INSERT INTO $table (login, password, email, token) VALUE ('$login', '$pass', '$email', '$token')");
+            return true;
+        }
+    }
+
+    public function addUserToUsers($login, $pass, $email, $isAdmin, $table){
+        if (!$this->checkLogin($login)){
+//           modal window debug("user with the same name alredy exist");
+            return false;
+        }
+        elseif (!$this->checkEmail($email)){
+//            modal window debug("email is alredy in use");
+            return false;
+        }
+        //elseif query??
+        else {
+            $this->db->insertto("INSERT INTO $table (login, password, email, isAdmin) VALUE ('$login', '$pass', '$email', '$isAdmin')");
             return true;
         }
     }
 
     public function checkToken($token){
-//        var_dump($this->db->row("SELECT login, token FROM user_register WHERE token='$token'"));
-        if (!$this->db->row("SELECT login, token FROM user_signup WHERE token='$token'"))
-            return false;
+        $userByToken = $this->db->row("SELECT login, email, password, token FROM user_signup WHERE token='$token'");
+        if ($userByToken)
+            return $userByToken;
         else
+            return false;
+    }
+
+    public function delUserFromSign($token){
+        if($this->db->query("DELETE FROM user_signup WHERE token='$token'"))
             return true;
+        else
+            return false;
     }
 
 //    public function usersTable(){
