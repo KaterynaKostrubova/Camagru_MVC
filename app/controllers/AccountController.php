@@ -79,8 +79,9 @@ class AccountController extends Controller{
         $token = $arr_url[1];
         if ($this->model->checkToken($token)){
 //                    echo 'token: '.$token;
-                    $newUser = $this->model->getUserByToken($token);
-                    var_dump($newUser);
+            $this->model->UsersTable();
+//            $newUser = $this->model->getUserByToken($token);
+//            var_dump($newUser);
 
         }
         $this->view->render('CONFIRM PAGE');

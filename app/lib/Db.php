@@ -14,11 +14,11 @@ class Db {
 //            echo 1;
             $config = require 'app/config/db.php';
             $this->db = new PDO('mysql:host='.$config['host'].';dbname='.$config['name'].';charset=UTF8', $config['user'], $config['password']);
+//            $this->db = new PDO('mysql:host='.$config['$HOST'].';dbname='.$config['$NAME'].';charset=UTF8', $config['$USER'], $config['$PASSWORD']);
 //            echo 2;
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //            echo 3;
         } catch (PDOException $e){
-//            debug("tut");
             header('Location: app/config/setup.php');
             exit($e->getMessage());
         }

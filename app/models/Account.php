@@ -49,14 +49,13 @@ class Account extends Model {
             return true;
     }
 
-    public function newUser(){
-        $this->db->row("CREATE TABLE user_signup (
-		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-		login VARCHAR(254) NOT NULL,
-		password TEXT NOT NULL,
-		email VARCHAR(254),
-		token TEXT NOT NULL,
-		isAdmin BOOLEAN NOT NULL DEFAULT FALSE");
-    }
-
+//    public function usersTable(){
+//        $this->db->row("CREATE TABLE IF NOT EXISTS users (
+//		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+//		login VARCHAR(254) NOT NULL,
+//		password TEXT NOT NULL,
+//		email VARCHAR(254),
+//		token TEXT NOT NULL,
+//		isAdmin BOOLEAN NOT NULL DEFAULT FALSE");
+//    }
 }

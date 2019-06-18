@@ -21,10 +21,10 @@
             <span><i class="fas fa-key"></i></span>
             <input type="password" name="passwd" value="<?php echo $_GET['passwd']; ?>" placeholder="DBMS Password" />
         </p>
-        <p>
-            <span><i class="fas fa-database"></i></span>
-            <input type="text" name="dbname" value="<?php echo $_GET['dbname']; ?>" placeholder="Name of new DB" required />
-        </p>
+<!--        <p>-->
+<!--            <span><i class="fas fa-database"></i></span>-->
+<!--            <input type="text" name="dbname" value="--><?php //echo $_GET['dbname']; ?><!--" placeholder="Name of new DB" required />-->
+<!--        </p>-->
         <p><input class="button_subm" type="submit" name="submit" value="OK" autofocus /></p>
     </form>
 </div>
