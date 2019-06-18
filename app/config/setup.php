@@ -15,11 +15,11 @@
     <form action="install.php" method="post" class="form">
         <p>
             <span><i class="fas fa-user"></i></span>
-            <input type="text" name="login" value="<?php echo $_GET['login']; ?>" placeholder="DBMS Login" required />
+            <input type="text" name="login" value="<?php echo $_GET['login']; ?>" placeholder="Login" title="Type a login of your phpMyAdmin" required />
         </p>
         <p>
             <span><i class="fas fa-key"></i></span>
-            <input type="password" name="passwd" value="<?php echo $_GET['passwd']; ?>" placeholder="DBMS Password" />
+            <input type="password" name="passwd" value="<?php echo $_GET['passwd']; ?>" placeholder="Password" title="Type a password of your phpMyAdmin" required/>
         </p>
 <!--        <p>-->
 <!--            <span><i class="fas fa-database"></i></span>-->

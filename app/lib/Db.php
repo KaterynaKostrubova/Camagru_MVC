@@ -11,13 +11,9 @@ class Db {
     function __construct(){
 
         try {
-//            echo 1;
-            $config = require 'app/config/db.php';
-            $this->db = new PDO('mysql:host='.$config['host'].';dbname='.$config['name'].';charset=UTF8', $config['user'], $config['password']);
-//            $this->db = new PDO('mysql:host='.$config['$HOST'].';dbname='.$config['$NAME'].';charset=UTF8', $config['$USER'], $config['$PASSWORD']);
-//            echo 2;
+            include "app/config/db.php";
+            $this->db = new PDO('mysql:host='.$HOST.';dbname='.$NAME.';charset=UTF8', $USER, $PASSWORD);
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//            echo 3;
         } catch (PDOException $e){
             header('Location: app/config/setup.php');
             exit($e->getMessage());

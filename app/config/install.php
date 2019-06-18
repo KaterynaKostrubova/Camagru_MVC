@@ -4,23 +4,25 @@ if ($_POST["login"] == false || $_POST["passwd"] == false || $_POST["submit"] !=
     exit("BAD INPUT" . PHP_EOL);
 }
 
-$config = require ('db.php');
+include "db.php";
+//$config = require ('db.php');
 $login =$_POST['login'];
 $password =$_POST['passwd'];
-$dsn = 'mysql:host=' . $config['host'];
+////$dsn = 'mysql:host=' . $config['host'];
+$dsn = 'mysql:host=' . $HOST;
 
 // Connecting to a MySQL database
 try {
     $pdo = new PDO($dsn, $login, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = 'CREATE DATABASE ' . $config['name'];
+    $sql = 'CREATE DATABASE ' . $NAME;
     $pdo->exec($sql);
 
 } catch (PDOException $e) {
     exit($e->getMessage());
 }
 
-$dsn = 'mysql:host=localhost;dbname=' . $config['name'] . ';charset=UTF8';
+$dsn = 'mysql:host=localhost;dbname=' . $NAME . ';charset=UTF8';
 
 try {
     $pdo = new PDO($dsn, $login, $password);
