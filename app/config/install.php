@@ -65,4 +65,4 @@ try {
     exit($e->getMessage());
 }
 
-header('Location: /camagru_mvc/account/login');
+header('Location: /camagru_mvc/account/signup');

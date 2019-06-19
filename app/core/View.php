@@ -17,6 +17,7 @@ class View {
     public function render($title, $vars = []){
         extract($vars);
         $path = 'app/views/'.$this->path.'.php';
+//        debug($path);
         if (file_exists($path)) {
             ob_start();
             require $path;

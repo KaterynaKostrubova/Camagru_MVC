@@ -8,7 +8,7 @@ class AccountController extends Controller{
 
 //    public function before(){
 //        $this->view->layout = 'custom';
-
+//
 //    }
     private function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
     {
@@ -40,7 +40,7 @@ class AccountController extends Controller{
         mail($email_to, $email_subject, $email_message, $header);
     }
 
-    public function loginAction() {
+    public function signupAction() {
         if(!empty($_POST)){
 //            $this->view->message('success', 'text');
 //            $this->view->location('/camagru_mvc');
@@ -68,8 +68,14 @@ class AccountController extends Controller{
                 $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
             };
             header("location: login");
+//            debug($login);
         }
-        $this->view->render('ACCOUNT PAGE');
+        $this->view->render('SIGNUP PAGE');
+    }
+
+    public function loginAction() {
+
+        $this->view->render('LOGIN PAGE');
     }
 
     public function confirmAction(){

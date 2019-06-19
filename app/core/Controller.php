@@ -20,7 +20,7 @@ abstract class Controller {
 //
         if(!$this->checkAcl()){
 //            View::errorCode(403);
-            header('Location: /camagru_mvc/account/login');
+            header('Location: /camagru_mvc/account/signup');
         };
 //        echo 323232;
         $this->view = new View($route);
@@ -39,7 +39,6 @@ abstract class Controller {
 
     public function checkAcl(){
         $this->acl = require 'app/acl/'.$this->route['controller'].'.php';
-//        print_r($this->acl);
         if ($this->isAcl('all')){
             return true;
         }
@@ -53,13 +52,10 @@ abstract class Controller {
             return true;
         }
         return false;
-//        debug($acl);
     }
 
 
     public function isAcl($key){
-//        debug(in_array($this->route['action'], $this->acl[$key]));
-//        print_r($this->route['action']);
         return in_array($this->route['action'], $this->acl[$key]);
     }
 }
