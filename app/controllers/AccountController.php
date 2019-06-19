@@ -74,8 +74,34 @@ class AccountController extends Controller{
     }
 
     public function loginAction() {
+        if(!empty($_POST)){
+//            debug($_POST);
+            $name = $_POST['name'];
+            $pass = hash('whirlpool', $_POST['passwd']);
+            if ($this->model->findUser($name, $pass)){
+//                session_start();
+                $_SESSION['authorize']['name'] = $name;
+//                $_SESSION['logged_user'] = $name;
+//                debug($_SESSION);
+//                if ($_POST['name'] && $_POST['passwd']) {
+                header('Location: /camagru_mvc/default/index');
+//                }
+
+//                debug($_POST);
+//                session_start();
+                debug($_SESSION);
+            }
+
+        }
+
+
 
         $this->view->render('LOGIN PAGE');
+    }
+
+    public function changepassAction() {
+
+        $this->view->render('CHANGEPASS PAGE');
     }
 
     public function confirmAction(){

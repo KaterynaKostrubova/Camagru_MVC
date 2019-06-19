@@ -28,12 +28,12 @@
                 </p>
                 <p id="sbm"><input class="button_subm" type="submit" name="submit" value="Get started" autofocus /></p>
 
-                <div id="myModal" class="modal">
+<!--                <div id="myModal" class="modal">-->
 <!--                     Modal content -->
-                <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <p>Some text in the Modal..</p>
-                </div>
+<!--                <div class="modal-content">-->
+<!--                    <span class="close">&times;</span>-->
+<!--                    <p>Some text in the Modal..</p>-->
+<!--                </div>-->
 
                 </div>
             </form>

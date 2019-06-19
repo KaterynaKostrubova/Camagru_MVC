@@ -16,7 +16,7 @@ spl_autoload_register(function ($class) {
 });
 
 session_start();
-
+//debug($_SESSION);
 $router = new app\core\Router();
 //$router = new app\lib\DB();
 $router->run();

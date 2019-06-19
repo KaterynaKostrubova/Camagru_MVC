@@ -13,7 +13,7 @@ class Main extends Model {
 //    }
 
     public function getUsers(){
-        $result = $this->db->row('SELECT login, email FROM user_register');
+        $result = $this->db->row('SELECT login, email FROM users');
         return $result;
     }
 

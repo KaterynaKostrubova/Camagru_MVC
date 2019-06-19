@@ -31,11 +31,12 @@ class MainController extends Controller {
         $this->view->render('MAIN PAGE', $vars);
     }
 
-//    public function signupAction(){
-//        echo "MainRegister page";
-//    }
-//
-//    public function setupAction(){
-//        $this->view->render('Setup');
-//    }
+    public function logoutAction(){
+        session_start();
+        foreach ($_SESSION as $key => $value) {
+            $_SESSION[$key] = FALSE;
+        }
+
+        $this->view->render('LOGOUT PAGE');
+    }
 }

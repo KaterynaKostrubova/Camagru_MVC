@@ -5,6 +5,11 @@ return [
         'action' => 'index',
     ],
 
+    'default/logout' => [
+        'controller' => 'main',
+        'action' => 'logout',
+    ],
+
     'default/setup' =>[
         'controller' => 'main',
         'action' => 'setup',
@@ -21,6 +26,11 @@ return [
     ],
 
     'account/signup' =>[
+        'controller' => 'account',
+        'action' => 'signup',
+    ],
+
+    'account/changepass' =>[
         'controller' => 'account',
         'action' => 'signup',
     ],

@@ -72,6 +72,18 @@ class Account extends Model {
             return false;
     }
 
+
+    public function findUser($name, $pass){
+        $sql = $this->db->row("SELECT password FROM users WHERE login='$name'");
+//        debug($sql);
+        if($sql[0]['password'] == $pass){
+//            debug($sql);
+            return true;
+        } else
+            return false;
+
+    }
+
 //    public function usersTable(){
 //        $this->db->row("CREATE TABLE IF NOT EXISTS users (
 //		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,

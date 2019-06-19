@@ -8,7 +8,7 @@
 <!--<p>Age: <b> --><?php //echo $age; ?><!--</b></p>-->
 
 <!--<p>--><?php //debug($arr); ?><!--</p>-->
-
+<input type="button" value="logout">
 <?php //debug($users);?>
 
 <?php foreach ($users as $val): ?>

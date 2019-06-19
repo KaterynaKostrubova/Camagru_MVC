@@ -6,7 +6,8 @@ return [
         'login',
         'signup',
         'confirm',
-//        'index'
+//        'index',
+        'logout',
     ],
     'authorize' => [
         'index',
