@@ -34,8 +34,10 @@ class Router {
         $arr = explode("?", $rootDirPath1);
         $rootDirPath = $arr[0];
         $url = ($rootDirPath ? $rootDirPath : 'default/index');
+        //перевіряєм чи є такий роут
         foreach ($this->routes as $route => $params){
             if (preg_match($route, $url, $matches)){
+                //якщо знайшли роут записуєм в масив параметри
                 $this->params = $params;
                 return true;
             }
@@ -45,17 +47,14 @@ class Router {
 
     public function run() {
         if($this->match()){
-
-//            echo '<p>controller: <b>'.$this->params['controller'].'</b></p>';
-//            echo '<p>action: <b>'.$this->params['action'].'</b></p>';
                 $path = 'app\controllers\\'.ucfirst($this->params['controller'].'Controller');
                 if(class_exists($path)){
                     $action = $this->params['action'].'Action';
                     if(method_exists($path, $action)) {
                         $controller = new $path($this->params);
+                        debug($controller);
                         $controller->$action();
                     } else {
-                        echo $action;
                         View::errorCode(404);
                     }
                 } else {
