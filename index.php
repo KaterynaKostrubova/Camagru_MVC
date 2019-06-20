@@ -7,9 +7,10 @@ define('APP_ROOT_DIR', __DIR__);
 //use app\lib\Db;
 
 //autoload
-
 spl_autoload_register(function ($class) {
+
     $path = str_replace('\\', '/', $class.".php");
+//    debug( $path);
     if(file_exists($path)){
         require $path;
     }

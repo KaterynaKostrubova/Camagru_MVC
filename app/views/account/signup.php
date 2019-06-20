@@ -11,7 +11,8 @@
     <div class = "tab">
         <div id="sign_up">
             <h1>Welcome to Camagru!</h1>
-            <form action="/camagru_mvc/account/signup" method="post" class="sign_up_form" onsubmit="alert('Please, confirm email!')">
+<!--            onsubmit="alert('Please, confirm email!')"-->
+            <form action="/camagru_mvc/account/signup" method="post" class="sign_up_form" >
                 <p>
                     <span><i class="fas fa-user"></i></span>
                     <input type="text" name="name" value="" placeholder="Name" pattern="[A-Za-z]{1}[A-Za-z-0-9]{3,32}"
