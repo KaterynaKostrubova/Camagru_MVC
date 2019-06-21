@@ -89,14 +89,20 @@ class AccountController extends Controller{
 
 //                debug($_POST);
 //                session_start();
-                debug($_SESSION);
+//                debug($_SESSION);
             }
 
         }
-
-
-
         $this->view->render('LOGIN PAGE');
+    }
+
+    public function logoutAction(){
+        session_start();
+        foreach ($_SESSION as $key => $value) {
+            $_SESSION[$key] = FALSE;
+        }
+
+        $this->view->render('LOGOUT PAGE');
     }
 
     public function changepassAction() {
@@ -110,8 +116,12 @@ class AccountController extends Controller{
         $token = $arr_url[1];
         $userInfo = $this->model->checkToken($token);
         if ($userInfo){
-            if($this->model->addUserToUsers($userInfo[0]["login"], $userInfo[0]["password"], $userInfo[0]["email"], 0, "users"))
+            if($this->model->addUserToUsers($userInfo[0]["login"], $userInfo[0]["password"], $userInfo[0]["email"], 0, "users")){
                 $this->model->delUserFromSign($token);
+                $_SESSION['authorize']['name'] = $userInfo[0]["login"];
+            }
+
+
         }
         $this->view->render('CONFIRM PAGE');
     }

@@ -8,7 +8,10 @@
 <!--<p>Age: <b> --><?php //echo $age; ?><!--</b></p>-->
 
 <!--<p>--><?php //debug($arr); ?><!--</p>-->
-<input type="button" value="logout">
+<form action="/camagru_mvc/account/logout">
+    <input type="submit" value="logout">
+</form>
+
 <?php //debug($users);?>
 
 <?php foreach ($users as $val): ?>

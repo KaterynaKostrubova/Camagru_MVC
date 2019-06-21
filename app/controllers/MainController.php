@@ -31,12 +31,4 @@ class MainController extends Controller {
         $this->view->render('MAIN PAGE', $vars);
     }
 
-    public function logoutAction(){
-        session_start();
-        foreach ($_SESSION as $key => $value) {
-            $_SESSION[$key] = FALSE;
-        }
-
-        $this->view->render('LOGOUT PAGE');
-    }
 }

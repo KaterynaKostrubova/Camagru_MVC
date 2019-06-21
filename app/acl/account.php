@@ -5,8 +5,9 @@ return [
 //        'setup',
         'login',
         'signup',
-//        'confirm',
+        'confirm',
         'changepass',
+        'logout',
     ],
     'authorize' => [
 

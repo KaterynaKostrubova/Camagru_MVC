@@ -5,8 +5,8 @@ return [
         'action' => 'index',
     ],
 
-    'default/logout' => [
-        'controller' => 'main',
+    'account/logout' => [
+        'controller' => 'account',
         'action' => 'logout',
     ],
 

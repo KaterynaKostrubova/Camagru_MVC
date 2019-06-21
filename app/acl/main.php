@@ -7,7 +7,6 @@ return [
         'signup',
         'confirm',
 //        'index',
-        'logout',
     ],
     'authorize' => [
         'index',

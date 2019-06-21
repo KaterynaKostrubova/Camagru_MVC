@@ -27,11 +27,11 @@ class Account extends Model {
 
     public function addUserToSign($login, $pass, $email, $token, $table){
         if (!$this->checkLogin($login)){
-//           modal window debug("user with the same name alredy exist");
+            debug("user with the same name alredy exist");
             return false;
         }
         elseif (!$this->checkEmail($email)){
-//            modal window debug("email is alredy in use");
+            debug("email is alredy in use");
             return false;
         }
         //elseif query??
@@ -43,11 +43,11 @@ class Account extends Model {
 
     public function addUserToUsers($login, $pass, $email, $isAdmin, $table){
         if (!$this->checkLogin($login)){
-//           modal window debug("user with the same name alredy exist");
+            debug("user with the same name alredy exist");
             return false;
         }
         elseif (!$this->checkEmail($email)){
-//            modal window debug("email is alredy in use");
+            debug("email is alredy in use");
             return false;
         }
         //elseif query??
