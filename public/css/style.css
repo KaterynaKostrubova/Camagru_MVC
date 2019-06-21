@@ -25,7 +25,7 @@ body {
     max-width: 400px;
 }
 
-input {
+.login_signup input {
     box-sizing: border-box;
     padding: 0 16px;
     width: 100%;
@@ -38,7 +38,7 @@ input {
     font-weight: bold;
 }
 
-input[type="submit"] {
+.login_signup input[type="submit"] {
     background-color: #EA4C86;
     color: #eee;
     font-weight: bold;
@@ -51,7 +51,7 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 100px #6a7684 inset;
 }
 
-form p span {
+.login_signup p span {
     background-color: #363b41;
     color: #606468;
     height: 50px;
@@ -60,7 +60,7 @@ form p span {
     width: 50px;
 }
 
-form p {
+.login_signup p {
     display: flex;
     margin: 5px auto;
 }
@@ -123,7 +123,7 @@ form p {
 }
 
 .select li a:hover,
-input[type="submit"]:hover {
+.login_signup input[type="submit"]:hover {
     background-color: #b73a68;
     color: #eee;
 }
@@ -142,10 +142,27 @@ h1{
     font-weight: lighter;
 }
 
-.forgot {
-    margin: 10px;
+.forgot_form {
+    margin: 5px;
+    padding: 5px;
     text-align: center;
 }
+
+label {
+    color: #6A7684;
+    cursor: pointer;
+}
+
+label:hover{
+    text-decoration: underline;
+}
+
+#forgot_input{
+    display:none;
+}
+
+
+
 
 
 /*!* The Modal (background) *!*/

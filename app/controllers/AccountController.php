@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 use app\core\Controller;
+use app\core\View;
 use app\lib\Db;
 
 class AccountController extends Controller{
@@ -86,12 +87,10 @@ class AccountController extends Controller{
 //                if ($_POST['name'] && $_POST['passwd']) {
                 header('Location: /camagru_mvc/default/index');
 //                }
-
 //                debug($_POST);
 //                session_start();
 //                debug($_SESSION);
             }
-
         }
         $this->view->render('LOGIN PAGE');
     }
@@ -101,29 +100,31 @@ class AccountController extends Controller{
         foreach ($_SESSION as $key => $value) {
             $_SESSION[$key] = FALSE;
         }
-
         $this->view->render('LOGOUT PAGE');
     }
 
     public function changepassAction() {
-
         $this->view->render('CHANGEPASS PAGE');
     }
 
     public function confirmAction(){
         $url = $_SERVER['REQUEST_URI'];
         $arr_url = explode('=', $url);
-        $token = $arr_url[1];
-        $userInfo = $this->model->checkToken($token);
-        if ($userInfo){
-            if($this->model->addUserToUsers($userInfo[0]["login"], $userInfo[0]["password"], $userInfo[0]["email"], 0, "users")){
-                $this->model->delUserFromSign($token);
-                $_SESSION['authorize']['name'] = $userInfo[0]["login"];
-            }
-
-
+//        debug($arr_url[1]);
+        if (count($arr_url) == 2){
+            $token = $arr_url[1];
+            $userInfo = $this->model->checkToken($token);
+            if ($userInfo){
+                if($this->model->addUserToUsers($userInfo[0]["login"], $userInfo[0]["password"], $userInfo[0]["email"], 0, "users")){
+                    $this->model->delUserFromSign($token);
+                    $_SESSION['authorize']['name'] = $userInfo[0]["login"];
+                }
+                $this->view->render('CONFIRM PAGE');
+            } else
+                View::errorCode(404);
         }
-        $this->view->render('CONFIRM PAGE');
+        else
+            View::errorCode(404);
     }
 }
 
