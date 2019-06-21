@@ -23,6 +23,7 @@ class Db {
     function query($sql, $params = []){
         //защпта от иньекций
         $stmt = $this->db->prepare($sql);
+//        debug($params);
         if (!empty($params)){
             foreach ($params as $key => $val){
                 $stmt->bindValue(':'.$key, $val);
@@ -44,9 +45,12 @@ class Db {
         return $result->fetchColumn();
     }
 
+
+    // TODO: проверить
     public function insertto($sql){
         try {
-            $this->db->exec($sql);
+//            $this->db->exec($sql);
+            $this->query($sql);
         } catch (PDOException $e) {
             exit($e->getMessage());
         }

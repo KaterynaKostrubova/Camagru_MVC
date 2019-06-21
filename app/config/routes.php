@@ -10,11 +10,6 @@ return [
         'action' => 'logout',
     ],
 
-    'default/setup' =>[
-        'controller' => 'main',
-        'action' => 'setup',
-    ],
-
     'account/login' =>[
         'controller' => 'account',
         'action' => 'login',
@@ -32,16 +27,11 @@ return [
 
     'account/changepass' =>[
         'controller' => 'account',
-        'action' => 'signup',
+        'action' => 'changepass',
     ],
 
-    'account/setup' =>[
+    'account/checkemail' =>[
         'controller' => 'account',
-        'action' => 'setup',
-    ],
-
-    'new/show' =>[
-        'controller' => 'news',
-        'action' => 'show',
+        'action' => 'checkemail',
     ],
 ];

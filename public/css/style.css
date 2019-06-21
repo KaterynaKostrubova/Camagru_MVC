@@ -20,11 +20,6 @@ body {
 
 /*FORM DB/LOGIN*/
 
-.log_form {
-    margin: 15% auto;
-    max-width: 400px;
-}
-
 .login_signup input {
     box-sizing: border-box;
     padding: 0 16px;
@@ -72,7 +67,7 @@ input:-webkit-autofill {
 }
 
 .form {
-    max-width: 600px;
+    max-width: 400px;
     margin: 15% auto;
 }
 
@@ -140,6 +135,12 @@ h1{
     text-align: center;
     color: #eee;
     font-weight: lighter;
+}
+
+h3 {
+    text-align: center;
+    color: #6a7684;
+    font-weight: normal;
 }
 
 .forgot_form {

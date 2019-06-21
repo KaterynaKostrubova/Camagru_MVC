@@ -104,6 +104,11 @@ class AccountController extends Controller{
     }
 
     public function changepassAction() {
+//        if (!empty($_POST)){
+//                    debug($_POST);
+//        }
+
+
         $this->view->render('CHANGEPASS PAGE');
     }
 
