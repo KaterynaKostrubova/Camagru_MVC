@@ -30,6 +30,11 @@ return [
         'action' => 'changepass',
     ],
 
+    'account/newpass' =>[
+        'controller' => 'account',
+        'action' => 'newpass',
+    ],
+
     'account/checkemail' =>[
         'controller' => 'account',
         'action' => 'checkemail',

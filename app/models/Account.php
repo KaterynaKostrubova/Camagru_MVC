@@ -11,18 +11,26 @@ class Account extends Model {
         return $result;
     }
 
-    private function checkLogin($login){
+    public function checkLogin($login){
          if ($this->db->row("SELECT login FROM users WHERE login='$login'"))
              return false;
          else
              return true;
     }
 
-    private function checkEmail($email){
+    public function checkEmail($email){
         if ($this->db->row("SELECT email FROM users WHERE email='$email'"))
             return false;
         else
             return true;
+    }
+
+    public function getEmail($login){
+        return $this->db->row("SELECT email FROM users WHERE login='$login'");
+    }
+
+    public function getLogin($email){
+        return $this->db->row("SELECT login FROM users WHERE email='$email'");
     }
 
     public function addUserToSign($login, $pass, $email, $token, $table){

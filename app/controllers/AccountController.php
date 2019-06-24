@@ -100,22 +100,49 @@ class AccountController extends Controller{
         foreach ($_SESSION as $key => $value) {
             $_SESSION[$key] = FALSE;
         }
-        $this->view->render('LOGOUT PAGE');
+        header('Location: /camagru_mvc/account/login');
+//        $this->view->render('LOGOUT PAGE');
     }
 
     public function changepassAction() {
-//        if (!empty($_POST)){
-//                    debug($_POST);
-//        }
-
-
+        if (!empty($_POST)){
+            $login = $_POST['name'];
+            $token = hash('whirlpool', $this->random_str(32));
+            $name_from = 'kkostrub';
+            $email_from = 'kkostrub@student.unit.ua';
+            $email_subject = 'Change password at website Camagru!';
+            $hostname = 'localhost';
+            $port = '8080';
+            if(!$this->model->checkEmail($login)){
+                $email_to = $login;
+                $login = $this->model->getLogin($login)[0]['login'];
+                $email_message = 'Hello '.$login.'. Please follow this link to create new password. If it is not you, ignore this email: http://'
+                    . $hostname.':'.$port.'/camagru_mvc/account/newpass?token='.$token;
+                $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
+            } elseif (!$this->model->checkLogin($login)){
+                $email_to = $this->model->getEmail($login)[0]['email'];
+                $email_message = 'Hello '.$login.'. Please follow this link to create new password. If it is not you, ignore this email: http://'
+                    . $hostname.':'.$port.'/camagru_mvc/account/newpass?token='.$token;
+                $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
+            }
+        }
         $this->view->render('CHANGEPASS PAGE');
     }
+
+    public function newpassAction(){
+        if(!empty($_POST)){
+            debug($_POST);
+        }
+        $this->view->render('NEWPASS PAGE');
+    }
+
+
+
+
 
     public function confirmAction(){
         $url = $_SERVER['REQUEST_URI'];
         $arr_url = explode('=', $url);
-//        debug($arr_url[1]);
         if (count($arr_url) == 2){
             $token = $arr_url[1];
             $userInfo = $this->model->checkToken($token);

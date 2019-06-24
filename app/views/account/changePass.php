@@ -1,5 +1,5 @@
 <div class="form">
-    <form class="login_signup" action="/camagru_mvc/account/checkemail" method="post">
+    <form class="login_signup" action="/camagru_mvc/account/changepass" method="post">
         <h1>Change password</h1>
         <h3>Please, type your login or e-mail!</h3>
         <p>

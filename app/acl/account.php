@@ -8,6 +8,7 @@ return [
         'confirm',
         'changepass',
         'logout',
+        'newpass',
     ],
     'authorize' => [
 
