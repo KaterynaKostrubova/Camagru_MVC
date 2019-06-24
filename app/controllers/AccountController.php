@@ -69,27 +69,17 @@ class AccountController extends Controller{
                 $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
             };
             header("location: login");
-//            debug($login);
         }
         $this->view->render('SIGNUP PAGE');
     }
 
     public function loginAction() {
         if(!empty($_POST)){
-//            debug($_POST);
             $name = $_POST['name'];
             $pass = hash('whirlpool', $_POST['passwd']);
             if ($this->model->findUser($name, $pass)){
-//                session_start();
                 $_SESSION['authorize']['name'] = $name;
-//                $_SESSION['logged_user'] = $name;
-//                debug($_SESSION);
-//                if ($_POST['name'] && $_POST['passwd']) {
                 header('Location: /camagru_mvc/default/index');
-//                }
-//                debug($_POST);
-//                session_start();
-//                debug($_SESSION);
             }
         }
         $this->view->render('LOGIN PAGE');
@@ -101,7 +91,6 @@ class AccountController extends Controller{
             $_SESSION[$key] = FALSE;
         }
         header('Location: /camagru_mvc/account/login');
-//        $this->view->render('LOGOUT PAGE');
     }
 
     public function changepassAction() {
@@ -113,42 +102,55 @@ class AccountController extends Controller{
             $email_subject = 'Change password at website Camagru!';
             $hostname = 'localhost';
             $port = '8080';
-            if(!$this->model->checkEmail($login)){
-                $email_to = $login;
-                $login = $this->model->getLogin($login)[0]['login'];
-                $email_message = 'Hello '.$login.'. Please follow this link to create new password. If it is not you, ignore this email: http://'
-                    . $hostname.':'.$port.'/camagru_mvc/account/newpass?token='.$token;
-                $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
-            } elseif (!$this->model->checkLogin($login)){
-                $email_to = $this->model->getEmail($login)[0]['email'];
-                $email_message = 'Hello '.$login.'. Please follow this link to create new password. If it is not you, ignore this email: http://'
-                    . $hostname.':'.$port.'/camagru_mvc/account/newpass?token='.$token;
-                $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
-            }
+            $sqlLogin = $this->model->getUserBy('login', $login);
+            $sqlEmail = $this->model->getUserBy('email', $login);
+            $sql = ($sqlLogin) ? $sqlLogin : $sqlEmail;
+            $email_to = $sql[0]['email'];
+            $email_message = 'Hello '.$sql[0]['login'].'. Please follow this link to create new password. If it is not you, ignore this email: http://'
+                    . $hostname.':'.$port.'/camagru_mvc/account/confirmpass?token='.$token;
+            $this->model->insertInto('change_password', $sql[0]['login'], $sql[0]['email'], $token);
+            $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
         }
         $this->view->render('CHANGEPASS PAGE');
     }
 
+    public function confirmpassAction(){
+        $url = $_SERVER['REQUEST_URI'];
+        $arr_url = explode('token=', $url);
+        if (count($arr_url) == 2) {
+            $token = $arr_url[1];
+            $userInfo = $this->model->checkToken($token, 'change_password');
+            if($userInfo){
+//                $this->model->delFrom('change_password', 'token', $token);
+                $this->view->render('CONFIRMPASS PAGE');
+            } else
+                View::errorCode(404);
+        } else
+            View::errorCode(404);
+    }
+
     public function newpassAction(){
         if(!empty($_POST)){
-            debug($_POST);
+            $passFirst = hash('whirlpool', $_POST['pass_first']);
+            $passSecond = hash('whirlpool', $_POST['pass_second']);
+            if($passFirst == $passSecond){
+                $this->model->updateTable('users', 'password', $passFirst, );
+                header('Location: /camagru_mvc/account/login');
+            } else
+                View::errorCode(404);
         }
         $this->view->render('NEWPASS PAGE');
     }
-
-
-
-
 
     public function confirmAction(){
         $url = $_SERVER['REQUEST_URI'];
         $arr_url = explode('=', $url);
         if (count($arr_url) == 2){
             $token = $arr_url[1];
-            $userInfo = $this->model->checkToken($token);
+            $userInfo = $this->model->checkToken($token, 'user_signup');
             if ($userInfo){
                 if($this->model->addUserToUsers($userInfo[0]["login"], $userInfo[0]["password"], $userInfo[0]["email"], 0, "users")){
-                    $this->model->delUserFromSign($token);
+                    $this->model->delFrom('user_signup', 'token', $token);
                     $_SESSION['authorize']['name'] = $userInfo[0]["login"];
                 }
                 $this->view->render('CONFIRM PAGE');
@@ -158,6 +160,8 @@ class AccountController extends Controller{
         else
             View::errorCode(404);
     }
+
+
 }
 
 

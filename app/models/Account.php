@@ -6,11 +6,11 @@ use app\core\Model;
 
 class Account extends Model {
 
-    public function getUserByToken($token){
-        $result = $this->db->row("SELECT * FROM user_signup WHERE token='$token'");
+    public function getUserBy($field, $value){
+        $result = $this->db->row("SELECT * FROM users WHERE $field='$value'");
         return $result;
     }
-
+    ///////////
     public function checkLogin($login){
          if ($this->db->row("SELECT login FROM users WHERE login='$login'"))
              return false;
@@ -25,6 +25,18 @@ class Account extends Model {
             return true;
     }
 
+    public function checkToken($token, $table){
+        $userByToken = $this->db->row("SELECT * FROM $table WHERE token='$token'");
+        if ($userByToken)
+            return $userByToken;
+        else
+            return false;
+    }
+
+    public function insertInto($table, $login, $email, $token){
+        $this->db->insertto("INSERT INTO $table (login, email, token) VALUE ('$login', '$email', '$token')");
+    }
+////////////
     public function getEmail($login){
         return $this->db->row("SELECT email FROM users WHERE login='$login'");
     }
@@ -32,7 +44,7 @@ class Account extends Model {
     public function getLogin($email){
         return $this->db->row("SELECT login FROM users WHERE email='$email'");
     }
-
+////////
     public function addUserToSign($login, $pass, $email, $token, $table){
         if (!$this->checkLogin($login)){
             debug("user with the same name alredy exist");
@@ -64,17 +76,11 @@ class Account extends Model {
             return true;
         }
     }
+////////////
 
-    public function checkToken($token){
-        $userByToken = $this->db->row("SELECT login, email, password, token FROM user_signup WHERE token='$token'");
-        if ($userByToken)
-            return $userByToken;
-        else
-            return false;
-    }
 
-    public function delUserFromSign($token){
-        if($this->db->query("DELETE FROM user_signup WHERE token='$token'"))
+    public function delFrom($table, $field, $value){
+        if($this->db->query("DELETE FROM $table WHERE $field='$value'"))
             return true;
         else
             return false;
@@ -92,13 +98,10 @@ class Account extends Model {
 
     }
 
-//    public function usersTable(){
-//        $this->db->row("CREATE TABLE IF NOT EXISTS users (
-//		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-//		login VARCHAR(254) NOT NULL,
-//		password TEXT NOT NULL,
-//		email VARCHAR(254),
-//		token TEXT NOT NULL,
-//		isAdmin BOOLEAN NOT NULL DEFAULT FALSE");
-//    }
+    public function updateTable($table, $field, $value, $user){
+        if($this->db->query("UPDATE $table SET $field='$value' WHERE login='$user'"))
+            return true;
+        else
+            return false;
+    }
 }

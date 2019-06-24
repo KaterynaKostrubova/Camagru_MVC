@@ -10,9 +10,9 @@
     <title>Document</title>
 </head>
 <body>
-<div class="log_form">
+<div class="form">
     <h3 class="header_text">Create a new database for your site!</h3>
-    <form action="install.php" method="post" class="form">
+    <form class="login_signup" action="install.php" method="post" class="form">
         <p>
             <span><i class="fas fa-user"></i></span>
             <input type="text" name="login" value="<?php echo $_GET['login']; ?>" placeholder="Login" title="Type a login of your phpMyAdmin" required />

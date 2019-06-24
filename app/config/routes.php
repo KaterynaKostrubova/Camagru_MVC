@@ -35,6 +35,11 @@ return [
         'action' => 'newpass',
     ],
 
+    'account/confirmpass' =>[
+        'controller' => 'account',
+        'action' => 'confirmpass',
+    ],
+
     'account/checkemail' =>[
         'controller' => 'account',
         'action' => 'checkemail',

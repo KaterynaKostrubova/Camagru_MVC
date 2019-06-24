@@ -65,4 +65,18 @@ try {
     exit($e->getMessage());
 }
 
+
+try {
+    $pdo = new PDO($dsn, $login, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->exec('CREATE TABLE change_password (
+		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		login VARCHAR(254) NOT NULL,
+		email VARCHAR(254),
+		token TEXT NOT NULL
+	)');
+} catch (PDOException $e) {
+    exit($e->getMessage());
+}
+
 header('Location: /camagru_mvc/account/signup');
