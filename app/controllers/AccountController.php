@@ -120,10 +120,9 @@ class AccountController extends Controller{
         if (count($arr_url) == 2) {
             $token = $arr_url[1];
             $userInfo = $this->model->checkToken($token, 'change_password');
-            if($userInfo){
-//                $this->model->delFrom('change_password', 'token', $token);
-                $this->view->render('CONFIRMPASS PAGE');
-            } else
+            if($userInfo)
+                header('Location: /camagru_mvc/account/newpass?name=' . $userInfo[0]['login']);
+            else
                 View::errorCode(404);
         } else
             View::errorCode(404);
@@ -134,7 +133,8 @@ class AccountController extends Controller{
             $passFirst = hash('whirlpool', $_POST['pass_first']);
             $passSecond = hash('whirlpool', $_POST['pass_second']);
             if($passFirst == $passSecond){
-                $this->model->updateTable('users', 'password', $passFirst, );
+                $this->model->updateTable('users', 'password', $passFirst, $_GET['name']);
+                $this->model->delFrom('change_password', 'login', $_GET['name']);
                 header('Location: /camagru_mvc/account/login');
             } else
                 View::errorCode(404);

@@ -1,5 +1,5 @@
 <div class="form">
-    <form class="login_signup" action="/camagru_mvc/account/newpass" method="post">
+    <form class="login_signup" action="<?php '/camagru_mvc/account/newpass?name='.$_GET['name']?>" method="post">
         <h1>Create a new password</h1>
         <p>
             <span><i class="fas fa-key"></i></span>
