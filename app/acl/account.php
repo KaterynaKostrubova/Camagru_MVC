@@ -9,7 +9,7 @@ return [
         'changepass',
         'logout',
         'newpass',
-        'confirm',
+        'confirmpass',
     ],
     'authorize' => [
 

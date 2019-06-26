@@ -11,18 +11,11 @@ class Account extends Model {
         return $result;
     }
     ///////////
-    public function checkLogin($login){
-         if ($this->db->row("SELECT login FROM users WHERE login='$login'"))
+    public function checkValue($login, $table, $value){
+         if ($this->db->row("SELECT $value FROM $table WHERE $value='$login'"))
              return false;
          else
              return true;
-    }
-
-    public function checkEmail($email){
-        if ($this->db->row("SELECT email FROM users WHERE email='$email'"))
-            return false;
-        else
-            return true;
     }
 
     public function checkToken($token, $table){
@@ -37,69 +30,67 @@ class Account extends Model {
         $this->db->insertto("INSERT INTO $table (login, email, token) VALUE ('$login', '$email', '$token')");
     }
 ////////////
-    public function getEmail($login){
+    public function getValue($login){
         return $this->db->row("SELECT email FROM users WHERE login='$login'");
     }
 
     public function getLogin($email){
         return $this->db->row("SELECT login FROM users WHERE email='$email'");
     }
+
+    public function getDate($token){
+        return $this->db->row("SELECT registrDate FROM users WHERE token='$token'");
+    }
+
+
 ////////
-    public function addUserToSign($login, $pass, $email, $token, $table){
-        if (!$this->checkLogin($login)){
+    public function addUser($login, $pass, $email, $token, $table){
+        if (!$this->checkValue($login, $table, 'login')){
             debug("user with the same name alredy exist");
             return false;
         }
-        elseif (!$this->checkEmail($email)){
+        elseif (!$this->checkValue($email, $table, 'email')){
             debug("email is alredy in use");
             return false;
         }
         //elseif query??
         else {
-            $this->db->insertto("INSERT INTO $table (login, password, email, token) VALUE ('$login', '$pass', '$email', '$token')");
+            $this->db->insertto("INSERT INTO $table (login, email, password, token) VALUE ('$login', '$email', '$pass', '$token')");
             return true;
         }
     }
 
-    public function addUserToUsers($login, $pass, $email, $isAdmin, $table){
-        if (!$this->checkLogin($login)){
-            debug("user with the same name alredy exist");
-            return false;
-        }
-        elseif (!$this->checkEmail($email)){
-            debug("email is alredy in use");
-            return false;
-        }
-        //elseif query??
-        else {
-            $this->db->insertto("INSERT INTO $table (login, password, email, isAdmin) VALUE ('$login', '$pass', '$email', '$isAdmin')");
-            return true;
-        }
-    }
-////////////
-
-
-    public function delFrom($table, $field, $value){
-        if($this->db->query("DELETE FROM $table WHERE $field='$value'"))
+    public function setConfirm($token){
+        if($this->db->query("UPDATE users SET isConfirm=true WHERE token='$token'"))
             return true;
         else
             return false;
     }
+    public function isConfirm($token){
+        $sql = $this->db->row("SELECT isConfirm FROM users WHERE token='$token'");
+        return $sql;
+    }
 
+////////////
 
     public function findUser($name, $pass){
         $sql = $this->db->row("SELECT password FROM users WHERE login='$name'");
-//        debug($sql);
         if($sql[0]['password'] == $pass){
-//            debug($sql);
             return true;
         } else
             return false;
 
     }
 
-    public function updateTable($table, $field, $value, $user){
-        if($this->db->query("UPDATE $table SET $field='$value' WHERE login='$user'"))
+    public function updateTable($table, $field, $value, $whereField, $whereValue){
+        if($this->db->query("UPDATE $table SET $field='$value' WHERE $whereField='$whereValue'"))
+            return true;
+        else
+            return false;
+    }
+
+    public function updateDate($token){
+        if($this->db->query("UPDATE users SET registrDate=CURRENT_TIMESTAMP WHERE token='$token'"))
             return true;
         else
             return false;

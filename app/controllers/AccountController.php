@@ -38,7 +38,10 @@ class AccountController extends Controller{
         $header .= "Date: " . date("r (T)") . " \r\n";
         $header .= iconv_mime_encode("Subject", $email_subject, $subject_preferences);
         // Send mail
-        mail($email_to, $email_subject, $email_message, $header);
+        if(mail($email_to, $email_subject, $email_message, $header))
+            return true;
+        else
+            return false;
     }
 
     public function signupAction() {
@@ -57,7 +60,17 @@ class AccountController extends Controller{
             $pass = hash('whirlpool', $_POST['passwd']);
             $email = $_POST['email'];
             $token = hash('whirlpool', $this->random_str(32));
-            if ($this->model->addUserToSign($login, $pass, $email, $token, "user_signup")){
+//            if (!$this->model->checkValue($login, "users", 'login')){
+//                debug("user with the same name alredy exist");
+//                return false;
+//            }
+//            elseif (!$this->model->checkValue($login, "users", 'email')){
+//                debug("email is alredy in use");
+//                return false;
+//            }
+
+
+            if ($this->model->addUser($login, $pass, $email, $token, "users")){
                 $name_from = 'kkostrub';
                 $email_from = 'kkostrub@student.unit.ua';
                 $email_to = $email;
@@ -66,7 +79,10 @@ class AccountController extends Controller{
                 $port = '8080';
                 $email_message = 'Hello '.$login.'. Please follow this link to confirm your email address and finish creating your Camagru account: http://'
                     . $hostname.':'.$port.'/camagru_mvc/account/confirm?token='.$token;
-                $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
+                if($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
+                    debug("email successfully sent");
+                else
+                    debug("Send error, please try again");
             };
             header("location: login");
         }
@@ -77,10 +93,13 @@ class AccountController extends Controller{
         if(!empty($_POST)){
             $name = $_POST['name'];
             $pass = hash('whirlpool', $_POST['passwd']);
-            if ($this->model->findUser($name, $pass)){
+            if ($this->model->checkValue($name, 'users', 'login'))
+                debug("user not found");
+            elseif($this->model->findUser($name, $pass)){
                 $_SESSION['authorize']['name'] = $name;
                 header('Location: /camagru_mvc/default/index');
-            }
+            } else
+                debug("invalid password");
         }
         $this->view->render('LOGIN PAGE');
     }
@@ -104,26 +123,41 @@ class AccountController extends Controller{
             $port = '8080';
             $sqlLogin = $this->model->getUserBy('login', $login);
             $sqlEmail = $this->model->getUserBy('email', $login);
+            if(!$sqlLogin && !$sqlEmail)
+                debug("user not found");
             $sql = ($sqlLogin) ? $sqlLogin : $sqlEmail;
             $email_to = $sql[0]['email'];
             $email_message = 'Hello '.$sql[0]['login'].'. Please follow this link to create new password. If it is not you, ignore this email: http://'
                     . $hostname.':'.$port.'/camagru_mvc/account/confirmpass?token='.$token;
-            $this->model->insertInto('change_password', $sql[0]['login'], $sql[0]['email'], $token);
-            $this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message);
+            $this->model->updateTable('users', 'token', $token, 'login', $sql[0]['login']);
+//            $this->model->insertInto('change_password', $sql[0]['login'], $sql[0]['email'], $token);
+            if ($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
+                debug("email successfully sent");
+            else
+                debug("Send error, please try again");
+
         }
         $this->view->render('CHANGEPASS PAGE');
     }
 
     public function confirmpassAction(){
         $url = $_SERVER['REQUEST_URI'];
-        $arr_url = explode('token=', $url);
+        $arr_url = explode('=', $url);
         if (count($arr_url) == 2) {
             $token = $arr_url[1];
-            $userInfo = $this->model->checkToken($token, 'change_password');
-            if($userInfo)
-                header('Location: /camagru_mvc/account/newpass?name=' . $userInfo[0]['login']);
+            $userInfo = $this->model->checkToken($token, 'users');
+            //TODO: винести в окрему функцію
+            date_default_timezone_set('Europe/Kiev');
+            $getDate = $userInfo[0]['registrDate'];//$this->model->getDate($token);
+            $timeForConfirm = 86400; //24h
+            $currentDate = time();
+            $passedTime = $currentDate - strtotime($getDate);
+            //
+//            debug(strtotime($getDate), $currentDate, $passedTime);
+            if($userInfo && $passedTime <= $timeForConfirm)
+                header('Location: /camagru_mvc/account/newpass?token=' . $userInfo[0]['token']);
             else
-                View::errorCode(404);
+                debug("Sorry, a link not valid. Send link again");//View::errorCode(404);
         } else
             View::errorCode(404);
     }
@@ -133,8 +167,7 @@ class AccountController extends Controller{
             $passFirst = hash('whirlpool', $_POST['pass_first']);
             $passSecond = hash('whirlpool', $_POST['pass_second']);
             if($passFirst == $passSecond){
-                $this->model->updateTable('users', 'password', $passFirst, $_GET['name']);
-                $this->model->delFrom('change_password', 'login', $_GET['name']);
+                $this->model->updateTable('users', 'password', $passFirst, 'token', $_GET['token']);
                 header('Location: /camagru_mvc/account/login');
             } else
                 View::errorCode(404);
@@ -144,15 +177,27 @@ class AccountController extends Controller{
 
     public function confirmAction(){
         $url = $_SERVER['REQUEST_URI'];
-        $arr_url = explode('=', $url);
+        $arr_url = explode('token=', $url);
         if (count($arr_url) == 2){
             $token = $arr_url[1];
-            $userInfo = $this->model->checkToken($token, 'user_signup');
+            $userInfo = $this->model->checkToken($token, 'users');
             if ($userInfo){
-                if($this->model->addUserToUsers($userInfo[0]["login"], $userInfo[0]["password"], $userInfo[0]["email"], 0, "users")){
-                    $this->model->delFrom('user_signup', 'token', $token);
+                //TODO: винести в окрему функцію
+                date_default_timezone_set('Europe/Kiev');
+                $getDate = $userInfo[0]['registrDate'];//$this->model->getDate($token);
+                $timeForConfirm = 86400; //24h
+                $currentDate = time();
+                $passedTime = $currentDate - strtotime($getDate);
+                //
+                if($passedTime >= $timeForConfirm)
+                    debug("Sorry, a link not valid. Please, Send link again");
+                $isConfirm = $this->model->isConfirm($token);
+                if($isConfirm[0]['isConfirm'] == 0) {
+                    $this->model->setConfirm($token);
+                    $this->model->updateDate($_GET['token']);
                     $_SESSION['authorize']['name'] = $userInfo[0]["login"];
-                }
+                } else
+                    debug("isConfirm");//View::errorCode(404);
                 $this->view->render('CONFIRM PAGE');
             } else
                 View::errorCode(404);
