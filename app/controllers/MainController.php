@@ -27,8 +27,33 @@ class MainController extends Controller {
         $vars = [
             'users' => $result
         ];
-//        debug($result);
+//        debug($result);, $vars
         $this->view->render('MAIN PAGE', $vars);
+//        debug($_SESSION);
+
+
+
     }
+
+    public  function profileAction(){
+        $userInfo = $this->model->getUser($_SESSION['authorize']['name']);
+//        debug($name);
+        $vars = [
+            'info' => $userInfo
+        ];
+        $this->view->render('PROFILE PAGE', $vars);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

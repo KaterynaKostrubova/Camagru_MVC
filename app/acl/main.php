@@ -10,6 +10,7 @@ return [
     ],
     'authorize' => [
         'index',
+        'profile',
     ],
     'guest' => [
         //

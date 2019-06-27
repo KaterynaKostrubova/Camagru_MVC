@@ -60,16 +60,6 @@ class AccountController extends Controller{
             $pass = hash('whirlpool', $_POST['passwd']);
             $email = $_POST['email'];
             $token = hash('whirlpool', $this->random_str(32));
-//            if (!$this->model->checkValue($login, "users", 'login')){
-//                debug("user with the same name alredy exist");
-//                return false;
-//            }
-//            elseif (!$this->model->checkValue($login, "users", 'email')){
-//                debug("email is alredy in use");
-//                return false;
-//            }
-
-
             if ($this->model->addUser($login, $pass, $email, $token, "users")){
                 $name_from = 'kkostrub';
                 $email_from = 'kkostrub@student.unit.ua';

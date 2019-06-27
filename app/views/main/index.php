@@ -1,21 +1,14 @@
-<?php //include('main.php');
-//header('Location: /camagru_mvc/default/setup');
-//include ('main.php');
-?>
-
-<p>Main page!!!!</p>
-<!--<p>Name: <b> --><?php //echo $name; ?><!--</b></p>-->
-<!--<p>Age: <b> --><?php //echo $age; ?><!--</b></p>-->
-
-<!--<p>--><?php //debug($arr); ?><!--</p>-->
 <form action="/camagru_mvc/account/logout">
     <input type="submit" value="logout">
 </form>
+<form class="setProfile" action="/camagru_mvc/default/profile">
+    <input id="settings" type="submit" name="submit" value="Go to profile"/>
+</form>
 
-<?php //debug($users);?>
+<?php var_dump($users);?>
 
-<?php foreach ($users as $val): ?>
-    <h3><?php echo $val['login']?></h3>
-    <p><?php echo $val['email']?></p>
-        <hr>
-<?php endforeach; ?>
+<?php //foreach ($users as $val): ?>
+<!--    <h3>--><?php //echo $val['login']?><!--</h3>-->
+<!--    <p>--><?php //echo $val['email']?><!--</p>-->
+<!--        <hr>-->
+<?php //endforeach; ?>

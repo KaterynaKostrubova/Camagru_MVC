@@ -5,6 +5,11 @@ return [
         'action' => 'index',
     ],
 
+    'default/profile' => [
+        'controller' => 'main',
+        'action' => 'profile',
+    ],
+
     'account/logout' => [
         'controller' => 'account',
         'action' => 'logout',
