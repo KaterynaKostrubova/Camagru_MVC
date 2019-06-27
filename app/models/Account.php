@@ -26,6 +26,10 @@ class Account extends Model {
             return false;
     }
 
+    public function checkConfirm($name){
+        return $this->db->row("SELECT isConfirm FROM users WHERE login='$name'");
+    }
+
     public function insertInto($table, $login, $email, $token){
         $this->db->insertto("INSERT INTO $table (login, email, token) VALUE ('$login', '$email', '$token')");
     }
