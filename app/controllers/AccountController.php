@@ -84,7 +84,6 @@ class AccountController extends Controller{
             $name = $_POST['name'];
             $pass = hash('whirlpool', $_POST['passwd']);
             $confirm = $this->model->checkConfirm($name);
-//            debug($confirm[0]['isConfirm']);
             if ($this->model->checkValue($name, 'users', 'login') || $confirm[0]['isConfirm'] == 0)
                 debug("user not found");
             elseif($this->model->findUser($name, $pass)){
