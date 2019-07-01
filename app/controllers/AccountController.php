@@ -56,51 +56,69 @@ class AccountController extends Controller{
 //            'id' => 1,
 //        ];
 
-            $login = $_POST['name'];
-            $pass = hash('whirlpool', $_POST['passwd']);
-            $email = $_POST['email'];
-            $token = hash('whirlpool', $this->random_str(32));
-            if ($this->model->addUser($login, $pass, $email, $token, "users")){
-                $name_from = 'kkostrub';
-                $email_from = 'kkostrub@student.unit.ua';
-                $email_to = $email;
-                $email_subject = 'Registration at website Camagru!';
-                $hostname = 'localhost';
-                $port = '8080';
-                $email_message = 'Hello '.$login.'. Please follow this link to confirm your email address and finish creating your Camagru account: http://'
-                    . $hostname.':'.$port.'/camagru_mvc/account/confirm?token='.$token;
-                if($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
-                    debug("email successfully sent");
-                else
-                    debug("Send error, please try again");
-            };
-            header("location: login");
+            if($_GET['action'] == 'signup'){
+//                debug($_GET);
+                $login = $_POST['name'];
+                $pass = hash('whirlpool', $_POST['passwd']);
+                $email = $_POST['email'];
+                $token = hash('whirlpool', $this->random_str(32));
+                if ($this->model->addUser($login, $pass, $email, $token, "users")){
+                    $name_from = 'kkostrub';
+                    $email_from = 'kkostrub@student.unit.ua';
+                    $email_to = $email;
+                    $email_subject = 'Registration at website Camagru!';
+                    $hostname = 'localhost';
+                    $port = '8080';
+                    $email_message = 'Hello '.$login.'. Please follow this link to confirm your email address and finish creating your Camagru account: http://'
+                        . $hostname.':'.$port.'/camagru_mvc/account/confirm?token='.$token;
+                    if($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
+                        debug("email successfully sent");
+                    else
+                        debug("Send error, please try again");
+                };
+                header("location: signup");
+            } elseif ($_GET['action'] == 'login'){
+//                debug($_GET);
+                $name = $_POST['name'];
+                $pass = hash('whirlpool', $_POST['passwd']);
+                $confirm = $this->model->checkConfirm($name);
+                if ($this->model->checkValue($name, 'users', 'login') || $confirm[0]['isConfirm'] == 0)
+                    debug("user not found");
+                elseif($this->model->findUser($name, $pass)){
+
+                    $_SESSION['authorize']['name'] = $name;
+//                    debug($_SESSION);
+                    header('Location: /camagru_mvc/default/index');
+                } else
+                    debug("invalid password");
+            }
         }
         $this->view->render('SIGNUP PAGE');
     }
 
-    public function loginAction() {
-        if(!empty($_POST)){
-            $name = $_POST['name'];
-            $pass = hash('whirlpool', $_POST['passwd']);
-            $confirm = $this->model->checkConfirm($name);
-            if ($this->model->checkValue($name, 'users', 'login') || $confirm[0]['isConfirm'] == 0)
-                debug("user not found");
-            elseif($this->model->findUser($name, $pass)){
-                $_SESSION['authorize']['name'] = $name;
-                header('Location: /camagru_mvc/default/index');
-            } else
-                debug("invalid password");
-        }
-        $this->view->render('LOGIN PAGE');
-    }
+//    public function loginAction() {
+//        if(!empty($_POST)){
+//            debug($_GET);
+//            $name = $_POST['name'];
+//            $pass = hash('whirlpool', $_POST['passwd']);
+//            $confirm = $this->model->checkConfirm($name);
+//            if ($this->model->checkValue($name, 'users', 'login') || $confirm[0]['isConfirm'] == 0)
+//                debug("user not found");
+//            elseif($this->model->findUser($name, $pass)){
+//                $_SESSION['authorize']['name'] = $name;
+//                header('Location: /camagru_mvc/default/index');
+//            } else
+//                debug("invalid password");
+//        }
+//        $this->view->render('LOGIN PAGE');
+//    }
 
     public function logoutAction(){
         session_start();
         foreach ($_SESSION as $key => $value) {
             $_SESSION[$key] = FALSE;
         }
-        header('Location: /camagru_mvc/account/login');
+        header('Location: /camagru_mvc/account/signup');
     }
 
     public function changepassAction() {
@@ -159,7 +177,8 @@ class AccountController extends Controller{
             $passSecond = hash('whirlpool', $_POST['pass_second']);
             if($passFirst == $passSecond){
                 $this->model->updateTable('users', 'password', $passFirst, 'token', $_GET['token']);
-                header('Location: /camagru_mvc/account/login');
+                //TODO:modal pass successfully changed
+                header('Location: /camagru_mvc/account/signup');
             } else
                 View::errorCode(404);
         }

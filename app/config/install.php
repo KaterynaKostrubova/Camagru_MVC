@@ -82,5 +82,5 @@ try {
 //} catch (PDOException $e) {
 //    exit($e->getMessage());
 //}
-
+//debug($_GET);
 header('Location: /camagru_mvc/account/signup');

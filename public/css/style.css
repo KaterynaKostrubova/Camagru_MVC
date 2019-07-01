@@ -98,7 +98,7 @@ input:-webkit-autofill {
     text-align: center;
 }
 
-.select li a {
+.select li {
     display: block;
     width: 100%;
     height: 100%;
@@ -111,20 +111,20 @@ input:-webkit-autofill {
     transition: .5s ease;
 }
 
-.select li .active{
+.select .active{
     background-color: #EA4C86;
     color: #eee;
     outline: none;
 }
 
-.select li a:hover,
+.select li:hover,
 .login_signup input[type="submit"]:hover {
     background-color: #b73a68;
     color: #eee;
 }
 
 #log_in {
-    display: block;
+    display: none;
 }
 
 #sign_up {
