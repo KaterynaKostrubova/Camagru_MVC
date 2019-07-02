@@ -33,7 +33,7 @@ class Router {
         $rootDirPath1 = trim(str_replace(APP_ROOT_DIR, '', $docRoot . $uri), '/');
         $arr = explode("?", $rootDirPath1);
         $rootDirPath = $arr[0];
-        $url = ($rootDirPath ? $rootDirPath : 'default/index');
+        $url = ($rootDirPath) ? $rootDirPath : 'default/index';
         //перевіряєм чи є такий роут
         foreach ($this->routes as $route => $params){
             if (preg_match($route, $url, $matches)){
@@ -52,8 +52,8 @@ class Router {
                     $action = $this->params['action'].'Action';
                     if(method_exists($path, $action)) {
                         $controller = new $path($this->params);
-//                        debug($controller);
                         $controller->$action();
+//                        debug($controller);
                     } else {
                         View::errorCode(404);
                     }

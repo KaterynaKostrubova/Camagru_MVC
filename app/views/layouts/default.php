@@ -13,6 +13,5 @@
 </head>
 <body>
     <?php echo $content;?>
-    <script src="/camagru_mvc/public/scripts/scripts.js"></script>
 </body>
 </html>

@@ -46,18 +46,7 @@ class AccountController extends Controller{
 
     public function signupAction() {
         if(!empty($_POST)){
-//            $this->view->message('success', 'text');
-//            $this->view->location('/camagru_mvc');
-
-//        $this->view->redirect('/camagru_mvc');
-//        $db = new Db();
-//        $form = '2; DELETE FROM user_register';
-//        $params = [
-//            'id' => 1,
-//        ];
-
             if($_GET['action'] == 'signup'){
-//                debug($_GET);
                 $login = $_POST['name'];
                 $pass = hash('whirlpool', $_POST['passwd']);
                 $email = $_POST['email'];
@@ -78,16 +67,16 @@ class AccountController extends Controller{
                 };
                 header("location: signup");
             } elseif ($_GET['action'] == 'login'){
-//                debug($_GET);
                 $name = $_POST['name'];
                 $pass = hash('whirlpool', $_POST['passwd']);
                 $confirm = $this->model->checkConfirm($name);
                 if ($this->model->checkValue($name, 'users', 'login') || $confirm[0]['isConfirm'] == 0)
                     debug("user not found");
                 elseif($this->model->findUser($name, $pass)){
-
                     $_SESSION['authorize']['name'] = $name;
-//                    debug($_SESSION);
+                    $cookie_name = "login";
+                    $cookie_value = $name;
+                    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
                     header('Location: /camagru_mvc/default/index');
                 } else
                     debug("invalid password");
@@ -96,26 +85,9 @@ class AccountController extends Controller{
         $this->view->render('SIGNUP PAGE');
     }
 
-//    public function loginAction() {
-//        if(!empty($_POST)){
-//            debug($_GET);
-//            $name = $_POST['name'];
-//            $pass = hash('whirlpool', $_POST['passwd']);
-//            $confirm = $this->model->checkConfirm($name);
-//            if ($this->model->checkValue($name, 'users', 'login') || $confirm[0]['isConfirm'] == 0)
-//                debug("user not found");
-//            elseif($this->model->findUser($name, $pass)){
-//                $_SESSION['authorize']['name'] = $name;
-//                header('Location: /camagru_mvc/default/index');
-//            } else
-//                debug("invalid password");
-//        }
-//        $this->view->render('LOGIN PAGE');
-//    }
-
     public function logoutAction(){
         session_start();
-        foreach ($_SESSION as $key => $value) {
+        foreach ($_SESSION as $key => $value){
             $_SESSION[$key] = FALSE;
         }
         header('Location: /camagru_mvc/account/signup');
@@ -139,12 +111,10 @@ class AccountController extends Controller{
             $email_message = 'Hello '.$sql[0]['login'].'. Please follow this link to create new password. If it is not you, ignore this email: http://'
                     . $hostname.':'.$port.'/camagru_mvc/account/confirmpass?token='.$token;
             $this->model->updateTable('users', 'token', $token, 'login', $sql[0]['login']);
-//            $this->model->insertInto('change_password', $sql[0]['login'], $sql[0]['email'], $token);
             if ($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
                 debug("email successfully sent");
             else
                 debug("Send error, please try again");
-
         }
         $this->view->render('CHANGEPASS PAGE');
     }
@@ -161,8 +131,6 @@ class AccountController extends Controller{
             $timeForConfirm = 86400; //24h
             $currentDate = time();
             $passedTime = $currentDate - strtotime($getDate);
-            //
-//            debug(strtotime($getDate), $currentDate, $passedTime);
             if($userInfo && $passedTime <= $timeForConfirm)
                 header('Location: /camagru_mvc/account/newpass?token=' . $userInfo[0]['token']);
             else
@@ -206,6 +174,9 @@ class AccountController extends Controller{
                     $this->model->setConfirm($token);
                     $this->model->updateDate($_GET['token']);
                     $_SESSION['authorize']['name'] = $userInfo[0]["login"];
+                    $cookie_name = $userInfo[0]["login"];
+                    $cookie_value = "login";
+                    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
                 } else
                     debug("isConfirm");//View::errorCode(404);
                 $this->view->render('CONFIRM PAGE');

@@ -99,4 +99,9 @@ class Account extends Model {
         else
             return false;
     }
+
+    public function getUser($user){
+        $result = $this->db->row("SELECT * FROM users WHERE login='$user'");
+        return $result;
+    }
 }

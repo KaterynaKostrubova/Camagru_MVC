@@ -1,4 +1,4 @@
-function myFunction(e) {
+function addActiveClass(e) {
     let elems = document.querySelector(".active");
     if(elems !== null){
         elems.classList.remove("active");
@@ -6,23 +6,44 @@ function myFunction(e) {
     e.target.className = "active";
 }
 
-    let registerBtn = document.getElementById("register");
-    let loginBtn = document.getElementById("login");
-    let signUp = document.getElementById("sign_up");
-    let logIn = document.getElementById("log_in");
+let registerBtn = document.getElementById("register");
+let loginBtn = document.getElementById("login");
+let signUp = document.getElementById("sign_up");
+let logIn = document.getElementById("log_in");
+
+
+// function checkLogin(){
+//     let signUp = document.getElementById("sign_up");
+//     let logIn = document.getElementById("log_in");
+//     let action = location.search.split('=')[1];
+//     if (action == 'login'){
+//         signUp.style.display = "none";
+//         logIn.style.display = "block";
+//         let elems = document.querySelector(".active");
+//         let elems2 = document.getElementById("login");
+//         if(elems !== null && elems2 !== null){
+//             elems.classList.remove("active");
+//             elems2.classList.add("active");
+//         }
+//     }
+// }
+
 //
 // let submitBtn = document.getElementById("sbm");
 //
+if(registerBtn && logIn && signUp){
     registerBtn.onclick = function() {
         logIn.style.display = "none";
         signUp.style.display = "block";
     };
+}
 
-    loginBtn.onclick = function() {
+if(loginBtn && logIn && signUp) {
+    loginBtn.onclick = function () {
         signUp.style.display = "none";
         logIn.style.display = "block";
     };
-
+}
 //
 // submitBtn.onclick = function () {
 //     signUp.style.display = "none";
