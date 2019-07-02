@@ -1,9 +1,10 @@
-
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
 /* GENERAL */
 body, form, p, input {
     margin-block-start: 0em;
     margin-block-end: 0em;
     padding: 0;
+    margin: 0;
     font-family: 'Open Sans', Arial, sans-serif;
     font-size: 100%;
 }
@@ -160,6 +161,65 @@ label:hover{
 
 #forgot_input{
     display:none;
+}
+
+/*index*/
+
+header {
+    display: flex;
+    background: #EA4C86;
+    justify-content: space-between;
+    align-items: center;
+    height: 5vw;
+}
+
+/*.takePhoto form span {*/
+/*        width: 50px;*/
+/*        height: 10vw;*/
+/*}*/
+
+.logoutBtn,
+.photoBtn {
+    width: 4vw;
+    height: 4vw;
+    outline: none;
+    border: none;
+
+}
+
+.logoutBtn {
+    /*background-color: #E88DAE;*/
+    background: url("../image/sign-out.svg") no-repeat scroll 0 0 transparent;
+    color: #000000;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px;
+    flex: 2 2 20em;
+    /*flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]*/
+}
+
+.logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 40px;
+    margin-left: 30px;
+    flex-basis: 30%;
+    flex: 1 1 20em;
+}
+
+
+.photoBtn {
+    background: url("../image/camera.svg") no-repeat scroll 0 0 transparent;
+    color: #000000;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px;
+    flex: 2 2 20em;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    background: url("../image/cat.jpg") repeat scroll 0 0 transparent;
 }
 
 

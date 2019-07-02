@@ -30,7 +30,7 @@ let logIn = document.getElementById("log_in");
 
 //
 // let submitBtn = document.getElementById("sbm");
-//
+
 if(registerBtn && logIn && signUp){
     registerBtn.onclick = function() {
         logIn.style.display = "none";

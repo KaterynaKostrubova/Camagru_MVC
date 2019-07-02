@@ -5,6 +5,12 @@ use app\core\Controller;
 use app\lib\Db;
 
 class MainController extends Controller {
+
+    //    public function before(){
+//        $this->view->layout = 'custom';
+//
+//    }
+
     public function indexAction() {
 //        $vars = [
 //            'name' => 'Kate',

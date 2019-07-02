@@ -1,9 +1,12 @@
-<form action="/camagru_mvc/account/logout">
-    <input type="submit" value="logout">
-</form>
-<form class="setProfile" action="/camagru_mvc/default/profile">
-    <input id="settings" type="submit" name="submit" value="Go to profile"/>
-</form>
+<?php include "header.php";?>
+
+<div class="userInfo">
+    <div class="avatar"></div>
+    <form class="setProfile" action="/camagru_mvc/default/profile">
+        <input id="settings" type="submit" name="submit" value="Go to profile"/>
+    </form>
+</div>
+
 
 <?php var_dump($users);?>
 

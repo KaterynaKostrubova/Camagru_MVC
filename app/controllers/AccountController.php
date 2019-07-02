@@ -7,10 +7,11 @@ use app\lib\Db;
 
 class AccountController extends Controller{
 
-//    public function before(){
-//        $this->view->layout = 'custom';
-//
-//    }
+    public function before(){
+        $this->view->layout = 'custom';
+
+    }
+
     private function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
     {
         $pieces = [];
