@@ -7,6 +7,7 @@ body, form, p, input {
     margin: 0;
     font-family: 'Open Sans', Arial, sans-serif;
     font-size: 100%;
+    height: 100%;
 }
 
 a:-webkit-any-link {
@@ -164,63 +165,115 @@ label:hover{
 }
 
 /*index*/
+.wrapper {
+    background: #fff;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
 
 header {
     display: flex;
-    background: #EA4C86;
+    background: #3A4149;
     justify-content: space-between;
     align-items: center;
     height: 5vw;
+    width: 70%;
+    margin: 0 auto;
 }
 
-/*.takePhoto form span {*/
-/*        width: 50px;*/
-/*        height: 10vw;*/
-/*}*/
+.content {
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+    background: rgba(188, 192, 197, 0.5);
+    flex: 1;
+}
+
+footer {
+    background: #3A4149;
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
 
 .logoutBtn,
 .photoBtn {
-    width: 4vw;
-    height: 4vw;
+    width: 5vw;
+    height: 2vw;
     outline: none;
     border: none;
-
+    background: inherit;
+    background-position: center;
 }
 
 .logoutBtn {
     /*background-color: #E88DAE;*/
-    background: url("../image/sign-out.svg") no-repeat scroll 0 0 transparent;
+    background-image: url("../image/log-out.ico");
+    background-size: contain;
+    background-repeat: no-repeat;
     color: #000000;
     cursor: pointer;
     font-weight: bold;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
     flex: 2 2 20em;
     /*flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]*/
 }
 
 .logo {
     font-family: 'Dancing Script', cursive;
-    font-size: 40px;
-    margin-left: 30px;
+    color: #EA4C86;
+    font-size: 6vw;
+    text-align: center;
+    /*margin-left: 30px;*/
     flex-basis: 30%;
     flex: 1 1 20em;
 }
 
 
 .photoBtn {
-    background: url("../image/camera.svg") no-repeat scroll 0 0 transparent;
+    background-image: url("../image/camera.ico");
+    background-repeat: no-repeat;
+    background-size: contain;
     color: #000000;
     cursor: pointer;
     font-weight: bold;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     flex: 2 2 20em;
+    transition: 0.3s linear;
 }
+
+.photoBtn:hover{
+    /*background-color: #eeeeee;*/
+    transform: scale(1.3);
+    /*height: 5vw;*/
+    /*width: 5vw;*/
+    /*animation-name: example;*/
+    /*animation-duration: 0.1s;*/
+    /*animation-delay: 2s;*/
+}
+
+
 
 .avatar {
     width: 50px;
     height: 50px;
     background: url("../image/cat.jpg") repeat scroll 0 0 transparent;
 }
+
+img {
+    width: 30px;
+    height: 30px;
+}
+
+/*@keyframes example {*/
+/*    0%   {transform: rotate(0grad)}*/
+/*    !*25%  {transform: rotate(45grad)}*!*/
+/*    50%  {transform: rotate(90grad)}*/
+/*    !*75%  {transform: rotate(135grad)}*!*/
+/*    100% {transform: rotate(180grad)}*/
+/*}*/
 
 
 

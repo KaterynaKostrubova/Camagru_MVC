@@ -1,9 +1,9 @@
 <header>
     <div class="takePhoto">
-        <form action="/camagru_mvc/account/photo">
+        <form action="/camagru_mvc/photo/take">
 <!--            <span><i class="fas fa-sign-out-alt"></i></span>-->
 <!--            <span><i class="fas fa-camera"></i></span>-->
-            <input type="submit" class="photoBtn" value="" >
+            <input type="submit" class="photoBtn"  value="" >
         </form>
     </div>
     <div class="logo">Camagru</div>

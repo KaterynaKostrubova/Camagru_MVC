@@ -49,4 +49,9 @@ return [
         'controller' => 'account',
         'action' => 'checkemail',
     ],
+
+    'photo/take' =>[
+        'controller' => 'photo',
+        'action' => 'take',
+    ],
 ];

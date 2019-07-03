@@ -1,3 +1,4 @@
+
 <div class="allSettings">
 
     <p>Name:<?php echo $vars['info'][0]['login']?>Edit</p>
