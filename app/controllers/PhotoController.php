@@ -7,8 +7,9 @@ use app\lib\Db;
 class PhotoController extends Controller
 {
 
+
     public function takeAction(){
-        echo "photo";
+        $this->view->render('PHOTO PAGE');
     }
 
 

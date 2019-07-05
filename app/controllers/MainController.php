@@ -41,14 +41,14 @@ class MainController extends Controller {
 
     }
 
-    public  function profileAction(){
-        $userInfo = $this->model->getUser($_SESSION['authorize']['name']);
-//        debug($name);
-        $vars = [
-            'info' => $userInfo
-        ];
-        $this->view->render('PROFILE PAGE', $vars);
-    }
+//    public  function profileAction(){
+//        $userInfo = $this->model->getUser($_SESSION['authorize']['name']);
+////        debug($name);
+//        $vars = [
+//            'info' => $userInfo
+//        ];
+//        $this->view->render('PROFILE PAGE', $vars);
+//    }
 
 
 

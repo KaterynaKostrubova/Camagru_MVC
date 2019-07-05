@@ -8,7 +8,6 @@
     <title><?php echo $title;?></title>
     <link rel="stylesheet" href="/camagru_mvc/public/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-<!--    <script src="/camagru_mvc/public/scripts/jquery.js"></script>-->
 <!--    <script src="/camagru_mvc/public/scripts/form.js"></script>-->
 </head>
 <body>

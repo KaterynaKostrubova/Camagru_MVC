@@ -11,6 +11,8 @@ return [
         'newpass',
         'confirmpass',
         'take',
+        'profile',
+        'edit',
 
     ],
     'authorize' => [

@@ -5,8 +5,8 @@
             <div class="avatar">
                 <img src="https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
             </div>
-            <form class="setProfile" action="/camagru_mvc/default/profile">
-                <input id="settings" type="submit" name="submit" value="Go to profile"/>
+            <form class="setProfile" method="GET" action="/camagru_mvc/profile/profile">
+                <input id="settings" type="submit" name="submit" value="profile"/>
             </form>
         </div>
         <?php var_dump($users);?>

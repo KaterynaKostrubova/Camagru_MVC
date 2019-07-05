@@ -17,10 +17,7 @@ class Main extends Model {
         return $result;
     }
 
-     public function getUser($user){
-        $result = $this->db->row("SELECT * FROM users WHERE login='$user'");
-        return $result;
-    }
+
 
 
 

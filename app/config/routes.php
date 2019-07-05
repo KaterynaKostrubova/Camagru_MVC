@@ -54,4 +54,15 @@ return [
         'controller' => 'photo',
         'action' => 'take',
     ],
+
+    'profile/profile' =>[
+        'controller' => 'profile',
+        'action' => 'profile',
+    ],
+
+    'profile/edit' =>[
+        'controller' => 'profile',
+        'action' => 'edit',
+    ],
+
 ];
