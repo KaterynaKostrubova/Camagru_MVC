@@ -347,3 +347,7 @@ img {
 /*    text-decoration: none;*/
 /*    cursor: pointer;*/
 /*}*/
+
+#loader {
+    display: none;
+}

@@ -14,11 +14,16 @@ class ProfileController extends Controller
         $vars = [
             'info' => $userInfo
         ];
-        if($_POST['submit'] == 'save'){
-//            debug($_POST);
-//            $this->model->updateTable()
-            $this->view->render('PROFILE PAGE', $vars);
-        }
+//        debug($_POST);
+//            if (!empty($_POST)){
+//                debug($_POST);
+//                if($_POST['submit'] == 'save'){
+//                    debug($_POST);
+//    //                $this->model->updateTable()
+//                    $this->view->render('Profile PAGE', $vars);
+//            }
+//        }
+        $this->view->render('Profile PAGE', $vars);
 
     }
 

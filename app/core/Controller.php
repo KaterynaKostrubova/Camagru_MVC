@@ -3,12 +3,15 @@
 namespace app\core;
 
 use app\core\View;
+use Exception;
 
 abstract class Controller {
 
     public $route;
     public $view;
     public $acl;
+    public $model;
+    public $request = array(); // Decoded JSON API request body
 
     public function __construct($route) {
 //        echo '<p>hello</p>';
@@ -26,6 +29,13 @@ abstract class Controller {
         $this->view = new View($route);
 //        $this->before();
         $this->model = $this->loadModel($route['controller']);
+
+        // Decode JSON API request body to an array
+        try {
+            $this->request = json_decode(file_get_contents('php://input'), true);
+        } catch (Exception $e) {
+            // TODO write to log or do something else
+        }
 
     }
 

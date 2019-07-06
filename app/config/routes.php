@@ -1,5 +1,8 @@
 <?php
-return [
+
+$apiRoutes = require 'apiRoutes.php';
+
+$routes = [
     'default/index' => [
         'controller' => 'main',
         'action' => 'index',
@@ -66,3 +69,5 @@ return [
     ],
 
 ];
+
+return array_merge($routes, $apiRoutes);

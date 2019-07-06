@@ -50,4 +50,4 @@
         </div>
     </div>
 </div>
-s
+<script src="/camagru_mvc/public/scripts/scripts.js"></script>

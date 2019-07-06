@@ -1,4 +1,4 @@
-// let editBtn = document.getElementById("edit");
+let form = document.getElementById("form");
 // let hideEl = document.getElementsByClassName("hide");
 // let activeEl = document.getElementsByClassName("active");
 //
@@ -23,17 +23,56 @@
 // let editName = document.getElementById("editName");
 // let currentName = document.getElementById("currentName");
 //
-// editBtn.addEventListener('click', function() {
-//     // hide the button
-//     console.log('edit');
-//     this.style.display = 'none';
-//     saveBtn.style.display = 'block';
-//     editName.style.display = 'block';
-//     currentName.style.display = 'none';
-//     // hideEl.style.display = "block";
-//     // activeEl.style.display = "none";
-//     // send the request
-// });
+
+const getFormData = function(form) {
+    let res = {};
+
+    for (let i = 0; i < form.length; i++) {
+        let el = form[i];
+        if (el.name !== 'submit') {
+            res[el.name] = el.value;
+        }
+    }
+
+    return res;
+};
+
+let response = null;
+
+
+function showLoader() {
+    let loader = document.getElementById('loader');
+    document.getElementById('save').disabled = true;
+    loader.style.display = "block";
+}
+
+function hideLoader() {
+    let loader = document.getElementById('loader');
+    document.getElementById('save').disabled = false;
+    loader.style.display = "none";
+}
+
+onResponse = function(request) {
+    response = request.response;
+    hideLoader();
+    console.log('RESPONSE:', response);
+};
+
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    let data = new getFormData(form);
+    let req = new Requests();
+
+    let str_data = '';
+
+
+    showLoader();
+
+    req.post('/camagru_mvc/api/profile/edit', onResponse, str_data, data);
+
+});
+
 //
 //
 //
