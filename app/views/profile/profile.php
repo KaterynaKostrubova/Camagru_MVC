@@ -9,12 +9,12 @@
         <div class="email">
             <input type="text"  name="email" id ="editEmail" value="<?php echo $vars['info'][0]['email']?>">
         </div>
-
+<!--        --><?php //var_dump($vars);?>
         <div style="display: flex;">
             <input type="submit" name="submit" id="save" class="hide" value="save">
             <div id="loader" style="flex: 1; color: white;">Saving...</div>
         </div>
-
+<!--        --><?php //echo $response?>
         <!--        <p>Email: --><?php //echo $vars['info'][0]['email']?><!--Edit</p>-->
         <!--        <p>Change password--><?php //?><!--</p>-->
     </form>

@@ -1,7 +1,7 @@
 <?php
 
 $USER = 'root';
-$PASSWORD = '12345678';
+$PASSWORD = '2410103';
 $HOST = 'localhost';
 $NAME = 'camagru';
 $DNS =  'mysql:host=localhost;dbname=camagru;charset=UTF8';

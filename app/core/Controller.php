@@ -32,8 +32,10 @@ abstract class Controller {
 
         // Decode JSON API request body to an array
         try {
-            $this->request = json_decode(file_get_contents('php://input'), true);
+            $this->request = json_decode(file_get_contents('php://input'), true); ///?????????
+//             print_r($this->request);
         } catch (Exception $e) {
+            debug("errrroooooor");
             // TODO write to log or do something else
         }
 

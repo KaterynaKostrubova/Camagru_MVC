@@ -14,6 +14,11 @@ class ProfileController extends Controller
         $vars = [
             'info' => $userInfo
         ];
+//        debug($this->request['name']);
+//        if($this->request)
+//            debug($this->request);
+//        $this->model->updateUsers($vars['info'][0]['login'], "kate");
+//        $vars['info'][0]['login'] =
 //        debug($_POST);
 //            if (!empty($_POST)){
 //                debug($_POST);
@@ -33,8 +38,8 @@ class ProfileController extends Controller
             'info' => $userInfo
         ];
 //        debug($_POST);
-        if($_POST['submit'] == 'edit')
-            $this->view->render('PROFILE PAGE', $vars);
+//        if($_POST['submit'] == 'edit')
+//            $this->view->render('PROFILE PAGE', $vars);
 }
 
 

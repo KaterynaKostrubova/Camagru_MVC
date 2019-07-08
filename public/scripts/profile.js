@@ -33,7 +33,6 @@ const getFormData = function(form) {
             res[el.name] = el.value;
         }
     }
-
     return res;
 };
 
@@ -68,7 +67,7 @@ form.addEventListener('submit', function(event) {
 
 
     showLoader();
-
+    // console.log('RESPONSE:', data);
     req.post('/camagru_mvc/api/profile/edit', onResponse, str_data, data);
 
 });

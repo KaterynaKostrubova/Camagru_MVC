@@ -11,11 +11,18 @@ class Profile extends Model {
         return $result;
     }
 
-    public function updateTable($table, $field, $value, $whereField, $whereValue){
-        if($this->db->query("UPDATE $table SET $field='$value' WHERE $whereField='$whereValue'"))
-            return true;
-        else
-            return false;
+
+    public function updateUsers($current, $new){
+//        debug($current);
+        $result = $this->db->query("UPDATE users SET login='$new' WHERE login='$current'");
+        return $result;
     }
+
+//    public function updateTable($table, $field, $value, $whereField, $whereValue){
+//        if($this->db->query("UPDATE $table SET $field='$value' WHERE $whereField='$whereValue'"))
+//            return true;
+//        else
+//            return false;
+//    }
 
 }
