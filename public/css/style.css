@@ -351,3 +351,20 @@ img {
 #loader {
     display: none;
 }
+
+#form{
+    display: flex;
+    background: #6a7684;
+    justify-content: space-around;
+    width: 70%;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.data_first,
+.data_second {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}

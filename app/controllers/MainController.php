@@ -33,7 +33,6 @@ class MainController extends Controller {
         $vars = [
             'users' => $result
         ];
-//        debug($result);, $vars
         $this->view->render('MAIN PAGE', $vars);
 //        debug($_SESSION);
 

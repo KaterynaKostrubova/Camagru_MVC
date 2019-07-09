@@ -11,11 +11,14 @@ class Profile extends Model {
         return $result;
     }
 
-
     public function updateUsers($current, $new){
-//        debug($current);
         $result = $this->db->query("UPDATE users SET login='$new' WHERE login='$current'");
         return $result;
+    }
+
+    public function checkUnic($value){
+
+
     }
 
 //    public function updateTable($table, $field, $value, $whereField, $whereValue){
