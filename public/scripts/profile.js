@@ -25,6 +25,7 @@ let form = document.getElementById("form");
 //
 
 const getFormData = function(form) {
+
     let res = {};
 
     for (let i = 0; i < form.length; i++) {
@@ -33,6 +34,7 @@ const getFormData = function(form) {
             res[el.name] = el.value;
         }
     }
+    // console.log(res);
     return res;
 };
 
@@ -50,11 +52,23 @@ function hideLoader() {
     document.getElementById('save').disabled = false;
     loader.style.display = "none";
 }
-
+// todo change console.log
 onResponse = function(request) {
     response = request.response;
     hideLoader();
-    console.log('RESPONSE:', response);
+    if(response == null)
+        console.log('data already update');
+    else {
+        if(response['name'] === 'no' && response['email'] === 'no')
+            console.log('data already update');
+        else if (response['name'] === 'no' && response['email'] === 'yes') {
+            console.log('pls confirm email//email successfully update');
+        }
+        else if(response['name'] === 'yes' && response['email'] === 'no')
+            console.log('name successfully update');
+        else if (response['name'] === 'yes' && response['email'] === 'yes')
+            console.log('data successfully update');
+    }
 };
 
 
@@ -64,25 +78,9 @@ form.addEventListener('submit', function(event) {
     let req = new Requests();
 
     let str_data = '';
-
-
     showLoader();
     // console.log('RESPONSE:', data);
     req.post('/camagru_mvc/api/profile/edit', onResponse, str_data, data);
+    // console.log(str_data, '-', data);
 
 });
-
-//
-//
-//
-// saveBtn.addEventListener('click', function() {
-//     // hide the button
-//     console.log('save');
-//     this.style.display = 'none';
-//     editBtn.style.display = 'block';
-//     editName.style.display = 'none';
-//     currentName.style.display = 'block';
-//     // hideEl.style.display = "block";
-//     // activeEl.style.display = "none";
-//     // send the request
-// });

@@ -18,9 +18,7 @@
                 <input type="text"  name="email" id ="editEmail" value="<?php echo $vars['info'][0]['email']?>">
             </div>
         </div>
-
 <!--        --><?php //var_dump($vars);?>
-
 <!--        --><?php //echo $response?>
         <!--        <p>Email: --><?php //echo $vars['info'][0]['email']?><!--Edit</p>-->
         <!--        <p>Change password--><?php //?><!--</p>-->
