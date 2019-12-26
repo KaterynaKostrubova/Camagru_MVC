@@ -54,11 +54,11 @@ class AccountController extends Controller{
                 $token = hash('whirlpool', $this->random_str(32));
                 if ($this->model->addUser($login, $pass, $email, $token, "users")){
                     $name_from = 'kkostrub';
-                    $email_from = 'kkostrub@student.unit.ua';
+                    $email_from = 'kkostrub@student.unit.ua';//$email_from = 'katerinakostrubova@gmail.com';
                     $email_to = $email;
                     $email_subject = 'Registration at website Camagru!';
                     $hostname = 'localhost';
-                    $port = '8080';
+                    $port = '8081';
                     $email_message = 'Hello '.$login.'. Please follow this link to confirm your email address and finish creating your Camagru account: http://'
                         . $hostname.':'.$port.'/camagru_mvc/account/confirm?token='.$token;
                     if($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
@@ -100,9 +100,10 @@ class AccountController extends Controller{
             $token = hash('whirlpool', $this->random_str(32));
             $name_from = 'kkostrub';
             $email_from = 'kkostrub@student.unit.ua';
+            $email_from = 'katerinakostrubova@gmail.com';
             $email_subject = 'Change password at website Camagru!';
             $hostname = 'localhost';
-            $port = '8080';
+            $port = '8081';
             $sqlLogin = $this->model->getUserBy('login', $login);
             $sqlEmail = $this->model->getUserBy('email', $login);
             if(!$sqlLogin && !$sqlEmail)

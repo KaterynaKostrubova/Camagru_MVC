@@ -22,9 +22,7 @@
                 <input type="password"  name="password" id ="editEmail" value="23134234234">
             </div>
         </div>
-
 <!--        --><?php //var_dump($vars);?>
-
 <!--        --><?php //echo $response?>
         <!--        <p>Email: --><?php //echo $vars['info'][0]['email']?><!--Edit</p>-->
         <!--        <p>Change password--><?php //?><!--</p>-->

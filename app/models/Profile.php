@@ -16,10 +16,6 @@ class Profile extends Model {
         return $result;
     }
 
-    public function checkUnic($value){
-
-
-    }
 
 //    public function updateTable($table, $field, $value, $whereField, $whereValue){
 //        if($this->db->query("UPDATE $table SET $field='$value' WHERE $whereField='$whereValue'"))
