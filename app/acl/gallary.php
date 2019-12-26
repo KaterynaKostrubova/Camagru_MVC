@@ -2,14 +2,12 @@
 
 return [
     'all' => [
+        'gallary',
     ],
     'authorize' => [
-        'index',
     ],
     'guest' => [
-        //
     ],
     'admin' => [
-        //
     ],
 ];

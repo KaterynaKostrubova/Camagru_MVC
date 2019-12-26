@@ -35,7 +35,9 @@ try {
 		token TEXT NOT NULL,
 		isAdmin BOOLEAN NOT NULL DEFAULT FALSE,
 		isConfirm BOOLEAN NOT NULL DEFAULT FALSE,
-		registrDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+		notification BOOLEAN NOT NULL DEFAULT TRUE,
+		registrDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+		sendLinkDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	)');
 } catch (PDOException $e) {
     exit($e->getMessage());

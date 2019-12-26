@@ -93,8 +93,8 @@ class Account extends Model {
             return false;
     }
 
-    public function updateDate($token){
-        if($this->db->query("UPDATE users SET registrDate=CURRENT_TIMESTAMP WHERE token='$token'"))
+    public function updateDate($token, $field){
+        if($this->db->query("UPDATE users SET $field=CURRENT_TIMESTAMP WHERE token='$token'"))
             return true;
         else
             return false;

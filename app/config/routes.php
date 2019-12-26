@@ -68,6 +68,11 @@ $routes = [
         'action' => 'edit',
     ],
 
+    'gallary/viewGallary' =>[
+        'controller' => 'gallary',
+        'action' => 'viewGallary',
+    ],
+
 ];
 
 return array_merge($routes, $apiRoutes);

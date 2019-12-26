@@ -4,7 +4,7 @@ navigator.getUserMedia = navigator.getUserMedia ||
 let video = document.querySelector('video');
 
 if (navigator.getUserMedia) {
-    navigator.getUserMedia({ audio: true, video: { width: 480, height: 360 } },
+    navigator.getUserMedia({ audio: false, video: { width: 480, height: 360 } },
         function(stream) {
             video.srcObject = stream;
             video.onloadedmetadata = function(e) {
@@ -32,14 +32,13 @@ document.querySelector('#stopbt').addEventListener(
         // Объект для работы с canvas.
         let context = hidden_canvas.getContext('2d');
 
-
         // Установка размеров canvas идентичных с video.
         hidden_canvas.width = width;
         hidden_canvas.height = height;
 
         // Отрисовка текущего кадра с video в canvas.
         context.drawImage(video, 0, 0, width, height);
-
+        hidden_canvas.style.display="none";
         // Преобразование кадра в изображение dataURL.
         var imageDataURL = hidden_canvas.toDataURL('image/png');
 
