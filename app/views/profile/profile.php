@@ -15,7 +15,11 @@
                 <input type="text"  name="name" id ="editName" value="<?php echo $vars['info'][0]['login']?>">
             </div>
             <div class="email">
-                <input type="text"  name="email" id ="editEmail" value="<?php echo $vars['info'][0]['email']?>">
+                <input type="email"  name="email" id ="editEmail" value="<?php echo $vars['info'][0]['email']?>">
+            </div>
+            <div class="password">
+                <input type="password"  name="password" id ="editEmail" value="23134234234">
+                <input type="password"  name="password" id ="editEmail" value="23134234234">
             </div>
         </div>
 
