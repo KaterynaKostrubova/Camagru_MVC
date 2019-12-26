@@ -43,6 +43,20 @@ try {
     exit($e->getMessage());
 }
 
+try {
+    $pdo = new PDO($dsn, $login, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->exec('CREATE TABLE photos (
+		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		path VARCHAR(254) NOT NULL UNIQUE,
+		user_id INT(11) NOT NULL,
+		name VARCHAR(254) NOT NULL,
+		description VARCHAR(254) NOT NULL
+	)');
+} catch (PDOException $e) {
+    exit($e->getMessage());
+}
+
 $admPass = hash('whirlpool', 'admin');
 
 try {
@@ -50,6 +64,22 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->exec("INSERT INTO users (login, password, token, isadmin, isConfirm)
 		VALUES ('admin', '" . $admPass . "','" . $admPass . "' , true, true)");
+} catch (PDOException $e) {
+    exit($e->getMessage());
+}
+
+//debug(__DIR__);
+$path = ["/camagru_mvc/photos/1.jpg",
+            "/camagru_mvc/photos/2.jpg",
+                "/camagru_mvc/photos/3.jpg"];
+try {
+    $pdo = new PDO($dsn, $login, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    for($i = 0; $i < 3; $i++){
+        $pdo->exec("INSERT INTO photos (path, user_id, name, description)
+		VALUES ('" . $path[$i] . "', 1 , 'admin' , 'admin')");
+    }
+
 } catch (PDOException $e) {
     exit($e->getMessage());
 }

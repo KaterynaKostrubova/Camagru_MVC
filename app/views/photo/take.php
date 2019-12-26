@@ -1,7 +1,7 @@
 <div>
     <div class="video">
         <video autoplay></video>
-        <img class="frame" src="/camagru_mvc/public/image/frame.png" alt="">
+<!--        <img class="frame" src="/camagru_mvc/public/image/frame.png" alt="">-->
     </div>
     <input type="button" id="stopbt" value="stop">
     <canvas></canvas>

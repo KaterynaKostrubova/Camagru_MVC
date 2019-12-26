@@ -19,20 +19,16 @@
                 </div>
             </div>
             <div class="email">
-<<<<<<< HEAD
                 <input type="email"  name="email" id ="editEmail" value="<?php echo $vars['info'][0]['email']?>">
             </div>
             <div class="password">
                 <input type="password"  name="password" id ="editEmail" value="23134234234">
                 <input type="password"  name="password" id ="editEmail" value="23134234234">
-=======
                 <input type="text"  name="email" id ="editEmail" value="<?php echo $vars['info'][0]['email']?>" placeholder="email@gmail.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
             </div>
             <div class="notification">
                 <label for="sendToEmail">Send notification to email</label>
-                <input name="notification" id="sendToEmail" type="checkbox" <?php if($vars['info'][0]['notification'] === '1') echo 'checked'; ?>>
-
->>>>>>> b399c8e07c50d23da03258b1f3b48b65b61fbfa2
+                 <input name="notification" id="sendToEmail" type="checkbox" <?php if($vars['info'][0]['notification'] === '1') echo 'checked'; ?>
             </div>
         </div>
     </form>
@@ -40,7 +36,7 @@
         <label for="reset_input">reset password</label>
         <input style="display: none;" id="reset_input" type="submit" name="submit" value="reset pass"/>
     </form>
-    <?php var_dump($vars['info']); ?>
+    <?php //var_dump($vars['info']); ?>
 
 </div>
 <script src="/camagru_mvc/public/scripts/profile.js"></script>

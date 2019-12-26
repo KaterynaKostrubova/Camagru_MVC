@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
 /* GENERAL */
-body, form, p, input {
+html, body, form, p, input {
     margin-block-start: 0em;
     margin-block-end: 0em;
     padding: 0;
@@ -11,13 +11,44 @@ body, form, p, input {
 }
 
 a:-webkit-any-link {
-    /*text-decoration: none;*/
     color: #606468;
 }
 
-/*body {*/
-/*    background-color: #2B3338 !important;*/
-/*}*/
+body {
+    background-color: #2B3338;
+}
+
+.wrap {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+}
+
+.wrap_form,
+.present_block {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+}
+
+.form {
+    width: 70%;
+    max-width: 600px;
+    min-width: 400px;
+
+    margin: 0 auto;
+}
+
+.form > * {
+    margin: 15px 0;
+
+}
+img {
+    width: 400px;
+}
+
 
 
 /*FORM DB/LOGIN*/
@@ -68,20 +99,14 @@ input:-webkit-autofill {
     text-transform: uppercase;
 }
 
-.form {
-    max-width: 400px;
-    margin: 15% auto;
-}
-
 .select {
     display: flex;
     width: 100%;
     height: 3em;
     line-height:  3em;
-    margin: 20% 0 auto;
+    margin: 0;
     list-style: none;
     padding: 0;
-    /*margin: 20% 0 auto;*/
 }
 
 .select {
@@ -145,7 +170,7 @@ h3 {
     font-weight: normal;
 }
 
-.forgot_form {
+.invisible_btn {
     margin: 5px;
     padding: 5px;
     text-align: center;
@@ -160,9 +185,12 @@ label:hover{
     text-decoration: underline;
 }
 
-#forgot_input{
+#forgot_input,
+#gallary_btn
+{
     display:none;
 }
+
 
 /*index*/
 .wrapper {

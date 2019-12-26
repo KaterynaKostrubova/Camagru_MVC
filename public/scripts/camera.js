@@ -4,6 +4,7 @@ navigator.getUserMedia = navigator.getUserMedia ||
 let video = document.querySelector('video');
 
 if (navigator.getUserMedia) {
+    console.log("1");
     navigator.getUserMedia({ audio: false, video: { width: 480, height: 360 } },
         function(stream) {
             video.srcObject = stream;
