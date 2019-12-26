@@ -44,6 +44,8 @@ if(loginBtn && logIn && signUp) {
         logIn.style.display = "block";
     };
 }
+
+
 //
 // submitBtn.onclick = function () {
 //     signUp.style.display = "none";

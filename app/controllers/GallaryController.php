@@ -5,19 +5,15 @@ use app\core\Controller;
 use app\core\View;
 use app\lib\Db;
 
-class ProfileController extends Controller
+class GalleryController extends Controller
 {
 
 
-    public  function profileAction(){
-
-        $userInfo = $this->model->getUser($_SESSION['authorize']['name']);
-        $vars = [
-            'info' => $userInfo
-        ];
+    public  function gallaryAction(){
 
 
-        $this->view->render('Profile PAGE', $vars);
+
+        $this->view->render('Gallary PAGE', $vars);
 
     }
 }

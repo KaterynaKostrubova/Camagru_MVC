@@ -70,4 +70,11 @@ abstract class Controller {
     public function isAcl($key){
         return in_array($this->route['action'], $this->acl[$key]);
     }
+
+    public function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 }

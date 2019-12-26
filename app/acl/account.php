@@ -12,13 +12,10 @@ return [
         'confirmpass',
     ],
     'authorize' => [
-
-//
+        'take',
     ],
     'guest' => [
-//        'login',
     ],
     'admin' => [
-//        'login',
     ],
 ];

@@ -8,6 +8,7 @@
     <title><?php echo $title;?></title>
     <script src="/public/scripts/form.js"></script>
     <script src="/public/scripts/jquery.js"></script>
+
 </head>
 <body style="background-color: aquamarine">
     <?php echo $content;?>

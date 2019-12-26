@@ -25,12 +25,16 @@ let form = document.getElementById("form");
 //
 
 const getFormData = function(form) {
-
+    let check = document.getElementById('sendToEmail');
     let res = {};
+
 
     for (let i = 0; i < form.length; i++) {
         let el = form[i];
-        if (el.name !== 'submit') {
+        if (el.name === "notification"){
+            res[el.name] = el.checked;
+        }
+        else if (el.name !== 'submit') {
             res[el.name] = el.value;
         }
     }
@@ -52,29 +56,38 @@ function hideLoader() {
     document.getElementById('save').disabled = false;
     loader.style.display = "none";
 }
+
+function popUp(response) {
+    console.log(response);
+    if(response == null)
+        console.log('data already update!');
+    else {
+        // if(response['name'] === 'no' && response['email'] === 'no'  && response['notification'] === 'no'){
+        //     // let popup = document.getElementById("myPopup");
+        //     // popup.classList.toggle("show");
+        //     console.log('data already update');
+        // } else {
+            console.log('data successfully update');
+        // }
+    }
+
+}
+
+
 // todo change console.log
 onResponse = function(request) {
+    let req = new Requests();
     response = request.response;
+    console.log(response);
     hideLoader();
-    if(response == null)
-        console.log('data already update');
-    else {
-        if(response['name'] === 'no' && response['email'] === 'no')
-            console.log('data already update');
-        else if (response['name'] === 'no' && response['email'] === 'yes') {
-            console.log('pls confirm email//email successfully update');
-        }
-        else if(response['name'] === 'yes' && response['email'] === 'no')
-            console.log('name successfully update');
-        else if (response['name'] === 'yes' && response['email'] === 'yes')
-            console.log('data successfully update');
-    }
+    popUp(response);
 };
 
 
 form.addEventListener('submit', function(event) {
     event.preventDefault();
     let data = new getFormData(form);
+    console.log(data);
     let req = new Requests();
 
     let str_data = '';

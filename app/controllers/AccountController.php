@@ -12,6 +12,8 @@ class AccountController extends Controller{
 
     }
 
+
+
     private function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
     {
         $pieces = [];
@@ -48,9 +50,10 @@ class AccountController extends Controller{
     public function signupAction() {
         if(!empty($_POST)){
             if($_GET['action'] == 'signup'){
-                $login = $_POST['name'];
-                $pass = hash('whirlpool', $_POST['passwd']);
-                $email = $_POST['email'];
+                $login = $pass = $email = "";
+                $login = $this->test_input($_POST['name']);
+                $pass = hash('whirlpool', $this->test_input($_POST['passwd']));
+                $email = $this->test_input($_POST['email']);
                 $token = hash('whirlpool', $this->random_str(32));
                 if ($this->model->addUser($login, $pass, $email, $token, "users")){
                     $name_from = 'kkostrub';
@@ -68,8 +71,8 @@ class AccountController extends Controller{
                 };
                 header("location: signup");
             } elseif ($_GET['action'] == 'login'){
-                $name = $_POST['name'];
-                $pass = hash('whirlpool', $_POST['passwd']);
+                $name = $this->test_input($_POST['name']);
+                $pass = hash('whirlpool', $this->test_input($_POST['passwd']));
                 $confirm = $this->model->checkConfirm($name);
                 if ($this->model->checkValue($name, 'users', 'login') || $confirm[0]['isConfirm'] == 0)
                     debug("user not found");
@@ -96,11 +99,11 @@ class AccountController extends Controller{
 
     public function changepassAction() {
         if (!empty($_POST)){
-            $login = $_POST['name'];
+            $login = $this->test_input($_POST['name']);
             $token = hash('whirlpool', $this->random_str(32));
             $name_from = 'kkostrub';
             $email_from = 'kkostrub@student.unit.ua';
-            $email_from = 'katerinakostrubova@gmail.com';
+//            $email_from = 'katerinakostrubova@gmail.com';
             $email_subject = 'Change password at website Camagru!';
             $hostname = 'localhost';
             $port = '8081';
@@ -113,9 +116,10 @@ class AccountController extends Controller{
             $email_message = 'Hello '.$sql[0]['login'].'. Please follow this link to create new password. If it is not you, ignore this email: http://'
                     . $hostname.':'.$port.'/camagru_mvc/account/confirmpass?token='.$token;
             $this->model->updateTable('users', 'token', $token, 'login', $sql[0]['login']);
-            if ($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
+            if ($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message)){
+                $this->model->updateDate($token, 'sendLinkDate');
                 debug("email successfully sent");
-            else
+            } else
                 debug("Send error, please try again");
         }
         $this->view->render('CHANGEPASS PAGE');
@@ -129,7 +133,7 @@ class AccountController extends Controller{
             $userInfo = $this->model->checkToken($token, 'users');
             //TODO: винести в окрему функцію
             date_default_timezone_set('Europe/Kiev');
-            $getDate = $userInfo[0]['registrDate'];//$this->model->getDate($token);
+            $getDate = $userInfo[0]['sendLinkDate'];
             $timeForConfirm = 86400; //24h
             $currentDate = time();
             $passedTime = $currentDate - strtotime($getDate);
@@ -143,14 +147,16 @@ class AccountController extends Controller{
 
     public function newpassAction(){
         if(!empty($_POST)){
-            $passFirst = hash('whirlpool', $_POST['pass_first']);
-            $passSecond = hash('whirlpool', $_POST['pass_second']);
+            $passFirst = hash('whirlpool', $this->test_input($_POST['pass_first']));
+            $passSecond = hash('whirlpool', $this->test_input($_POST['pass_second']));
             if($passFirst == $passSecond){
-                $this->model->updateTable('users', 'password', $passFirst, 'token', $_GET['token']);
+                $this->model->updateTable('users', 'password', $passFirst, 'token', $this->test_input($_GET['token']));
                 //TODO:modal pass successfully changed
                 header('Location: /camagru_mvc/account/signup');
             } else
-                View::errorCode(404);
+                debug("pass1 != pass2");
+//                View::errorCode(404);
+
         }
         $this->view->render('NEWPASS PAGE');
     }
@@ -174,7 +180,7 @@ class AccountController extends Controller{
                 $isConfirm = $this->model->isConfirm($token);
                 if($isConfirm[0]['isConfirm'] == 0) {
                     $this->model->setConfirm($token);
-                    $this->model->updateDate($_GET['token']);
+                    $this->model->updateDate($this->test_input($_GET['token']), 'registrDate');
                     $_SESSION['authorize']['name'] = $userInfo[0]["login"];
                     $cookie_name = $userInfo[0]["login"];
                     $cookie_value = "login";
@@ -188,8 +194,6 @@ class AccountController extends Controller{
         else
             View::errorCode(404);
     }
-
-
 }
 
 

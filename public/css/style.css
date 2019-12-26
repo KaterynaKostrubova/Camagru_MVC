@@ -15,9 +15,9 @@ a:-webkit-any-link {
     color: #606468;
 }
 
-body {
-    background-color: #2B3338;
-}
+/*body {*/
+/*    background-color: #2B3338 !important;*/
+/*}*/
 
 
 /*FORM DB/LOGIN*/
@@ -166,7 +166,7 @@ label:hover{
 
 /*index*/
 .wrapper {
-    background: #fff;
+    /*background: #fff;*/
     display: flex;
     min-height: 100vh;
     flex-direction: column;
@@ -262,10 +262,10 @@ footer {
     background: url("../image/cat.jpg") repeat scroll 0 0 transparent;
 }
 
-img {
-    width: 30px;
-    height: 30px;
-}
+/*img {*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*}*/
 
 /*profile
 */
@@ -368,3 +368,42 @@ img {
     justify-content: space-around;
 
 }
+
+.logo-image {
+
+    /*border-radius: 50%;*/
+    overflow: hidden;
+    margin-top: -6px;
+}
+
+/*.video {*/
+/*    position: relative;*/
+/*    border-image-width: 40px;*/
+/*    border-image-source: url('../image/frame.png');*/
+/*    border-image-slice: 40;*/
+/*    border-image-repeat: round;*/
+/*}*/
+
+
+.frame {
+    position: absolute;
+}
+
+/*.video-block {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*}*/
+/*.btns {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: flex-end;*/
+/*}*/
+/*.btn {*/
+    /*background-color: #EA4C86;*/
+    /*color: #eee;*/
+    /*font-weight: bold;*/
+    /*text-transform: uppercase;*/
+    /*cursor:pointer;*/
+/*}*/
+/*img.img {*/
+/*}*/

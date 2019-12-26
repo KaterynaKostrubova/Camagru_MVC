@@ -49,5 +49,9 @@
             </form>
         </div>
     </div>
+    <form class="login_signup" action="/camagru_mvc/gallary/gallary" method="post" class="sign_up_form" >
+        <label for="goToGallary">Go to Gallary</label>
+        <input id="goToGallary" type="submit" name="submit" value="ok"/>
+    </form>
 </div>
 <script src="/camagru_mvc/public/scripts/scripts.js"></script>

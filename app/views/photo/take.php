@@ -1,5 +1,8 @@
 <div>
-    <video autoplay width="480" height="360"></video>
+    <div class="video">
+        <video autoplay></video>
+        <img class="frame" src="/camagru_mvc/public/image/frame.png" alt="">
+    </div>
     <input type="button" id="stopbt" value="stop">
     <canvas></canvas>
     <img src="" alt="" class="photo">
