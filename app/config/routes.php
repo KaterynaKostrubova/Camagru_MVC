@@ -68,9 +68,9 @@ $routes = [
         'action' => 'edit',
     ],
 
-    'gallary/viewGallary' =>[
-        'controller' => 'gallary',
-        'action' => 'viewGallary',
+    'gallery/gallery' =>[
+        'controller' => 'gallery',
+        'action' => 'gallery',
     ],
 
 ];

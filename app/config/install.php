@@ -51,7 +51,8 @@ try {
 		path VARCHAR(254) NOT NULL UNIQUE,
 		user_id INT(11) NOT NULL,
 		name VARCHAR(254) NOT NULL,
-		description VARCHAR(254) NOT NULL
+		description VARCHAR(254) NOT NULL,
+		creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	)');
 } catch (PDOException $e) {
     exit($e->getMessage());
@@ -71,11 +72,14 @@ try {
 //debug(__DIR__);
 $path = ["/camagru_mvc/photos/1.jpg",
             "/camagru_mvc/photos/2.jpg",
-                "/camagru_mvc/photos/3.jpg"];
+                "/camagru_mvc/photos/3.jpg",
+                    "/camagru_mvc/photos/4.jpg",
+                        "/camagru_mvc/photos/5.jpg",
+        ];
 try {
     $pdo = new PDO($dsn, $login, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    for($i = 0; $i < 3; $i++){
+    for($i = 0; $i < 5; $i++){
         $pdo->exec("INSERT INTO photos (path, user_id, name, description)
 		VALUES ('" . $path[$i] . "', 1 , 'admin' , 'admin')");
     }

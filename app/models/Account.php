@@ -104,4 +104,9 @@ class Account extends Model {
         $result = $this->db->row("SELECT * FROM users WHERE login='$user'");
         return $result;
     }
+
+    public function getPhoto(){
+        return  $this->db->row("SELECT path FROM photos LIMIT 3");
+
+    }
 }

@@ -86,7 +86,11 @@ class AccountController extends Controller{
                     debug("invalid password");
             }
         }
-        $this->view->render('SIGNUP PAGE');
+        $photos = $this->model->getPhoto();
+        $vars = [
+            'photo' => $photos
+        ];
+        $this->view->render('SIGNUP PAGE', $vars);
     }
 
     public function logoutAction(){

@@ -1,7 +1,24 @@
+<div id="video-bg">
+    <video width="100%" height="auto" preload="auto" autoplay="autoplay" loop="loop" poster="">
+        <source src="/camagru_mvc/public/image/bg-video.mp4" type="video/mp4"></source>
+    </video>
+</div>
 <div class="wrap">
-    <div class="present_block">
-        <img src="/camagru_mvc/photos/1.jpg" alt="">
-    </div>
+<!--    <section class='gallery'>-->
+<!--        --><?php //for($i = 0; $i < count($vars['photo']); $i++){?>
+<!--            <input type="radio" id="--><?php //echo 'id-' . $i ?><!--" value="--><?php //echo $i ?><!--" name="tractor" --><?php //if($i === 0) echo "checked='checked'" ?><!-- />-->
+<!--            <article class="card --><?php //echo 'photo-' . $i ?><!--">-->
+<!--                <label for="--><?php //echo 'id-' . $i ?><!--" class="--><?php //echo 'label-' . $i ?><!--">-->
+<!--                    <img src="--><?php //echo $vars['photo'][$i]['path']?><!--" alt="">-->
+<!--                </label>-->
+<!--            </article>-->
+<!--        --><?php //}?>
+<!--    </section>-->
+    <section class='gallery'>
+        <?php for($i = 0; $i < count($vars['photo']); $i++){?>
+            <img class="photo photo-<?php echo $i?>" src="<?php echo $vars['photo'][$i]['path']?>" alt="">
+        <?php }?>
+    </section>
     <div class="wrap_form">
         <div class="form">
             <ul class="select" onclick="addActiveClass(event)"">
@@ -54,7 +71,7 @@
                     </form>
                 </div>
             </div>
-            <form class="invisible_btn" action="/camagru_mvc/gallary/gallary" method="post" class="sign_up_form" >
+            <form class="invisible_btn" action="/camagru_mvc/gallery/gallery" method="post" class="sign_up_form" >
                 <label for="gallary_btn">Go to Gallary</label>
                 <input id="gallary_btn" type="submit" name="submit" value="ok"/>
             </form>
