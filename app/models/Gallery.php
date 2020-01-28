@@ -10,4 +10,6 @@ class Gallery extends Model {
         return  $this->db->row("SELECT path FROM photos ORDER BY creation DESC LIMIT 3");
     }
 
+
+
 }

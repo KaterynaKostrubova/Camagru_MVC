@@ -11,6 +11,10 @@ class Main extends Model {
         return $result;
     }
 
+    public function getAvatarPath($photo_id){
+        return $this->db->row("SELECT path FROM photos WHERE id='$photo_id'")[0]['path'];
+    }
+
 
 
 

@@ -30,6 +30,8 @@ try {
     $pdo->exec('CREATE TABLE users (
 		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		login VARCHAR(254) NOT NULL UNIQUE,
+		photo_id  INT(11) NOT NULL DEFAULT 1,
+		back_photo_id INT(11) NOT NULL DEFAULT 2,
 		email VARCHAR(254) UNIQUE,
 		password TEXT NOT NULL,
 		token TEXT NOT NULL,
@@ -60,26 +62,29 @@ try {
 
 $admPass = hash('whirlpool', 'admin');
 
+$path = [   "/camagru_mvc/photos/default_avatar.png",
+            "/camagru_mvc/photos/1.jpg",
+            "/camagru_mvc/photos/2.jpg",
+            "/camagru_mvc/photos/3.jpg",
+            "/camagru_mvc/photos/4.jpg",
+            "/camagru_mvc/photos/5.jpg",
+];
+
 try {
     $pdo = new PDO($dsn, $login, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->exec("INSERT INTO users (login, password, token, isadmin, isConfirm)
-		VALUES ('admin', '" . $admPass . "','" . $admPass . "' , true, true)");
+    $pdo->exec("INSERT INTO users (login, photo_id, password, token, isadmin, isConfirm)
+		VALUES ('admin', 1, '" . $admPass . "','" . $admPass . "' , true, true)");
 } catch (PDOException $e) {
     exit($e->getMessage());
 }
 
 //debug(__DIR__);
-$path = ["/camagru_mvc/photos/1.jpg",
-            "/camagru_mvc/photos/2.jpg",
-                "/camagru_mvc/photos/3.jpg",
-                    "/camagru_mvc/photos/4.jpg",
-                        "/camagru_mvc/photos/5.jpg",
-        ];
+
 try {
     $pdo = new PDO($dsn, $login, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    for($i = 0; $i < 5; $i++){
+    for($i = 0; $i < 6; $i++){
         $pdo->exec("INSERT INTO photos (path, user_id, name, description)
 		VALUES ('" . $path[$i] . "', 1 , 'admin' , 'admin')");
     }

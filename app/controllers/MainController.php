@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\lib\Db;
+use app\models\Account;
 
 class MainController extends Controller {
 
@@ -29,10 +30,20 @@ class MainController extends Controller {
 //        debug($data);
 
 
-        $result = $this->model->getUsers();
+        $model = new Account();
+        $user = $model->getUser($_SESSION['authorize']['name']);
+        $avatarPath = $this->model->getAvatarPath($user[0]['photo_id']);
         $vars = [
-            'users' => $result
+            'info' => $user,
+            'avatar'=> $avatarPath
         ];
+
+
+        //$result = $this->model->getUsers();
+
+//        $vars = [
+//            'users' => $result
+//        ];
         $this->view->render('MAIN PAGE', $vars);
 //        debug($_SESSION);
 

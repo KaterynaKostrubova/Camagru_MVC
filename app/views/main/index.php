@@ -12,7 +12,7 @@
                 <input id="settings" type="submit" name="submit" value="profile"/>
             </form>
         </div>
-        <?php var_dump($users);?>
+<!--        --><?php //var_dump($users);?>
     </div>
     <?php include "footer.php";?>
 </div>
