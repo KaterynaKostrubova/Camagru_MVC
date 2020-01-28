@@ -32,13 +32,18 @@ class MainController extends Controller {
 
         $model = new Account();
         $user = $model->getUser($_SESSION['authorize']['name']);
-        $avatarPath = $this->model->getAvatarPath($user[0]['photo_id']);
+        $avatarPath = $this->model->getPath($user[0]['photo_id']);
+        $bgPath = $this->model->getPath($user[0]['bg_id']);
+        $photos = $this->model->getUserPhotos($user[0]['id']);
+
         $vars = [
             'info' => $user,
-            'avatar'=> $avatarPath
+            'avatar'=> $avatarPath,
+            'bg_photo'=> $bgPath,
+            'photos' => $photos
         ];
 
-
+        //var_dump($vars);
         //$result = $this->model->getUsers();
 
 //        $vars = [

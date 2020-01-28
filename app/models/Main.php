@@ -11,8 +11,13 @@ class Main extends Model {
         return $result;
     }
 
-    public function getAvatarPath($photo_id){
-        return $this->db->row("SELECT path FROM photos WHERE id='$photo_id'")[0]['path'];
+    public function getPath($id){
+        return $this->db->row("SELECT path FROM photos WHERE id='$id'")[0]['path'];
+    }
+
+    public function getUserPhotos($user){
+        $photos = $this->db->row("SELECT path FROM photos WHERE user_id='$user'");
+        return $photos;
     }
 
 
