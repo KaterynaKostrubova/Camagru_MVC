@@ -1,3 +1,4 @@
+
 function addActiveClass(e) {
     let elems = document.querySelector(".active");
     if(elems !== null){
@@ -10,6 +11,22 @@ let registerBtn = document.getElementById("register");
 let loginBtn = document.getElementById("login");
 let signUp = document.getElementById("sign_up");
 let logIn = document.getElementById("log_in");
+
+
+let galleryBlock = document.getElementById("user_gallery");
+let settingsBlock = document.getElementById("user_settings");
+let galBtn = document.getElementById("gal");
+let setBtn = document.getElementById("sett");
+
+galBtn.onclick = function () {
+    galleryBlock.style.display = "block";
+    settingsBlock.style.display = "none";
+}
+
+setBtn.onclick = function () {
+    galleryBlock.style.display = "none";
+    settingsBlock.style.display = "block";
+}
 
 
 // function checkLogin(){
@@ -44,6 +61,8 @@ if(loginBtn && logIn && signUp) {
         logIn.style.display = "block";
     };
 }
+
+
 
 
 //

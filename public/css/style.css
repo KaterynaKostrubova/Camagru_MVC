@@ -442,20 +442,22 @@ label:hover{
 
 #form{
     display: flex;
-    background: #6a7684;
-    justify-content: space-around;
-    width: 70%;
-    height: 300px;
-    margin: 0 auto;
-}
-
-.data_first,
-.data_second {
-    display: flex;
     flex-direction: column;
-    justify-content: space-around;
-
+    justify-content: center;
+    align-items: center;
 }
+
+/*.data_first,*/
+/*.data_second {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: space-around;*/
+
+/*}*/
+.data {
+width: 70%;
+}
+
 
 .logo-image {
 
@@ -513,20 +515,20 @@ label:hover{
 /*HEADER*/
 header {
     /*position: relative;*/
-    width: 50%;
+    width: 70%;
     display: block;
     margin: 0 auto;
 }
 
 .photo-acc {
-
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .bg_photo {
-    /*width: 100%;*/
+    width: 100%;
 }
 
 .avatar {
@@ -543,37 +545,205 @@ header {
 .buttons input{
     display: none;
 }
+.top_buttons input{
+    display: none;
+}
+.top_buttons {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 20px;
+}
+
+.top_buttons form {
+    position: relative;
+}
+
+.top_buttons .logout label  {
+    position: absolute;
+    right: 0;
+}
+
 
 .buttons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    padding: 20px;
+    line-height: 24px;
+}
+
+
+
+.buttons .glr,
+.buttons .stg {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 }
 
 .takePhoto,
 .btn_gallery,
 .profile,
 .logout {
-    width: 25%;
+    width: 50%;
 }
-
-.buttons form,
-.buttons label{
-    width: 100%;
-}
-
 
 /*USER GALLERY*/
-
-.user_gallery {
-    width: 60%;
+#user_gallery {
+    width: 70%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 auto;
 }
 
-.user_gallery img {
+#user_gallery img {
     margin: 15px;
 }
 
+#user_settings {
+    display: none;
+    width: 70%;
+    margin: 0 auto;
+}
 
+.buttons img {
+    vertical-align: middle;
+}
+
+
+.data input {
+    box-sizing: border-box;
+    padding: 0 16px;
+    width: 100%;
+    height: 50px;
+    outline: none;
+    border: none;
+    margin: 0 auto;
+    background-color: #3A4149;
+    color: #eee;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.data input[type="submit"] {
+    background-color: #EA4C86;
+    color: #eee;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor:pointer;
+}
+
+#user_settings h1 {
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+    margin: 25px;
+    text-transform: uppercase;
+}
+
+.data h2 {
+    color: white;
+    text-align: center;
+}
+
+.notification {
+    margin: 20px;
+}
+
+/*.notification label {*/
+/*    line-height: 68px;*/
+/*}*/
+
+
+#sendToEmail {
+ width: auto;
+}
+
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+    background-color: #EA4C86;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+footer {
+    text-align: center;
+}
+
+/*body {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+/*.wrapper {*/
+/*    flex: 1 0 auto;*/
+
+/*    padding: 1rem;!*это свойство можно удалить, добавлено для наглядности*!*/
+/*    !*background: #e6f2ff;!*это свойство можно удалить, добавлено для наглядности*!*!*/
+/*}*/
+
+/*footer {*/
+/*    flex: 0 0 auto;*/
+
+/*    padding: 1rem;!*это свойство можно удалить, добавлено для наглядности*!*/
+/*    !*background: #e6ffe6;!*это свойство можно удалить, добавлено для наглядности*!*!*/
+/*}*/
