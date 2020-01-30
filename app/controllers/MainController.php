@@ -43,12 +43,6 @@ class MainController extends Controller {
             'photos' => $photos
         ];
 
-        //var_dump($vars);
-        //$result = $this->model->getUsers();
-
-//        $vars = [
-//            'users' => $result
-//        ];
         $this->view->render('MAIN PAGE', $vars);
 //        debug($_SESSION);
 

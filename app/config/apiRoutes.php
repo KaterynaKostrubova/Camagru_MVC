@@ -6,6 +6,11 @@ $routes = [
         'action' => 'profileEdit',
     ],
 
+    'api/pagination' => [
+        'controller' => 'api',
+        'action' => 'pagination',
+    ],
+
 ];
 
 return $routes;

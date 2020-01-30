@@ -77,7 +77,7 @@ function popUp(response) {
 // todo change console.log
 onResponse = function(request) {
     let req = new Requests();
-    response = request.response;
+    let response = request.response;
     console.log(response);
     hideLoader();
     popUp(response);
@@ -89,11 +89,30 @@ form.addEventListener('submit', function(event) {
     let data = new getFormData(form);
     console.log(data);
     let req = new Requests();
-
     let str_data = '';
     showLoader();
     // console.log('RESPONSE:', data);
     req.post('/camagru_mvc/api/profile/edit', onResponse, str_data, data);
-    // console.log(str_data, '-', data);
+    console.log(str_data, '-', data);
 
 });
+
+// let test = document.getElementById("form2");
+//
+// onRes = function(request) {
+//     let req = new Requests();
+//     let response = request.response;
+//     console.log(response);
+//     hideLoader();
+//     popUp(response);
+// };
+//
+// //
+// test.addEventListener('submit', function(event) {
+//     event.preventDefault();
+//
+//     let req = new Requests();
+//     let str_data = '';
+//     req.post('/camagru_mvc/api/pagination', onRes, str_data, data);
+// //     console.log(str_data, '-', data);
+// });

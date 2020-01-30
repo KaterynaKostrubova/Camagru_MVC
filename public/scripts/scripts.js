@@ -75,13 +75,13 @@ if(loginBtn && logIn && signUp) {
 
 // function modalWindow() {
 //     // Get the modal
-//     var modal = document.getElementById("myModal");
+//     let modal = document.getElementById("myModal");
 //
 // // Get the button that opens the modal
-//     var btn = document.getElementById("sbm");
+//     let btn = document.getElementById("sbm");
 //
 // // Get the <span> element that closes the modal
-//     var span = document.getElementsByClassName("close")[0];
+//     let span = document.getElementsByClassName("close")[0];
 //
 // // When the user clicks the button, open the modal
 //     btn.onclick = function() {
@@ -100,3 +100,73 @@ if(loginBtn && logIn && signUp) {
 //         }
 //     }
 // }
+
+
+//pagination
+
+// let list = new Array();
+// let pageList = new Array();
+// let currentPage = 1;
+// let numberPerPage = 10;
+// let numberOfPages = 0;
+//
+// function makeList() {
+//     for (x = 0; x < 200; x++)
+//         list.push(x);
+//
+//     numberOfPages = getNumberOfPages();
+// }
+//
+// function getNumberOfPages() {
+//     return Math.ceil(list.length / numberPerPage);
+// }
+//
+// function nextPage() {
+//     currentPage += 1;
+//     loadList();
+// }
+//
+// function previousPage() {
+//     currentPage -= 1;
+//     loadList();
+// }
+//
+// function firstPage() {
+//     currentPage = 1;
+//     loadList();
+// }
+//
+// function lastPage() {
+//     currentPage = numberOfPages;
+//     loadList();
+// }
+//
+// function loadList() {
+//     let begin = ((currentPage - 1) * numberPerPage);
+//     let end = begin + numberPerPage;
+//
+//     pageList = list.slice(begin, end);
+//     drawList();
+//     check();
+// }
+//
+// function drawList() {
+//     document.getElementById("list").innerHTML = "";
+//     for (r = 0; r < pageList.length; r++) {
+//         document.getElementById("list").innerHTML += pageList[r] + "<br/>";
+//     }
+// }
+//
+// function check() {
+//     document.getElementById("next").disabled = currentPage == numberOfPages ? true : false;
+//     document.getElementById("previous").disabled = currentPage == 1 ? true : false;
+//     document.getElementById("first").disabled = currentPage == 1 ? true : false;
+//     document.getElementById("last").disabled = currentPage == numberOfPages ? true : false;
+// }
+//
+// function load() {
+//     makeList();
+//     loadList();
+// }
+//
+// window.onload = load;

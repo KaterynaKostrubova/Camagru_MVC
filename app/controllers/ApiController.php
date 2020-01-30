@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\core\Controller;
 use app\models\Account;
+use app\models\Gallery;
 use app\models\Profile;
 
 
@@ -81,4 +82,16 @@ class ApiController extends Controller
             $this->view->apiRender($responseData);
         }
     }
+
+//    public  function paginationAction(){
+//        $model = new Gallery();
+//        $photo = $model->getPartOfPhotos();
+//        $test = array(
+//            'data' => $photo
+//        );
+//        var_dump($photo);
+//        $this->view->apiRender($test);
+//    }
+
+
 }

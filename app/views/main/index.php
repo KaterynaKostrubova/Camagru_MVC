@@ -1,6 +1,18 @@
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header.php';?>
 <div class="main">
     <div id="user_gallery">
+<!--        <div style="text-align:center;">-->
+<!--            <div id="list">-->
+<!---->
+<!--            </div>-->
+<!--            <input type="button" id="first" onclick="firstPage()" value="first" />-->
+<!--            <input type="button" id="next" onclick="nextPage()" value="next" />-->
+<!--            <input type="button" id="previous" onclick="previousPage()" value="previous" />-->
+<!--            <input type="button" id="last" onclick="lastPage()" value="last" />-->
+<!--        </div>-->
+
+
+
         <?php if (count($vars['photos']) > 0){
             for($i = 0; $i < count($vars['photos']); $i++) {?>
                 <img class="photo photo-<?php echo $i?>" src="<?php echo $vars['photos'][$i]['path']?>" alt="" width="200" height="200">
@@ -11,7 +23,7 @@
 
     </div>
     <div id="user_settings">
-        <h1>Your can edit your profile info</h1>
+        <h1>You can edit your profile info</h1>
         <form method="post" id="form">
             <!--        <div class="data_first">-->
             <!--            <div class="profileAvatar">-->
