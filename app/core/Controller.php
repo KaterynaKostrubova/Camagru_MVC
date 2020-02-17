@@ -71,6 +71,7 @@ abstract class Controller {
         return in_array($this->route['action'], $this->acl[$key]);
     }
 
+//    Это предотвращает использование злоумышленниками кода путем введения кода HTML или JavaScript (межсайтовые скриптовые атаки) в формах.
     public function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);

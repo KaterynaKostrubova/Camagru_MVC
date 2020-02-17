@@ -3,7 +3,7 @@
         <source src="/camagru_mvc/public/image/bg-video.mp4" type="video/mp4"></source>
     </video>
 </div>
-<div class="wrap">
+<!--<div class="wrap">-->
 <!--    <section class='gallery'>-->
 <!--        --><?php //for($i = 0; $i < count($vars['photo']); $i++){?>
 <!--            <input type="radio" id="--><?php //echo 'id-' . $i ?><!--" value="--><?php //echo $i ?><!--" name="tractor" --><?php //if($i === 0) echo "checked='checked'" ?><!-- />-->
@@ -14,11 +14,11 @@
 <!--            </article>-->
 <!--        --><?php //}?>
 <!--    </section>-->
-    <section class='gallery'>
-        <?php for($i = 0; $i < count($vars['photo']); $i++){?>
-            <img class="photo photo-<?php echo $i?>" src="<?php echo $vars['photo'][$i]['path']?>" alt="">
-        <?php }?>
-    </section>
+<!--    <section class='gallery'>-->
+<!--        --><?php //for($i = 0; $i < count($vars['photo']); $i++){?>
+<!--            <img class="photo photo---><?php //echo $i?><!--" src="--><?php //echo $vars['photo'][$i]['path']?><!--" alt="">-->
+<!--        --><?php //}?>
+<!--    </section>-->
     <div class="wrap_form">
         <div class="form">
             <ul class="select" onclick="addActiveClass(event)"">
@@ -77,6 +77,6 @@
             </form>
         </div>
     </div>
-</div>
+<!--</div>-->
 
 <script src="/camagru_mvc/public/scripts/scripts.js"></script>

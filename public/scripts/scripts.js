@@ -18,14 +18,18 @@ let settingsBlock = document.getElementById("user_settings");
 let galBtn = document.getElementById("gal");
 let setBtn = document.getElementById("sett");
 
-galBtn.onclick = function () {
-    galleryBlock.style.display = "block";
-    settingsBlock.style.display = "none";
+if(galBtn){
+    galBtn.onclick = function () {
+        galleryBlock.style.display = "block";
+        settingsBlock.style.display = "none";
+    }
 }
 
-setBtn.onclick = function () {
-    galleryBlock.style.display = "none";
-    settingsBlock.style.display = "block";
+if(setBtn){
+    setBtn.onclick = function () {
+        galleryBlock.style.display = "none";
+        settingsBlock.style.display = "block";
+    }
 }
 
 

@@ -12,14 +12,20 @@
 a:-webkit-any-link {
     color: #606468;
 }
+html {
+    width: 100%;
+    height: 100%;
+}
 
 body {
     background-color: #2B3338;
+    height: 100%;
+    width: 100%;
 }
 
 .wrap {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     height: 100%;
     width: 100%;
 }
@@ -27,7 +33,7 @@ body {
 .wrap_form,
 .gallery {
     display: flex;
-    width: 50%;
+    width: 100%;
     height: 100%;
     align-items: center;
     justify-content: center;
@@ -36,7 +42,7 @@ body {
 .form {
     width: 70%;
     max-width: 600px;
-    min-width: 400px;
+    min-width: 300px;
     margin: 0 auto;
 }
 
@@ -550,21 +556,26 @@ footer {
     text-align: center;
 }
 
-/*body {*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*}*/
 
-/*.wrapper {*/
-/*    flex: 1 0 auto;*/
+/*webcam*/
 
-/*    padding: 1rem;!*это свойство можно удалить, добавлено для наглядности*!*/
-/*    !*background: #e6f2ff;!*это свойство можно удалить, добавлено для наглядности*!*!*/
-/*}*/
+.wrap_webcam {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.wrap_webcam .video {
+    position: relative;
+}
 
-/*footer {*/
-/*    flex: 0 0 auto;*/
 
-/*    padding: 1rem;!*это свойство можно удалить, добавлено для наглядности*!*/
-/*    !*background: #e6ffe6;!*это свойство можно удалить, добавлено для наглядности*!*!*/
-/*}*/
+.wrap_webcam video {
+    margin: 0 auto;
+    display: block;
+    /*position: relative;*/
+}
+
+.wrap_webcam .photo {
+    position: absolute;
+}

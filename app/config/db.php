@@ -3,7 +3,7 @@
 $USER = 'root';
 $PASSWORD = '2410103';
 $HOST = 'localhost';
-$NAME = 'camagru';
-$DNS =  'mysql:host=localhost;dbname=camagru;charset=UTF8';
+$NAME = 'camagru_mvc';
+$DNS =  'mysql:host=localhost;dbname=camagru_mvc;charset=UTF8';
 
 
