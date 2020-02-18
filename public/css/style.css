@@ -579,3 +579,39 @@ footer {
 .wrap_webcam .photo {
     position: absolute;
 }
+
+#filter_container img {
+    width: 20%;
+    padding: 10px;
+}
+
+#filter_container,
+.webcam_btns {
+    width: 50%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+}
+
+.webcam_btns input {
+    display: none;
+}
+
+.webcam_btns label {
+    padding: 16px 23px;
+}
+
+
+@media screen and (max-width: 768px) {
+    #filter_container,
+    .webcam_btns
+    {
+        width: 99%;
+    }
+
+    #filter_container img {
+        width: 20%;
+    }
+}

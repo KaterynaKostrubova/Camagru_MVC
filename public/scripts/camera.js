@@ -2,6 +2,7 @@
 let filter = null;
 let streaming = false;
 let video = document.querySelector('#video');
+let videoClass = document.querySelector('.video');
 let constraints = {};
 
 let canvas = document.querySelector('#photo_canvas');
@@ -23,6 +24,8 @@ let canvasData   = null;
 let filterData = null;
 let width = 960;
 let height = 720;
+let stikerWidth = 200;
+let stikerHeight = 200;
 
 
 
@@ -35,16 +38,22 @@ let widthWin = document.documentElement.clientWidth;
 if (widthWin > 720){
     width = 720;
     height = 480;
+    stikerWidth = 200;
+    stikerHeight = 200;
 } else if (widthWin <= 720 && widthWin >= 480){
     width = 480;
     height = 320;
+    stikerWidth = 100;
+    stikerHeight = 100;
 } else {
     width = 320;
     height = 256;
+    stikerWidth = 50;
+    stikerHeight = 50;
 }
 
-let filterX = width / 2 - 100;
-let filterY = height / 2 - 100;
+// let filterX = width / 2 - 100;
+// let filterY = height / 2 - 100;
 
 if (navigator.getUserMedia) {
     navigator.getUserMedia({
@@ -72,8 +81,8 @@ video.addEventListener('canplay', function(e){
         video.setAttribute('height', height);
         canvas.setAttribute('width', width);
         canvas.setAttribute('height', height);
-        filterCanvas.setAttribute('width', width);
-        filterCanvas.setAttribute('height', height);
+        filterCanvas.setAttribute('width', stikerWidth);
+        filterCanvas.setAttribute('height', stikerHeight);
         streaming = true;
     }
 }, false);
@@ -114,7 +123,7 @@ filter_container.addEventListener('click',  function(e){
             filter.style.border = "none";
         if (e.target == filter){
             filter = null;
-            filterCtx.clearRect(0, 0, width, height);
+            filterCtx.clearRect(0, 0, stikerWidth, stikerHeight);
         } else {
             e.target.style.border = "2px solid white";
             filter = e.target;
@@ -122,57 +131,64 @@ filter_container.addEventListener('click',  function(e){
             newImg.src = filter.src;
             if (filter)
             {
-                filterCtx.clearRect(0, 0, width, height);
-                filterCtx.drawImage(newImg, filterX, filterY , 200, 200);
+                filterCtx.clearRect(0, 0, stikerWidth, stikerHeight);
+                filterCtx.drawImage(newImg, 0, 0 , stikerWidth, stikerHeight);
             }
         }
     }
 });
 
+// onResponse1 = function(request) {
+//     let response = request.response;
+//     console.log(response);
+// };
+
 saveBtn.addEventListener('click', function(e){
-    if (filter != null)
-    {
+    console.log("in");
+
         filterData = filterCanvas.toDataURL("image/png");
 
+           let data = {
+                "data" : canvasData,
+                "filter" : filterData
+            };
 
-        // if (!canvasData)
-        //     document.getElementById("res").innerHTML = "Please take a picture !";
-        // else {
-        //     var param = {
-        //         "data" : canvasData,
-        //         "filter" : filterData
-        //     };
-        //     var single_param = create_param(param);
-        //     var xmlhttp = new XMLHttpRequest();
-        //     /* AJAX WITHOUT JQUERY */
-        //     xmlhttp.onreadystatechange = function() {
-        //         if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
-        //             if (xmlhttp.status == 200 || xmlhttp.status == 201) {
-        //                 var data = xmlhttp.responseText;
-        //                 if (data == 'Success')
-        //                 {
-        //                     document.getElementById("res").innerHTML = "Pix uploaded in the gallery";
-        //                 }
-        //                 else
-        //                     document.getElementById("res").innerHTML = "Fail";
-        //             }
-        //             else
-        //                 alert('Something Went Wrong');
-        //         }
-        //     };
-        //
-        //     xmlhttp.open("POST", "save.php", true);
-        //     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        //     xmlhttp.send(single_param);
-        //     /* AJAX WITHOUT JQUERY */
+            let string_param = create_param(data);
+            // let req = new Requests();
+            // req.post('/camagru_mvc/api/save/photo', onResponse1, string_param, data);
+
+            var xmlhttp = new XMLHttpRequest();
+            /* AJAX WITHOUT JQUERY */
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState === XMLHttpRequest.DONE ) {
+                        console.log('ok');
+                }
+            };
+
+            xmlhttp.open("POST", "/camagru_mvc/api/save/photo", true);
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send(string_param);
+            /* AJAX WITHOUT JQUERY */
         // }
 
 
         e.preventDefault();
-    }
-    else
-        alert("FILTER IS NULL");
+
 }, false);
+
+function create_param(param){
+    var parameterString = "";
+    var isFirst = true;
+    for(var index in param) {
+        if(!isFirst) {
+            parameterString += "&";
+        }
+        parameterString += encodeURIComponent(index) + "=" + encodeURIComponent(param[index]);
+        isFirst = false;
+    }
+    return (parameterString);
+}
+
 
 
 filterCanvas.onmousedown = function(event) { // (1) отследить нажатие

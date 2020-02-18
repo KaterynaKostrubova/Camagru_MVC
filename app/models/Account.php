@@ -109,4 +109,8 @@ class Account extends Model {
         return  $this->db->row("SELECT path FROM photos LIMIT 3");
 
     }
+
+
+
+
 }

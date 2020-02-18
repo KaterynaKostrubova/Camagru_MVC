@@ -2,9 +2,11 @@
 
 return [
     'all' => [
-        'profileEdit',
+
     ],
     'authorize' => [
+        'profileEdit',
+        'savePhoto',
     ],
     'guest' => [
     ],

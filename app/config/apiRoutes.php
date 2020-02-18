@@ -11,6 +11,11 @@ $routes = [
         'action' => 'pagination',
     ],
 
+    'api/save/photo' => [
+        'controller' => 'api',
+        'action' => 'savePhoto',
+    ],
+
 ];
 
 return $routes;

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><?php echo $title;?></title>
     <script src="/public/scripts/form.js"></script>
-    <script src="/public/scripts/jquery.js"></script>
+<!--    <script src="/public/scripts/jquery.js"></script>-->
 
 </head>
 <body style="background-color: aquamarine">

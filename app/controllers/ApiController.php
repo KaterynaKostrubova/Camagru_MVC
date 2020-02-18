@@ -83,6 +83,46 @@ class ApiController extends Controller
         }
     }
 
+    public function savePhotoAction(){
+
+
+
+
+
+
+
+
+
+
+//        $currentUser = $_SESSION['authorize']['name'];
+        var_dump($_POST);
+
+//        -----------------------
+//        $image = imagecreate(200, 200);
+//        $bgr = imagecolorallocate($image, 0, 0, 0);
+//        $fbg = imagecolorallocate($image, 255, 255, 255);
+//        $img_1 = imagecreatefrompng($_POST["data"]);
+//        $img_2 = imagecreatefrompng($_POST["filter"]);
+//
+//        imagecolortransparent($img_2, $bgr);
+//
+//        imagecopy($img_1, $img_2, 10, 9, 0, 0, 1000, 1400);
+//        header('Content-Type: image/png');
+//        imagepng($img_1);
+        $img = imagecreatefrompng($_POST["data"]);
+        $png = imagecreatefrompng($_POST["filter"]);
+        imagecolortransparent($png, imagecolorat($png, 0, 0));
+        imagecopymerge($img, $png, 0, 0, 0, 0, 960, 720, 100);
+        imagepng($img, "/camagru_mvc/photos/" . 7 .".png", 5);
+//        ----------------------
+//        $model = new Account();
+
+
+
+//        $this->view->apiRender();
+    }
+
+
 //    public  function paginationAction(){
 //        $model = new Gallery();
 //        $photo = $model->getPartOfPhotos();

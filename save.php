@@ -25,27 +25,26 @@
 //echo "Success";
 //
 
-function save_img($id, $data, $filter, $x, $y)
-{
-    $img = imagecreatefrompng($data);
-    $png = imagecreatefrompng($filter);
-    imagecolortransparent($png, imagecolorat($png, 0, 0));
-    imagecopymerge($img, $png, 0, 0, 0, 0, 960, 720, 100);
-    imagepng($img, "images/" . $id .".png", 5);
-}
+//function save_img($id, $data, $filter, $x, $y)
+//{
+//    $img = imagecreatefrompng($data);
+//    $png = imagecreatefrompng($filter);
+//    imagecolortransparent($png, imagecolorat($png, 0, 0));
+//    imagecopymerge($img, $png, 0, 0, 0, 0, 960, 720, 100);
+//    imagepng($img, "images/" . $id .".png", 5);
+//}
 
+$image = imagecreate(200, 200);
+$bgr = imagecolorallocate($image, 0, 0, 0);
+$fbg = imagecolorallocate($image, 255, 255, 255);
+$img_1 = imagecreatefrompng($_POST["data"]);
+$img_2 = imagecreatefrompng($_POST["filter"]);
 
-//$image = imagecreate(200, 200);
-//$bgr = imagecolorallocate($image, 0, 0, 0);
-//$fbg = imagecolorallocate($image, 255, 255, 255);
-//$img_1 = imagecreatefromjpeg('2.jpg');
-//$img_2 = imagecreatefrompng('3.png');
-//
-//imagecolortransparent($img_2, $bgr);
-//
-//imagecopy($img_1, $img_2, 10, 9, 0, 0, 1000, 1400);
-//header('Content-Type: image/jpeg');
-//imagepng($img_1);
+imagecolortransparent($img_2, $bgr);
+
+imagecopy($img_1, $img_2, 10, 9, 0, 0, 1000, 1400);
+header('Content-Type: image/png');
+imagepng($img_1);
 
 
 
