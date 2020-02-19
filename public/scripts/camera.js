@@ -52,8 +52,8 @@ if (widthWin > 720){
     stikerHeight = 50;
 }
 
-// let filterX = width / 2 - 100;
-// let filterY = height / 2 - 100;
+let filterX = width / 2 - 100;
+let filterY = height / 2 - 100;
 
 if (navigator.getUserMedia) {
     navigator.getUserMedia({
@@ -81,8 +81,8 @@ video.addEventListener('canplay', function(e){
         video.setAttribute('height', height);
         canvas.setAttribute('width', width);
         canvas.setAttribute('height', height);
-        filterCanvas.setAttribute('width', stikerWidth);
-        filterCanvas.setAttribute('height', stikerHeight);
+        filterCanvas.setAttribute('width', width);
+        filterCanvas.setAttribute('height', height);
         streaming = true;
     }
 }, false);
@@ -105,6 +105,7 @@ takePhoto.addEventListener(
         canvas.height = height;
         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
         canvasData = canvas.toDataURL("image/png");
+        // console.log(canvasData);
         e.preventDefault();
     }, false);
 
@@ -119,11 +120,12 @@ reset_btn.addEventListener('click', function(){
 filter_container.addEventListener('click',  function(e){
     if (e.target.id != "filter_container")
     {
-        if (filter != null)
+        if (filter != null){
             filter.style.border = "none";
+        }
         if (e.target == filter){
             filter = null;
-            filterCtx.clearRect(0, 0, stikerWidth, stikerHeight);
+            filterCtx.clearRect(0, 0, width, height);
         } else {
             e.target.style.border = "2px solid white";
             filter = e.target;
@@ -131,59 +133,44 @@ filter_container.addEventListener('click',  function(e){
             newImg.src = filter.src;
             if (filter)
             {
-                filterCtx.clearRect(0, 0, stikerWidth, stikerHeight);
-                filterCtx.drawImage(newImg, 0, 0 , stikerWidth, stikerHeight);
+                filterCtx.clearRect(0, 0, width, height);
+                filterCtx.drawImage(newImg, filterX - 100, filterY - 100, 200, 200);
             }
         }
     }
 });
 
-// onResponse1 = function(request) {
-//     let response = request.response;
-//     console.log(response);
-// };
+// function saveResponse(){
+//     alert("saved");
+// }
+
+let saveResponse = function(request) {
+    let response = request.response;
+    console.log(response);
+    console.log("saved");
+};
 
 saveBtn.addEventListener('click', function(e){
-    console.log("in");
-
         filterData = filterCanvas.toDataURL("image/png");
-
-           let data = {
+           let data_param = {
                 "data" : canvasData,
                 "filter" : filterData
             };
 
-            let string_param = create_param(data);
-            // let req = new Requests();
-            // req.post('/camagru_mvc/api/save/photo', onResponse1, string_param, data);
-
-            var xmlhttp = new XMLHttpRequest();
-            /* AJAX WITHOUT JQUERY */
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState === XMLHttpRequest.DONE ) {
-                        console.log('ok');
-                }
-            };
-
-            xmlhttp.open("POST", "/camagru_mvc/api/save/photo", true);
-            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xmlhttp.send(string_param);
-            /* AJAX WITHOUT JQUERY */
-        // }
-
-
+            let string_param = create_param(data_param);
+            let req = new Requests();
+            req.post('/camagru_mvc/api/save/photo', saveResponse, string_param);
         e.preventDefault();
-
 }, false);
 
 function create_param(param){
     var parameterString = "";
     var isFirst = true;
-    for(var index in param) {
+    for(let i in param) {
         if(!isFirst) {
             parameterString += "&";
         }
-        parameterString += encodeURIComponent(index) + "=" + encodeURIComponent(param[index]);
+        parameterString += encodeURIComponent(i) + "=" + encodeURIComponent(param[i]);
         isFirst = false;
     }
     return (parameterString);
