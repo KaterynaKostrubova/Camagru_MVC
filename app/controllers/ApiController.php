@@ -4,6 +4,7 @@ namespace app\controllers;
 use app\core\Controller;
 use app\models\Account;
 use app\models\Gallery;
+use app\models\Photo;
 use app\models\Profile;
 
 
@@ -84,11 +85,18 @@ class ApiController extends Controller
     }
 
     public function savePhotoAction(){
+        $model = new Photo();
+        $usr = $model->getUserData($_SESSION['authorize']['name']);
+
         $img = imagecreatefrompng($_POST["data"]);
         $png = imagecreatefrompng($_POST["filter"]);
         imagecolortransparent($png, imagecolorat($png, 0, 0));
         imagecopymerge($img, $png, 0, 0, 0, 0, 960, 720, 100);
-        imagepng($img, "photos/" . 8 .".png", 5);
+        $file_name = "photos/" . uniqid() . ".png";
+        imagepng($img, $file_name, 5);
+        $model->addPhoto('/camagru_mvc/' . $file_name, $usr[0]['id'], $_SESSION['authorize']['name'], 'description');
+        $edited_photo = $model->getEditedPhotos($usr[0]['id']);
+        var_dump($edited_photo);
     }
 
 

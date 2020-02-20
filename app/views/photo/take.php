@@ -23,7 +23,6 @@ $btns = [
             "photo" => "save"
     ]
 ]
-
 ?>
 
 
@@ -52,8 +51,14 @@ $btns = [
             for($i = 0; $i < count($vars['filters']); $i++){ ?>
                 <img id="stiker_<?php echo $i?>" src="<?php echo $vars['filters'][$i]['path']?>" draggable="true">
             <?php   }
-                echo "hi";
             ?>
+    </div>
+    <div class="edited_photos">
+        <?php
+            for($i = 0; $i < count($vars['edited_photos']); $i++){ ?>
+                 <img id="edited_<?php echo $i?>" src="<?php echo $vars['edited_photos'][$i]['path']?>">
+        <?php   }
+        ?>
     </div>
 </div>
 <script src="/camagru_mvc/public/scripts/camera.js"></script>
