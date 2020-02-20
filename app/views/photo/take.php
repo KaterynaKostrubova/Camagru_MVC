@@ -28,6 +28,7 @@ $btns = [
 
 
 <div class="wrap_webcam">
+
     <div class="res"></div>
     <div class="video">
         <canvas id="photo_canvas" style="position: absolute;z-index:2;"></canvas>
@@ -48,10 +49,10 @@ $btns = [
     </div>
     <div id="filter_container">
         <?php
-            for($i = 1; $i <= $numberOfStikers; $i++){ ?>
-                <img id="stiker_<?php echo $i?>" src="/camagru_mvc/public/image/stiker_<?php echo $i?>.png" draggable="true">
+            for($i = 0; $i < count($vars['filters']); $i++){ ?>
+                <img id="stiker_<?php echo $i?>" src="<?php echo $vars['filters'][$i]['path']?>" draggable="true">
             <?php   }
-
+                echo "hi";
             ?>
     </div>
 </div>

@@ -9,7 +9,12 @@ class PhotoController extends Controller
 
 
     public function takeAction(){
-        $this->view->render('PHOTO PAGE');
+        $filters = $this->model->getFilters();
+        $vars = [
+            'filters' => $filters
+        ];
+
+        $this->view->render('PHOTO PAGE', $vars);
     }
 
 
