@@ -28,12 +28,13 @@ class Requests {
                 contentType = JsonContentType;
                 data = JSON.stringify(json);
                 console.log(json);
+                console.log(data);
             } else {
                 contentType = "application/x-www-form-urlencoded";
             }
 
             data = data || '';
-            console.log(data);
+            // console.log(data);
             this._request('POST', url, data, onResponseCallback, contentType)
         }
 

@@ -27,6 +27,7 @@ let height = 720;
 let stikerWidth = 200;
 let stikerHeight = 200;
 
+// document.addEventListener('click',e => console.log(e.target))
 
 
 navigator.getUserMedia = navigator.getUserMedia ||
@@ -90,7 +91,7 @@ video.addEventListener('canplay', function(e){
 uploadfile.addEventListener('change', function(e){
     canvas.width = width;
     canvas.height = height;
-    var img = new Image;
+    let img = new Image;
     img.src = URL.createObjectURL(e.target.files[0]);
     img.onload = function() {
         canvas.getContext('2d').drawImage(img, 0, 0, width, height);
@@ -140,14 +141,36 @@ filter_container.addEventListener('click',  function(e){
     }
 });
 
-// function saveResponse(){
-//     alert("saved");
-// }
+
+function addImage(response){
+    let edited_block = document.getElementById("edited_photos");
+    let json_data = JSON.parse(response);
+
+    let div = document.createElement("div");
+    div.className = "img_block_" + json_data['id'];
+    edited_block.prepend(div);
+
+    let img = document.createElement("img");
+    img.id = "edited_" + json_data['id'];
+    img.className = "edited";
+    img.src = json_data['photo'];
+    div.prepend(img);
+
+    let inp = document.createElement("input");
+    inp.className = 'delete';
+    inp.id = "delete_" + json_data['id'];
+    inp.type = "button";
+    inp.value = "delete";
+    div.append(inp);
+}
+
+
 
 let saveResponse = function(request) {
     let response = request.response;
     console.log(response);
     console.log("saved");
+    addImage(response);
 };
 
 saveBtn.addEventListener('click', function(e){
@@ -162,6 +185,35 @@ saveBtn.addEventListener('click', function(e){
             req.post('/camagru_mvc/api/save/photo', saveResponse, string_param);
         e.preventDefault();
 }, false);
+
+
+
+let delResponse = function(request) {
+    let response = request.response;
+    let del = document.querySelector('.img_block_' + response['id']);
+    del.remove();
+    console.log(response['id']);
+    // console.log("saved");
+};
+
+
+let delBtn = document.querySelector('#edited_photos');
+
+
+delBtn.addEventListener('click', function(e){
+
+    let req = new Requests();
+    let id = e.target.id.split('_')[1] + '';
+    // console.log(id);
+    str ='';
+    let data = {
+        'id' : id,
+    };
+    req.post('/camagru_mvc/api/delete/photo', delResponse, str, data);
+    e.preventDefault();
+}, false);
+
+
 
 function create_param(param){
     var parameterString = "";
@@ -179,7 +231,6 @@ function create_param(param){
 
 
 filterCanvas.onmousedown = function(event) { // (1) отследить нажатие
-
     // (2) подготовить к перемещению:
     // разместить поверх остального содержимого и в абсолютных координатах
     filterCanvas.style.position = 'absolute';

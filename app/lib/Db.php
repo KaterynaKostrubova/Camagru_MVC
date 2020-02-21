@@ -55,5 +55,13 @@ class Db {
             exit($e->getMessage());
         }
     }
+    public function delete($sql){
+        try {
+//            $this->db->exec($sql);
+            $this->query($sql);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
 
 }

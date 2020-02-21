@@ -53,12 +53,20 @@ $btns = [
             <?php   }
             ?>
     </div>
-    <div class="edited_photos">
+    <div id="edited_photos">
         <?php
-            for($i = 0; $i < count($vars['edited_photos']); $i++){ ?>
-                 <img id="edited_<?php echo $i?>" src="<?php echo $vars['edited_photos'][$i]['path']?>">
+                for($i = count($vars['edited_photos']) - 1; $i >= 0; $i--){ ?>
+                    <div class="img_block_<?php echo $vars['edited_photos'][$i]['id']?>">
+                        <img id="edited_<?php echo $vars['edited_photos'][$i]['id']?>" src="<?php echo $vars['edited_photos'][$i]['path']?>">
+                        <input type="button" class="delete" id="delete_<?php echo $vars['edited_photos'][$i]['id']?>" value="delete">
+                    </div>
         <?php   }
         ?>
     </div>
+
 </div>
+<!--<p id="para-01">-->
+<!--    <span>First span</span>-->
+<!--</p>-->
+
 <script src="/camagru_mvc/public/scripts/camera.js"></script>

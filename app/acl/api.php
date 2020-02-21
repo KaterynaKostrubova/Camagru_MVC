@@ -7,6 +7,7 @@ return [
     'authorize' => [
         'profileEdit',
         'savePhoto',
+        'deletePhoto',
     ],
     'guest' => [
     ],

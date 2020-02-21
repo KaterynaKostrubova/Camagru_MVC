@@ -94,9 +94,28 @@ class ApiController extends Controller
         imagecopymerge($img, $png, 0, 0, 0, 0, 960, 720, 100);
         $file_name = "photos/" . uniqid() . ".png";
         imagepng($img, $file_name, 5);
-        $model->addPhoto('/camagru_mvc/' . $file_name, $usr[0]['id'], $_SESSION['authorize']['name'], 'description');
-        $edited_photo = $model->getEditedPhotos($usr[0]['id']);
-        var_dump($edited_photo);
+        $path = '/camagru_mvc/' . $file_name;
+        $model->addPhoto($path, $usr[0]['id'], $_SESSION['authorize']['name'], 'description');
+        $id = $model->getIdPhoto($path);
+        $responseData = array(
+            'status' => 'ok',
+            'id' => $id[0]['id'],
+            'photo' => $path
+        );
+
+        $this->view->apiRender($responseData);
+    }
+
+    public function deletePhotoAction(){
+        $model = new Photo();
+        $model->delImage($this->request['id']);
+
+        $responseData = array(
+            'status' => 'ok',
+            'id' => $this->request['id'],
+        );
+
+        $this->view->apiRender($responseData);
     }
 
 
