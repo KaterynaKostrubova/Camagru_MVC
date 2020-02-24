@@ -16,6 +16,12 @@ $routes = [
         'action' => 'savePhoto',
     ],
 
+    'api/delete/photo' => [
+        'controller' => 'api',
+        'action' => 'deletePhoto',
+    ],
+
+
 ];
 
 return $routes;

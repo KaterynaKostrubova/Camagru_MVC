@@ -559,6 +559,11 @@ footer {
 
 /*webcam*/
 
+.top_container {
+    display: flex;
+    justify-content: center;
+}
+
 .wrap_webcam {
     display: flex;
     flex-direction: column;
@@ -580,19 +585,24 @@ footer {
     position: absolute;
 }
 
+#stiker_container,
+#filter_container {
+    width: 10%;
+}
+
+#stiker_container img,
 #filter_container img {
     width: 20%;
     padding: 10px;
 }
 
-#filter_container,
+
 .webcam_btns {
     width: 50%;
     margin: 20px auto;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-
 }
 
 .webcam_btns input {
@@ -602,16 +612,30 @@ footer {
 .webcam_btns label {
     padding: 16px 23px;
 }
+#edited_photos {
+    display: flex;
+    flex-wrap: wrap;
+    width: 50%;
+    margin: 0 auto;
+}
 
+#edited_photos .img_block {
+    width: 30%;
+    margin: 10px;
+}
+
+#edited_photos .img_block img {
+    width: 100%;
+
+}
 
 @media screen and (max-width: 768px) {
-    #filter_container,
     .webcam_btns
     {
         width: 99%;
     }
 
-    #filter_container img {
-        width: 20%;
-    }
+    /*#filter_container img {*/
+    /*    width: 20%;*/
+    /*}*/
 }

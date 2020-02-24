@@ -92,13 +92,55 @@ class ApiController extends Controller
         $png = imagecreatefrompng($_POST["filter"]);
         imagecolortransparent($png, imagecolorat($png, 0, 0));
         imagecopymerge($img, $png, 0, 0, 0, 0, 960, 720, 100);
-        $file_name = "photos/" . uniqid() . ".png";
+        $rnd_file_name = uniqid() . ".png";
+        $file_name = "photos/" . $rnd_file_name;
         imagepng($img, $file_name, 5);
-        $model->addPhoto('/camagru_mvc/' . $file_name, $usr[0]['id'], $_SESSION['authorize']['name'], 'description');
-        $edited_photo = $model->getEditedPhotos($usr[0]['id']);
-        var_dump($edited_photo);
+        $path = '/camagru_mvc/' . $file_name;
+        $model->addPhoto($path, $usr[0]['id'], $_SESSION['authorize']['name'], 'description');
+        $id = $model->getIdPhoto($path);
+        $responseData = array(
+            'status' => 'ok',
+            'id' => $id[0]['id'],
+            'photo' => $path,
+            'file_name' => $rnd_file_name,
+        );
+
+        $this->view->apiRender($responseData);
     }
 
+    function delete_file($directory,$filename){
+        // открываем директорию (получаем дескриптор директории)
+        $dir = opendir($directory);
+
+        // считываем содержание директории
+        while(($file = readdir($dir))) {
+            // Если это файл и он равен удаляемому ...
+            if((is_file("$directory/$file")) && ("$directory/$file" == "$directory/$filename")) {
+                // ...удаляем его.
+                unlink("$directory/$file");
+
+                // Если файла нет по запрошенному пути, возвращаем TRUE - значит файл удалён.
+                if(!file_exists($directory."/".$filename)) return TRUE;
+            }
+        }
+        // Закрываем дескриптор директории.
+        closedir($dir);
+    }
+
+    public function deletePhotoAction(){
+        $model = new Photo();
+        $file_name = $model->getNameImage($this->request['id']);
+        $model->delImage($this->request['id']);
+        $name = explode('/', $file_name[0]['path']);
+        $this->delete_file('photos/', $name[3]);
+        $responseData = array(
+            'status' => 'ok',
+            'id' => $this->request['id'],
+            '$file_name' => $name[3]
+        );
+
+        $this->view->apiRender($responseData);
+    }
 
 //    public  function paginationAction(){
 //        $model = new Gallery();

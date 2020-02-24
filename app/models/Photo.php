@@ -7,7 +7,7 @@ use app\core\Model;
 class Photo extends Model {
 
     public function getFilters(){
-        return  $this->db->row("SELECT path FROM filters ORDER BY id");
+        return  $this->db->row("SELECT path FROM filters ORDER BY id DESC ");
     }
 
     public function addPhoto($path, $user_id, $name, $description){
@@ -19,8 +19,18 @@ class Photo extends Model {
     }
 
     public function getEditedPhotos($id){
-        return $this->db->row("SELECT path FROM photos WHERE user_id='$id'");
+        return $this->db->row("SELECT * FROM photos WHERE user_id='$id'");
     }
 
+    public function getIdPhoto($path){
+        return $this->db->row("SELECT id FROM photos WHERE path='$path'");
+    }
 
+    public function delImage($id){
+        return $this->db->delete("DELETE FROM photos WHERE id='$id'");
+    }
+
+    public function getNameImage($id){
+        return $this->db->row("SELECT path FROM photos WHERE id='$id'");
+    }
 }
