@@ -27,8 +27,13 @@ class Requests {
             if (json) {
                 contentType = JsonContentType;
                 data = JSON.stringify(json);
+<<<<<<< HEAD
                 // console.log(json);
                 // console.log(data);
+=======
+                console.log(json);
+                console.log(data);
+>>>>>>> 74567574b281b6797ed0c5842981be6fc94d7b51
             } else {
                 contentType = "application/x-www-form-urlencoded";
             }
