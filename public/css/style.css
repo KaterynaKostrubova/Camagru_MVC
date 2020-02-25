@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
 /* GENERAL */
 * {
     margin-block-start: 0em;
@@ -133,7 +134,7 @@ body {
 }
 
 .login_signup input[type="submit"] {
-    background-color: #EA4C86;
+    background-color: #F06272;
     color: #eee;
     font-weight: bold;
     text-transform: uppercase;
@@ -205,14 +206,14 @@ input:-webkit-autofill {
 }
 
 .select .active{
-    background-color: #EA4C86;
+    background-color: #F06272;
     color: #eee;
     outline: none;
 }
 
 .select li:hover,
 .login_signup input[type="submit"]:hover {
-    background-color: #b73a68;
+    background-color: #f48a97;
     color: #eee;
 }
 
@@ -258,6 +259,16 @@ label:hover{
 }
 
 
+.logout img,
+.camera img {
+    max-width: 64px;
+    max-height: 64px;
+}
+
+.select img {
+    max-height: 48px;
+    max-width: 48px;
+}
 
 
 /*!* The Modal (background) *!*/
@@ -456,7 +467,7 @@ header {
 }
 
 .data input[type="submit"] {
-    background-color: #EA4C86;
+    background-color: #F06272;
     color: #eee;
     font-weight: bold;
     text-transform: uppercase;
@@ -527,7 +538,7 @@ header {
 
 /* When the radio button is checked, add a blue background */
 .container input:checked ~ .checkmark {
-    background-color: #EA4C86;
+    background-color: #F06272;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -585,21 +596,35 @@ footer {
     position: absolute;
 }
 
+.top_container {
+    width: 70%;
+}
+
 #stiker_container,
 #filter_container {
-    width: 10%;
+    width: 20%;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*flex-direction: row;*/
+    text-align: center;
+    margin: 10px;
+
 }
 
 #stiker_container img,
 #filter_container img {
-    width: 20%;
-    padding: 10px;
+    width: 30%;
+    padding: 5px;
+
+    /*align-self: flex-start;*/
+    /*justify-content: space-between;*/
+    /*m;*/
 }
 
 
 .webcam_btns {
-    width: 50%;
-    margin: 20px auto;
+    width: 100%;
+    margin: -10px auto 20px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -607,6 +632,10 @@ footer {
 
 .webcam_btns input {
     display: none;
+}
+
+.webcam_btns img:hover {
+    transform: rotate(10deg);
 }
 
 .webcam_btns label {
@@ -617,6 +646,7 @@ footer {
     flex-wrap: wrap;
     width: 50%;
     margin: 0 auto;
+
 }
 
 #edited_photos .img_block {
@@ -626,16 +656,160 @@ footer {
 
 #edited_photos .img_block img {
     width: 100%;
+}
+
+.img_block {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.img_block img {
+    flex-basis: 100%;
+}
+.img_block input {
+    margin: 3px 10px;
+}
+
+
+.delete {
+    background-image: url("../image/del.svg");
+    width: 32px;
+    height: 32px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.edit {
+    background-image: url("../image/edit.svg");
+    width: 32px;
+    height: 32px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.comment {
+    background-image: url("../image/comment.svg");
+    width: 32px;
+    height: 32px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.delete:hover,
+.edit:hover,
+.comment:hover {
+    transform: rotate(10deg);
+}
+
+.photo_acc_min {
+    /*height: 100px;*/
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+    background: #F06272;
+    margin: 0 0 20px;
+    border-radius: 0 0 10px 10px;
+}
+
+/*.avatar_min,*/
+.login_min {
+    max-width: 32px;
+    max-height: 32px;
+    align-self: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+
+
+#to_profile, #sign_out_photo {
+    display: none;
+}
+
+.to_profile img,
+.to_sign_up img {
+    width: 64px;
+    height: 64px;
+}
+
+.login_min,
+.login {
+    font-family: 'Pacifico';
+    font-size: 24px;
+    line-height: 0px;
+    letter-spacing: 0.2em;
+    color: white;
 
 }
+
+.video video,
+.video canvas {
+    border-radius: 1%;
+}
+
+/*чб*/
+.grayscale {
+    filter: grayscale(1);
+}
+
+/*яркость*/
+.brightness {
+    filter: grayscale(50%);
+}
+
+/*ретро*/
+.sepia {
+    filter: sepia(1);
+}
+/*размытие по Гауссу*/
+.blur {
+    filter: blur(3px);
+}
+
+/**/
+.contrast {
+    filter: contrast(100%);
+}
+
+.drop-shadow {
+    filter: drop-shadow(2px 3px 5px black);
+}
+/**/
+.hue-rotate {
+    filter: hue-rotate(180deg);
+}
+
+.invert {
+    filter: invert(100%);
+}
+
+.opacity {
+    filter: opacity(30%);
+}
+
+.saturate {
+    filter: saturate(300%);
+}
+/**/
+
 
 @media screen and (max-width: 768px) {
     .webcam_btns
     {
         width: 99%;
     }
-
-    /*#filter_container img {*/
-    /*    width: 20%;*/
-    /*}*/
 }

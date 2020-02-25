@@ -1,30 +1,36 @@
 <?php
+
 $numberOfStikers = 12;
 
 $btns = [
     "0" => [
             "id" => "stopbt",
             "type" => "button",
-            "photo" => "photo-camera"
+            "photo" => "photo-camera",
+            "ext" => ".svg"
     ],
     "1" => [
             "id" => "fileupload",
             "type" => "file",
-            "photo" => "upload"
+            "photo" => "upload",
+            "ext" => ".png"
     ],
     "2" => [
             "id" => "reset_btn",
             "type" => "button",
-            "photo" => "reset"
+            "photo" => "reset",
+            "ext" => ".svg"
     ],
     "3" => [
             "id" => "save_btn",
             "type" => "button",
-            "photo" => "save"
+            "photo" => "save",
+            "ext" => ".svg"
     ]
-]
-?>
+];
 
+include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.php';
+?>
 
 <div class="wrap_webcam">
 
@@ -49,7 +55,7 @@ $btns = [
                 for($i = 0; $i < count($btns); $i++){
                     ?>
                     <label for="<?php echo $btns[$i]["id"]?>">
-                        <img src="/camagru_mvc/public/image/<?php echo $btns[$i]["photo"] ?>.png" alt="<?php echo $btns[$i]["photo"]?>">
+                        <img src="/camagru_mvc/public/image/<?php echo $btns[$i]["photo"] ?><?php echo $btns[$i]["ext"] ?>" alt="<?php echo $btns[$i]["photo"]?>">
                         <input type="<?php echo $btns[$i]["type"]?>" id="<?php echo $btns[$i]["id"]?>">
                     </label>
                     <?php
@@ -70,7 +76,9 @@ $btns = [
                 for($i = count($vars['edited_photos']) - 1; $i >= 0; $i--){ ?>
                     <div class="img_block img_block_<?php echo $vars['edited_photos'][$i]['id']?>">
                         <img id="edited_<?php echo $vars['edited_photos'][$i]['id']?>" src="<?php echo $vars['edited_photos'][$i]['path']?>">
-                        <input type="button" class="delete" id="delete_<?php echo $vars['edited_photos'][$i]['id']?>" value="delete" onclick="deletePhoto(event)">
+                            <input type="button" class="edit" id="edit_<?php echo $vars['edited_photos'][$i]['id']?>"  onclick="">
+                            <input type="button" class="comment" id="comment_<?php echo $vars['edited_photos'][$i]['id']?>"  onclick="">
+                            <input type="button" class="delete" id="delete_<?php echo $vars['edited_photos'][$i]['id']?>"  onclick="deletePhoto(event)">
                     </div>
         <?php   } ?>
     </div>

@@ -35,7 +35,4 @@ class Photo extends Model {
         return $this->db->row("SELECT path FROM photos WHERE id='$id'");
     }
 
-//    public function delImage($id){
-//        return $this->db->delete("DELETE FROM photos WHERE id='$id'");
-//    }
 }

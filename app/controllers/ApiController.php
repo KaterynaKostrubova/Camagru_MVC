@@ -108,16 +108,6 @@ class ApiController extends Controller
         $this->view->apiRender($responseData);
     }
 
-//    public function deletePhotoAction(){
-//        $model = new Photo();
-//        $model->delImage($this->request['id']);
-//
-//        $responseData = array(
-//            'status' => 'ok',
-//            'id' => $this->request['id'],
-//        );
-//        $this->view->apiRender($responseData);
-//    }
 
     function delete_file($directory,$filename){
         // открываем директорию (получаем дескриптор директории)

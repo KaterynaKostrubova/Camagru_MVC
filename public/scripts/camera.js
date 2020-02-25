@@ -180,13 +180,27 @@ function addImage(response){
     img.src = json_data['photo'];
     div.prepend(img);
 
-    let inp = document.createElement("input");
-    inp.className = 'delete';
-    inp.id = "delete_" + json_data['id'];
-    inp.type = "button";
-    inp.value = "delete";
-    inp.onclick = deletePhoto;
-    div.append(inp);
+
+    let edit = document.createElement("input");
+    edit.className = 'edit';
+    edit.id = "edit_" + json_data['id'];
+    edit.type = "button";
+    // edit.onclick = editPhoto;
+    div.append(edit);
+
+    let comment = document.createElement("input");
+    comment.className = 'comment';
+    comment.id = "comment_" + json_data['id'];
+    edit.type = "button";
+    // edit.onclick = editPhoto;
+    div.append(comment);
+
+    let del = document.createElement("input");
+    del.className = 'delete';
+    del.id = "delete_" + json_data['id'];
+    del.type = "button";
+    del.onclick = deletePhoto;
+    div.append(del);
 }
 
 
@@ -232,6 +246,10 @@ function  deletePhoto(e) {
     req.post('/camagru_mvc/api/delete/photo', delResponse, str, data);
     e.preventDefault();
 }
+
+// function editImage() {
+//bonus
+// }
 
 
 
@@ -286,3 +304,20 @@ filterCanvas.onmousedown = function(event) { // (1) отследить нажа�
 filterCanvas.ondragstart = function() {
     return false;
 };
+
+
+// var idx = 0;
+// var filters = ['grayscale', 'sepia', 'blur', 'brightness', 'contrast', 'hue-rotate',
+//     'hue-rotate2', 'hue-rotate3', 'saturate', 'invert', ''];
+//
+// function changeFilter(e) {
+//     // var el = e.target;
+//     var el = document.querySelector('#video');
+//     el.className = '';
+//     var effect = filters[idx++ % filters.length]; // loop through filters.
+//     if (effect) {
+//         el.classList.add(effect);
+//     }
+// }
+//
+// document.querySelector('#stiker_container #stiker_0').addEventListener('click', changeFilter, false);
