@@ -25,18 +25,17 @@ class Photo extends Model {
     public function getIdPhoto($path){
         return $this->db->row("SELECT id FROM photos WHERE path='$path'");
     }
-<<<<<<< HEAD
 
     public function delImage($id){
         return $this->db->delete("DELETE FROM photos WHERE id='$id'");
     }
 
-    public function getNameImage($id){
+    public function getNameImage($id)
+    {
         return $this->db->row("SELECT path FROM photos WHERE id='$id'");
-=======
-
-    public function delImage($id){
-        return $this->db->delete("DELETE FROM photos WHERE id='$id'");
->>>>>>> 74567574b281b6797ed0c5842981be6fc94d7b51
     }
+
+//    public function delImage($id){
+//        return $this->db->delete("DELETE FROM photos WHERE id='$id'");
+//    }
 }

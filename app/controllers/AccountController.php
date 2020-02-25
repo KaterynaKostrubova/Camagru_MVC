@@ -59,7 +59,7 @@ class AccountController extends Controller{
                     $email_to = $email;
                     $email_subject = 'Registration at website Camagru!';
                     $hostname = 'localhost';
-                    $port = '8080';
+                    $port = '8081';
                     $email_message = 'Hello '.$login.'. Please follow this link to confirm your email address and finish creating your Camagru account: http://'
                         . $hostname.':'.$port.'/camagru_mvc/account/confirm?token='.$token;
                     if($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))

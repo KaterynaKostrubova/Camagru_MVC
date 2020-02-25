@@ -20,11 +20,6 @@ $routes = [
         'controller' => 'api',
         'action' => 'deletePhoto',
     ],
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 74567574b281b6797ed0c5842981be6fc94d7b51
 ];
 
 return $routes;
