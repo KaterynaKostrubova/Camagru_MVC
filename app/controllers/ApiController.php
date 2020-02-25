@@ -101,28 +101,23 @@ class ApiController extends Controller
         $responseData = array(
             'status' => 'ok',
             'id' => $id[0]['id'],
-<<<<<<< HEAD
             'photo' => $path,
             'file_name' => $rnd_file_name,
-=======
-            'photo' => $path
         );
 
         $this->view->apiRender($responseData);
     }
 
-    public function deletePhotoAction(){
-        $model = new Photo();
-        $model->delImage($this->request['id']);
-
-        $responseData = array(
-            'status' => 'ok',
-            'id' => $this->request['id'],
->>>>>>> 74567574b281b6797ed0c5842981be6fc94d7b51
-        );
-
-        $this->view->apiRender($responseData);
-    }
+//    public function deletePhotoAction(){
+//        $model = new Photo();
+//        $model->delImage($this->request['id']);
+//
+//        $responseData = array(
+//            'status' => 'ok',
+//            'id' => $this->request['id'],
+//        );
+//        $this->view->apiRender($responseData);
+//    }
 
     function delete_file($directory,$filename){
         // открываем директорию (получаем дескриптор директории)
