@@ -48,12 +48,14 @@ class AccountController extends Controller{
     public function signupAction() {
         if(!empty($_POST)){
             if($_GET['action'] == 'signup'){
-                $login = $pass = $email = "";
+                $login = $pass = $email = $sex = "";
                 $login = $this->test_input($_POST['name']);
                 $pass = hash('whirlpool', $this->test_input($_POST['passwd']));
                 $email = $this->test_input($_POST['email']);
                 $token = hash('whirlpool', $this->random_str(32));
-                if ($this->model->addUser($login, $pass, $email, $token, "users")){
+                $sex = $_POST['sex'];
+//                var_dump($_POST);
+                if ($this->model->addUser($login, $sex, $pass, $email, $token, "users")){
                     $name_from = 'kkostrub';
                     $email_from = 'kkostrub@student.unit.ua';//$email_from = 'katerinakostrubova@gmail.com';
                     $email_to = $email;

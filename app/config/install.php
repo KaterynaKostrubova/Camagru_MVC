@@ -31,6 +31,7 @@ $dsn = 'mysql:host=localhost;dbname=' . $NAME . ';charset=UTF8';
 $exec = 'CREATE TABLE users (
 		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 		login VARCHAR(254) NOT NULL UNIQUE,
+		sex VARCHAR(254),
 		photo_id  INT(11) NOT NULL DEFAULT 1,
 		bg_id INT(11) NOT NULL DEFAULT 2,
 		email VARCHAR(254) UNIQUE,

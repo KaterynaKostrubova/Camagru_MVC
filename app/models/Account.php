@@ -48,7 +48,7 @@ class Account extends Model {
 
 
 ////////
-    public function addUser($login, $pass, $email, $token, $table){
+    public function addUser($login, $sex, $pass, $email, $token, $table){
         if (!$this->checkValue($login, $table, 'login')){
             debug("user with the same name alredy exist");
             return false;
@@ -59,7 +59,7 @@ class Account extends Model {
         }
         //elseif query??
         else {
-            $this->db->insertto("INSERT INTO $table (login, email, password, token) VALUE ('$login', '$email', '$pass', '$token')");
+            $this->db->insertto("INSERT INTO $table (login, sex, email, password, token) VALUE ('$login', '$sex','$email', '$pass', '$token')");
             return true;
         }
     }

@@ -805,7 +805,44 @@ footer {
     filter: saturate(300%);
 }
 /**/
+.sex {
+    display: flex;
+    justify-content: center;
+    position: relative;
 
+}
+
+.sex label {
+    margin: 10px 30px;
+
+}
+.sex .male::before  {
+    content: url("../image/male.svg");
+    width: 32px;
+    height: 32px;
+ }
+
+.sex .female::before {
+    content: url("../image/female.svg");
+    width: 32px;
+    height: 32px;
+}
+
+input[type="radio"]:checked+label{
+    /*transform: rotate(90deg) */
+    /*border-radius: 50%;*/
+    /*border: 3px solid #F06272;*/
+    transform: scale(1.4);
+
+}
+
+/*:checked + .sex .male::before,*/
+/*:checked + .sex .female::before{*/
+/*    border: 3px solid red;*/
+/*}*/
+.sex input {
+    display: none;
+}
 
 @media screen and (max-width: 768px) {
     .webcam_btns

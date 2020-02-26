@@ -141,30 +141,6 @@ filter_container.addEventListener('click',  function(e){
     }
 });
 
-// function addImage(response){
-//     let edited_block = document.getElementById("edited_photos");
-//     let json_data = JSON.parse(response);
-//
-//     let div = document.createElement("div");
-//     div.className = "img_block_" + json_data['id'];
-//     edited_block.prepend(div);
-//
-//     let img = document.createElement("img");
-//     img.id = "edited_" + json_data['id'];
-//     img.className = "edited";
-//     img.src = json_data['photo'];
-//     div.prepend(img);
-//
-//     let inp = document.createElement("input");
-//     inp.className = 'delete';
-//     inp.id = "delete_" + json_data['id'];
-//     inp.type = "button";
-//     inp.value = "delete";
-//     div.append(inp);
-// }
-//
-
-
 function addImage(response){
     let edited_block = document.getElementById("edited_photos");
     let json_data = JSON.parse(response);

@@ -49,6 +49,13 @@
                             <input type="password" name="passwd" placeholder="Set a password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                    title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required />
                         </p>
+                        <p class="sex">
+                            <input id="male" name="sex" type="radio" value="male">
+                            <label class="male"   for="male"></label>
+                            <input id="female" name="sex"  type="radio" value="female">
+                            <label class="female" for="female"></label>
+
+                        </p>
                         <p id="sbm"><input class="button_subm" type="submit" name="submit" value="Get started" autofocus /></p>
                     </form>
                 </div>

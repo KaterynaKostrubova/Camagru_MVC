@@ -58,11 +58,11 @@ class Router {
                         View::errorCode(404);
                     }
                 } else {
-                    echo "2";
+//                    echo "2";
                     View::errorCode(404);
                 }
         } else {
-            echo "3";
+//            echo "3";
             View::errorCode(404);
         }
     }
