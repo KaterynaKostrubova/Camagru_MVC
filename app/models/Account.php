@@ -48,7 +48,7 @@ class Account extends Model {
 
 
 ////////
-    public function addUser($login, $sex, $pass, $email, $token, $table){
+    public function addUser($login, $sex, $photo_id, $pass, $email, $token, $table){
         if (!$this->checkValue($login, $table, 'login')){
             debug("user with the same name alredy exist");
             return false;
@@ -59,7 +59,7 @@ class Account extends Model {
         }
         //elseif query??
         else {
-            $this->db->insertto("INSERT INTO $table (login, sex, email, password, token) VALUE ('$login', '$sex','$email', '$pass', '$token')");
+            $this->db->insertto("INSERT INTO $table (login, sex, photo_id, email, password, token) VALUE ('$login', '$sex', '$photo_id','$email', '$pass', '$token')");
             return true;
         }
     }
@@ -105,10 +105,10 @@ class Account extends Model {
         return $result;
     }
 
-    public function getPhoto(){
-        return  $this->db->row("SELECT path FROM photos LIMIT 3");
-
-    }
+//    public function getPhoto(){
+//        return  $this->db->row("SELECT path FROM photos LIMIT 3");
+//
+//    }
 
 
 

@@ -33,7 +33,7 @@ $exec = 'CREATE TABLE users (
 		login VARCHAR(254) NOT NULL UNIQUE,
 		sex VARCHAR(254),
 		photo_id  INT(11) NOT NULL DEFAULT 1,
-		bg_id INT(11) NOT NULL DEFAULT 2,
+		bg_id INT(11) NOT NULL DEFAULT 3,
 		email VARCHAR(254) UNIQUE,
 		password TEXT NOT NULL,
 		token TEXT NOT NULL,
@@ -62,14 +62,14 @@ db_request($exec, $login, $password, $dsn);
 $admPass = hash('whirlpool', 'admin');
 
 $exec = "INSERT INTO users (login, photo_id, bg_id, password, token, isadmin, isConfirm)
-		VALUES ('admin', 1, 2, '" . $admPass . "','" . $admPass . "' , true, true)";
+		VALUES ('admin', 1, 3, '" . $admPass . "','" . $admPass . "' , true, true)";
 
 db_request($exec, $login, $password, $dsn);
 
 //add default photo for admin users
-$path = [   "/camagru_mvc/photos/default_avatar.png",
+$path = [   "/camagru_mvc/photos/male.svg",
+            "/camagru_mvc/photos/female.svg",
             "/camagru_mvc/photos/bg_default.jpeg",
-            "/camagru_mvc/photos/1.jpg",
             "/camagru_mvc/photos/2.jpg",
             "/camagru_mvc/photos/3.jpg",
             "/camagru_mvc/photos/4.jpg",

@@ -47,6 +47,7 @@ class AccountController extends Controller{
 
     public function signupAction() {
         if(!empty($_POST)){
+
             if($_GET['action'] == 'signup'){
                 $login = $pass = $email = $sex = "";
                 $login = $this->test_input($_POST['name']);
@@ -54,8 +55,12 @@ class AccountController extends Controller{
                 $email = $this->test_input($_POST['email']);
                 $token = hash('whirlpool', $this->random_str(32));
                 $sex = $_POST['sex'];
+                $photo = 1;
+                if($sex === 'female')
+                    $photo = 2;
 //                var_dump($_POST);
-                if ($this->model->addUser($login, $sex, $pass, $email, $token, "users")){
+//                echo $photo;
+                if ($this->model->addUser($login, $sex, $photo, $pass, $email, $token, "users")){
                     $name_from = 'kkostrub';
                     $email_from = 'kkostrub@student.unit.ua';//$email_from = 'katerinakostrubova@gmail.com';
                     $email_to = $email;
@@ -86,11 +91,11 @@ class AccountController extends Controller{
                     debug("invalid password");
             }
         }
-        $photos = $this->model->getPhoto();
-        $vars = [
-            'photo' => $photos
-        ];
-        $this->view->render('SIGNUP PAGE', $vars);
+//        $photos = $this->model->getPhoto();
+//        $vars = [
+//            'photo' => $photos
+//        ];
+        $this->view->render('SIGNUP PAGE');
     }
 
     public function logoutAction(){

@@ -7,25 +7,30 @@ $btns = [
             "id" => "stopbt",
             "type" => "button",
             "photo" => "photo-camera",
-            "ext" => ".svg"
+            "ext" => ".svg",
+            "class" => "inactive"
     ],
     "1" => [
             "id" => "fileupload",
             "type" => "file",
             "photo" => "upload",
-            "ext" => ".png"
+            "ext" => ".png",
+            "class" => "active"
+
     ],
     "2" => [
             "id" => "reset_btn",
             "type" => "button",
             "photo" => "reset",
-            "ext" => ".svg"
+            "ext" => ".svg",
+            "class" => "active"
     ],
     "3" => [
             "id" => "save_btn",
             "type" => "button",
             "photo" => "save",
-            "ext" => ".svg"
+            "ext" => ".svg",
+            "class" => "inactive"
     ]
 ];
 
@@ -54,9 +59,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
                 <?php
                 for($i = 0; $i < count($btns); $i++){
                     ?>
-                    <label for="<?php echo $btns[$i]["id"]?>">
+                    <label  class="<?php echo $btns[$i]["class"]?>" for="<?php echo $btns[$i]["id"]?>">
                         <img src="/camagru_mvc/public/image/<?php echo $btns[$i]["photo"] ?><?php echo $btns[$i]["ext"] ?>" alt="<?php echo $btns[$i]["photo"]?>">
-                        <input type="<?php echo $btns[$i]["type"]?>" id="<?php echo $btns[$i]["id"]?>">
+                        <input type="<?php echo $btns[$i]["type"]?>" id="<?php echo $btns[$i]["id"]?>" <?php if($i == 0 || $i == 3) echo "disabled"?> >
                     </label>
                     <?php
                 }

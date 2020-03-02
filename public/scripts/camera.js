@@ -18,6 +18,8 @@ let takePhoto = document.querySelector('#stopbt');
 // let filter_list = document.querySelector('#filter_container').getElementsByTagName('img');
 let filter_container = document.querySelector('#filter_container');
 
+let classInactive = document.querySelectorAll('.inactive');
+
 let newImg = null;
 
 let canvasData   = null;
@@ -106,6 +108,8 @@ takePhoto.addEventListener(
         canvas.height = height;
         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
         canvasData = canvas.toDataURL("image/png");
+        saveBtn.removeAttribute('disabled');
+        classInactive[1].classList.add('active');
         // console.log(canvasData);
         e.preventDefault();
     }, false);
@@ -116,19 +120,26 @@ reset_btn.addEventListener('click', function(){
     canvas.getContext('2d').clearRect(0, 0, width, height);
     canvasData = null;
     uploadfile.value = "";
+    if(!takePhoto.hasAttribute('disabled')){
+        takePhoto.setAttribute('disabled', 'true');
+    }
+    classInactive[0].classList.remove('active');
+    classInactive[1].classList.remove('active');
+    document.querySelector('.selected_stick').classList.remove('selected_stick');
 }, false);
 
 filter_container.addEventListener('click',  function(e){
     if (e.target.id != "filter_container")
     {
         if (filter != null){
-            filter.style.border = "none";
+            filter.classList.remove('selected_stick');
         }
         if (e.target == filter){
             filter = null;
             filterCtx.clearRect(0, 0, width, height);
         } else {
-            e.target.style.border = "2px solid white";
+            // e.target.style.border = "2px solid white";
+            e.target.classList.add('selected_stick');
             filter = e.target;
             newImg = new Image();
             newImg.src = filter.src;
@@ -136,6 +147,9 @@ filter_container.addEventListener('click',  function(e){
             {
                 filterCtx.clearRect(0, 0, width, height);
                 filterCtx.drawImage(newImg, filterX - 100, filterY - 100, 200, 200);
+                takePhoto.removeAttribute('disabled');
+                classInactive[0].classList.add('active');
+                console.log(classInactive);
             }
         }
     }
@@ -186,6 +200,7 @@ let saveResponse = function(request) {
     console.log(response);
     console.log("saved");
     addImage(response);
+    reset_btn.click();
 };
 
 saveBtn.addEventListener('click', function(e){
