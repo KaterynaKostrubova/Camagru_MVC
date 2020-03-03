@@ -18,7 +18,7 @@ let takePhoto = document.querySelector('#stopbt');
 // let filter_list = document.querySelector('#filter_container').getElementsByTagName('img');
 let filter_container = document.querySelector('#filter_container');
 
-let classInactive = document.querySelectorAll('.inactive');
+let classInactive = document.querySelectorAll('.inactive_click');
 
 let newImg = null;
 
@@ -109,7 +109,7 @@ takePhoto.addEventListener(
         canvas.getContext('2d').drawImage(video, 0, 0, width, height);
         canvasData = canvas.toDataURL("image/png");
         saveBtn.removeAttribute('disabled');
-        classInactive[1].classList.add('active');
+        classInactive[1].classList.add('active_click');
         // console.log(canvasData);
         e.preventDefault();
     }, false);
@@ -123,8 +123,8 @@ reset_btn.addEventListener('click', function(){
     if(!takePhoto.hasAttribute('disabled')){
         takePhoto.setAttribute('disabled', 'true');
     }
-    classInactive[0].classList.remove('active');
-    classInactive[1].classList.remove('active');
+    classInactive[0].classList.remove('active_click');
+    classInactive[1].classList.remove('active_click');
     document.querySelector('.selected_stick').classList.remove('selected_stick');
 }, false);
 
@@ -148,7 +148,7 @@ filter_container.addEventListener('click',  function(e){
                 filterCtx.clearRect(0, 0, width, height);
                 filterCtx.drawImage(newImg, filterX - 100, filterY - 100, 200, 200);
                 takePhoto.removeAttribute('disabled');
-                classInactive[0].classList.add('active');
+                classInactive[0].classList.add('active_click');
                 console.log(classInactive);
             }
         }
@@ -229,7 +229,7 @@ function  deletePhoto(e) {
     let req = new Requests();
     let id = e.target.id.split('_')[1] + '';
     console.log(id);
-    str ='';
+    let str ='';
     let data = {
         'id' : id,
     };

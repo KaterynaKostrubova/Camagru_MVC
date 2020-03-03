@@ -78,8 +78,8 @@
                     </form>
                 </div>
             </div>
-            <form class="invisible_btn" action="/camagru_mvc/gallery/gallery" method="post" class="sign_up_form" >
-                <label for="gallary_btn">Go to Gallary</label>
+            <form class="invisible_btn" action="/camagru_mvc/gallery/gallery" class="sign_up_form" >
+                <label for="gallary_btn">Go to Gallery</label>
                 <input id="gallary_btn" type="submit" name="submit" value="ok"/>
             </form>
         </div>

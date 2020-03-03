@@ -8,6 +8,8 @@ return [
         'profileEdit',
         'savePhoto',
         'deletePhoto',
+        'changeAvatar',
+        'changeBg'
     ],
     'guest' => [
     ],

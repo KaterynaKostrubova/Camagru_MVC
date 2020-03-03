@@ -8,14 +8,14 @@ $btns = [
             "type" => "button",
             "photo" => "photo-camera",
             "ext" => ".svg",
-            "class" => "inactive"
+            "class" => "inactive_click"
     ],
     "1" => [
             "id" => "fileupload",
             "type" => "file",
             "photo" => "upload",
             "ext" => ".png",
-            "class" => "active"
+            "class" => "active_click"
 
     ],
     "2" => [
@@ -23,14 +23,14 @@ $btns = [
             "type" => "button",
             "photo" => "reset",
             "ext" => ".svg",
-            "class" => "active"
+            "class" => "active_click"
     ],
     "3" => [
             "id" => "save_btn",
             "type" => "button",
             "photo" => "save",
             "ext" => ".svg",
-            "class" => "inactive"
+            "class" => "inactive_click"
     ]
 ];
 

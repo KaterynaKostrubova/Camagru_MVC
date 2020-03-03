@@ -20,6 +20,16 @@ $routes = [
         'controller' => 'api',
         'action' => 'deletePhoto',
     ],
+
+    'api/change/avatar' => [
+        'controller' => 'api',
+        'action' => 'changeAvatar',
+    ],
+
+    'api/change/bg' => [
+        'controller' => 'api',
+        'action' => 'changeBg',
+    ],
 ];
 
 return $routes;

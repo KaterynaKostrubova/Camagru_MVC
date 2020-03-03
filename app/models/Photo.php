@@ -35,4 +35,15 @@ class Photo extends Model {
         return $this->db->row("SELECT path FROM photos WHERE id='$id'");
     }
 
+    public function changeAvatar($photo_id, $id){
+//        $prevAvatar = $this->db->row("SELECT avatar FROM photos WHERE id='$id' AND avatar=true");
+//            $this->db->insertto("UPDATE users SET avatar=false, avatar=true WHERE id = '$id'");
+            $this->db->insertto("UPDATE users SET photo_id= '$photo_id' WHERE id = '$id'");
+
+    }
+
+    public function changeBg($bg_id, $id){
+        return $this->db->insertto("UPDATE users SET bg_id= '$bg_id' WHERE id = '$id'");
+    }
+
 }

@@ -139,6 +139,7 @@ class ApiController extends Controller
             'id' => $this->request['id'],
             '$file_name' => $name[3]
         );
+//        var_dump($responseData);
 
         $this->view->apiRender($responseData);
     }
@@ -152,6 +153,34 @@ class ApiController extends Controller
 //        var_dump($photo);
 //        $this->view->apiRender($test);
 //    }
+
+    public function  changeAvatarAction(){
+        $model = new Photo();
+        $model->changeAvatar($this->request['photo_id'], $this->request['id']);
+        $path = $model->getNameImage($this->request['photo_id']);
+        $responseData = array(
+            'status' => 'ok',
+            'id' => $this->request['id'],
+            'photo_id' => $this->request['photo_id'],
+            'path' => $path[0]['path'],
+        );
+
+        $this->view->apiRender($responseData);
+    }
+
+    public function  changeBgAction(){
+        $model = new Photo();
+        $model->changeBg($this->request['bg_id'], $this->request['id']);
+        $path = $model->getNameImage($this->request['bg_id']);
+        $responseData = array(
+            'status' => 'ok',
+            'id' => $this->request['id'],
+            'bg_id' => $this->request['bg_id'],
+            'path' => $path[0]['path'],
+        );
+
+        $this->view->apiRender($responseData);
+    }
 
 
 }

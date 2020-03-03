@@ -42,6 +42,7 @@ class MainController extends Controller {
             'bg_photo'=> $bgPath,
             'photos' => $photos
         ];
+//        var_dump($vars);
 
         $this->view->render('MAIN PAGE', $vars);
 //        debug($_SESSION);

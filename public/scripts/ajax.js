@@ -19,6 +19,7 @@ class Requests {
             if (contentType === JsonContentType) {
                 req.responseType = 'json';
             }
+            //console.log(data);
             req.send(data);
         }
 
@@ -27,13 +28,13 @@ class Requests {
             if (json) {
                 contentType = JsonContentType;
                 data = JSON.stringify(json);
-                console.log(json);
-                console.log(data);
+
             } else {
                 contentType = "application/x-www-form-urlencoded";
             }
 
             data = data || '';
+            // console.log(json);
             // console.log(data);
             this._request('POST', url, data, onResponseCallback, contentType)
         }

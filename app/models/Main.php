@@ -16,7 +16,7 @@ class Main extends Model {
     }
 
     public function getUserPhotos($user){
-        $photos = $this->db->row("SELECT path FROM photos WHERE user_id='$user'");
+        $photos = $this->db->row("SELECT path, id, user_id FROM photos WHERE user_id='$user'");
         return $photos;
     }
 

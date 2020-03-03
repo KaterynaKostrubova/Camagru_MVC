@@ -66,11 +66,25 @@ $exec = "INSERT INTO users (login, photo_id, bg_id, password, token, isadmin, is
 
 db_request($exec, $login, $password, $dsn);
 
-//add default photo for admin users
-$path = [   "/camagru_mvc/photos/male.svg",
-            "/camagru_mvc/photos/female.svg",
-            "/camagru_mvc/photos/bg_default.jpeg",
-            "/camagru_mvc/photos/2.jpg",
+$pathdef = [   "/camagru_mvc/photos/male.svg",
+    "/camagru_mvc/photos/female.svg",
+    "/camagru_mvc/photos/bg_default.jpeg",
+];
+
+try {
+    $pdo = new PDO($dsn, $login, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    for($i = 0; $i < 3; $i++){
+        $pdo->exec("INSERT INTO photos (path, user_id, name, description)
+		VALUES ('" . $pathdef[$i] . "', 0 , 'default' , 'default')");
+    }
+
+} catch (PDOException $e) {
+    exit($e->getMessage());
+}
+
+//add photo for admin users
+$path = [   "/camagru_mvc/photos/2.jpg",
             "/camagru_mvc/photos/3.jpg",
             "/camagru_mvc/photos/4.jpg",
             "/camagru_mvc/photos/5.jpg",
@@ -79,7 +93,7 @@ $path = [   "/camagru_mvc/photos/male.svg",
 try {
     $pdo = new PDO($dsn, $login, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    for($i = 0; $i < 6; $i++){
+    for($i = 0; $i < 4; $i++){
         $pdo->exec("INSERT INTO photos (path, user_id, name, description)
 		VALUES ('" . $path[$i] . "', 1 , 'admin' , 'admin')");
     }
@@ -87,6 +101,10 @@ try {
 } catch (PDOException $e) {
     exit($e->getMessage());
 }
+
+
+
+
 
 //add pack of filters/stikers
 $exec = 'CREATE TABLE filters(

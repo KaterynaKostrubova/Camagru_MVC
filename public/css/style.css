@@ -259,6 +259,8 @@ label:hover{
 }
 
 
+
+
 .logout img,
 .camera img {
     max-width: 64px;
@@ -337,19 +339,6 @@ width: 70%;
     position: absolute;
 }
 
-/*MAIN GALLERY*/
-.general-gallery {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
-
-.general-gallery img {
-    width: 700px;
-    margin: 100px;
-}
-
 /*HEADER*/
 header {
     /*position: relative;*/
@@ -370,8 +359,36 @@ header {
 }
 
 .avatar {
-    margin-top: -68px;
-    max-width: 128px;
+
+    max-width: 64px;
+    max-height: 64px;
+    /*border-radius: 50%;*/
+}
+
+.crop{
+    width: 128px;
+    height: 128px;
+    float:left;
+    margin: -68px 10px .5em 0;
+    overflow:hidden; /* this is important */
+    border-radius: 50%;
+
+}
+
+.crop_min{
+    width: 64px;
+    height: 64px;
+    float:left;
+    margin: .5px 10px .5em 0;
+    overflow:hidden; /* this is important */
+    border-radius: 50%;
+
+}
+/* input values to crop the image: top, right, bottom, left */
+.crop img{
+    width: 172px;
+    margin: 0px 0px 0px 0;
+    /*margin:-41px -156px -40px -30px;*/
 }
 
 .login {
@@ -633,17 +650,17 @@ footer {
     flex-wrap: wrap;
 }
 
-.inactive {
+.inactive_click {
     filter: grayscale(100%);
     cursor: default;
 }
 
-.active {
+.active_click {
     filter: none;
     cursor: pointer;
 }
 
-.active:hover {
+.active_click:hover {
     transform: rotate(10deg);
 }
 
@@ -750,8 +767,18 @@ footer {
 
 
 
-#to_profile, #sign_out_photo {
+#to_profile, #sign_out_photo,
+#public_gallery {
     display: none;
+}
+
+.to_sign_up {
+    display: flex;
+
+}
+
+.to_sign_up img {
+    margin: 0 20px;
 }
 
 .to_profile img,
@@ -858,6 +885,30 @@ input[type="radio"]:checked+label{
 .sex input {
     display: none;
 }
+
+
+/*MAIN GALLERY*/
+.public_gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img_card {
+    display: flex;
+    flex-direction: row;
+    background: aliceblue;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 0.5%;
+}
+
+
+
+
+
+
+
 
 @media screen and (max-width: 768px) {
     .webcam_btns

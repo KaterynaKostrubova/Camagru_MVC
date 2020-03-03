@@ -15,7 +15,9 @@
 
         <?php if (count($vars['photos']) > 0){
             for($i = 0; $i < count($vars['photos']); $i++) {?>
-                <img class="photo photo-<?php echo $i?>" src="<?php echo $vars['photos'][$i]['path']?>" alt="" width="200" height="200">
+                <img class="photo photo-<?php echo $vars['photos'][$i]['id']?>" src="<?php echo $vars['photos'][$i]['path']?>" alt="" width="200" height="200">
+                <input type="button" class="change_ava" id="change_<?php echo $vars['photos'][$i]['id']?>_<?php echo $vars['photos'][$i]['user_id']?>" onclick="changeAvatar(event)" value="ava">
+                <input type="button" class="change_bg" id="changebg_<?php echo $vars['photos'][$i]['id']?>_<?php echo $vars['photos'][$i]['user_id']?>" onclick="changeBg(event)" value="bg">
             <?php }
         } else {
             echo "There will be your photo!";
@@ -51,6 +53,7 @@
                     <input type="password"  name="password" id ="editEmail" value="23134234234">
                     <input type="password"  name="password" id ="editEmail" value="23134234234">
                 </div>
+                <input type="button" class="set_def_avatar">
                 <div class="notification">
 
                     <label for="sendToEmail" class="container">Send notification to email
