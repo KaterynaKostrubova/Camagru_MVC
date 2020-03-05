@@ -30,6 +30,16 @@ $routes = [
         'controller' => 'api',
         'action' => 'changeBg',
     ],
+
+    'api/like' => [
+        'controller' => 'api',
+        'action' => 'like',
+    ],
+
+    'api/comment' => [
+        'controller' => 'api',
+        'action' => 'comment',
+    ],
 ];
 
 return $routes;

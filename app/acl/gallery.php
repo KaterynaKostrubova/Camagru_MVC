@@ -3,8 +3,10 @@
 return [
     'all' => [
         'gallery',
+
     ],
     'authorize' => [
+        'photo'
     ],
     'guest' => [
     ],

@@ -297,6 +297,11 @@ filterCanvas.ondragstart = function() {
 };
 
 
+
+
+
+
+
 // var idx = 0;
 // var filters = ['grayscale', 'sepia', 'blur', 'brightness', 'contrast', 'hue-rotate',
 //     'hue-rotate2', 'hue-rotate3', 'saturate', 'invert', ''];

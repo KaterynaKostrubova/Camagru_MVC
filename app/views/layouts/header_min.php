@@ -19,7 +19,7 @@
                             <label for="public_gallery">
                                 <img src="/camagru_mvc/public/image/gallery.svg" alt="PUBLIC GALLERY">
                             </label>
-                            <input id="public_gallery" type="submit" name="submit" value="ok"/>
+                            <input id="public_gallery" type="submit" name="submit"/>
                         </form>
                     <?php } ?>
                     <form action="/camagru_mvc/account/logout">

@@ -128,4 +128,26 @@ try {
     exit($e->getMessage());
 }
 
+$exec = 'CREATE TABLE likes(
+		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		photo_id INT(11) NOT NULL,
+		user_id INT(11) NOT NULL
+	)';
+
+db_request($exec, $login, $password, $dsn);
+
+$exec = 'CREATE TABLE comments(
+		id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+		photo_id INT(11) NOT NULL,
+		user_id INT(11) NOT NULL,
+		text VARCHAR(254) NOT NULL
+		
+	)';
+
+db_request($exec, $login, $password, $dsn);
+
+
+
+
+
 header('Location: /camagru_mvc/account/signup');

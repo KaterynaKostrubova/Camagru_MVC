@@ -9,7 +9,9 @@ return [
         'savePhoto',
         'deletePhoto',
         'changeAvatar',
-        'changeBg'
+        'changeBg',
+        'like',
+        'comment'
     ],
     'guest' => [
     ],

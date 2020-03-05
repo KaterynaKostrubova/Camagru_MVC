@@ -9,7 +9,6 @@ use PDOStatement;
 class Db {
 
     function __construct(){
-
         try {
             include "app/config/db.php";
             $this->db = new PDO('mysql:host='.$HOST.';dbname='.$NAME.';charset=UTF8', $USER, $PASSWORD);

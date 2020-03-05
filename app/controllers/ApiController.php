@@ -6,7 +6,8 @@ use app\models\Account;
 use app\models\Gallery;
 use app\models\Photo;
 use app\models\Profile;
-
+use Exception;
+use PDOException;
 
 class ApiController extends Controller
 {
@@ -182,5 +183,52 @@ class ApiController extends Controller
         $this->view->apiRender($responseData);
     }
 
+    public function  likeAction(){
+            $model = new Photo();
+            $userModel = new Profile();
+            $login = $_SESSION['authorize']['name'];
+            $user = $userModel->getUser($login);
+            $responseData = array(
+                'status' => 'error',
+            );
+            if ($user) {
+                $photo_id = $this->request['id'];
+                $usr_id = $user[0]['id'];
+                $like = $this->request['like'];
+                    if ($like) {
+                        $model->removeLike($photo_id, $usr_id);
+                    }
+                    else {
+                        $model->addLike($photo_id, $usr_id);
+                    }
 
+                $responseData = array(
+                    'status' => 'ok',
+                    'id' => $photo_id,
+                    'usr_id' => $usr_id,
+                    'like' => $like,
+                );
+            }
+            $this->view->apiRender($responseData);
+    }
+
+    public function  commentAction(){
+        $model = new Photo();
+        $login = $_SESSION['authorize']['name'];
+        $userModel = new Profile();
+        $user = $userModel->getUser($login);
+        $responseData = array(
+            'status' => 'error',
+        );
+        if($user){
+            $model->addComments($this->request['id'], $user[0]['id'], $this->request['text']);
+            $responseData = array(
+                'status' => 'ok',
+                'id' => $this->request['id'],
+                'usr' => $user[0]['id'],
+                'text' => $this->request['text'],
+            );
+        }
+        $this->view->apiRender($responseData);
+    }
 }
