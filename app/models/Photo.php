@@ -63,12 +63,24 @@ class Photo extends Model {
         return $this->db->row("SELECT * FROM likes WHERE photo_id='$photo_id';");
     }
 
-//    function getComments(){
-//        return $this->db->row("SELECT c.text, p.id, u.login  FROM comments c JOIN photos p ON c.photo_id = p.id JOIN users u ON c.user_id = u.id;");
-//    }
     function getComments($id){
-        return $this->db->row("SELECT c.text, c.user_id  FROM comments c WHERE photo_id='$id';");
+        return $this->db->row("SELECT c.photo_id, c.text, u.login 
+                                    FROM comments c 
+                                    JOIN users u 
+                                    ON (u.id = c.user_id)
+                                    AND c.photo_id = '$id' 
+                                    ;");
     }
+
+    public function deleteLikes($id){
+        return $this->db->delete("DELETE FROM likes WHERE photo_id='$id';");
+    }
+
+    public function deleteComments($id){
+        return $this->db->delete("DELETE FROM comments WHERE photo_id='$id';");
+    }
+
+
 
     function addComments($photo_id, $user_id, $text){
         return $this->db->insertto("INSERT INTO comments (photo_id, user_id, text) VALUE ('$photo_id', '$user_id', '$text');");

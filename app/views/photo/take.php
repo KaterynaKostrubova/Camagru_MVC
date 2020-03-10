@@ -79,7 +79,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
     <div id="edited_photos">
         <?php
                 for($i = count($vars['edited_photos']) - 1; $i >= 0; $i--){ ?>
-                    <div class="img_block img_block_<?php echo $vars['edited_photos'][$i]['id']?>">
+                    <div class="img_card img_card_<?php echo $vars['edited_photos'][$i]['id']?>">
                         <img id="edited_<?php echo $vars['edited_photos'][$i]['id']?>" src="<?php echo $vars['edited_photos'][$i]['path']?>">
                             <input type="button" class="edit" id="edit_<?php echo $vars['edited_photos'][$i]['id']?>"  onclick="">
                             <input type="button" class="comment" id="comment_<?php echo $vars['edited_photos'][$i]['id']?>"  onclick="">

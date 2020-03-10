@@ -161,7 +161,7 @@ function addImage(response){
 
     let div = document.createElement("div");
 
-    div.className = "img_block img_block_" + json_data['id'];
+    div.className = "img_card img_card_" + json_data['id'];
     edited_block.prepend(div);
 
     let img = document.createElement("img");
@@ -221,7 +221,7 @@ saveBtn.addEventListener('click', function(e){
 let delResponse = function(request) {
     let response = request.response;
     console.log(response);
-    let del = document.querySelector('.img_block_' + response['id']);
+    let del = document.querySelector('.img_card_' + response['id']);
     del.remove();
 };
 

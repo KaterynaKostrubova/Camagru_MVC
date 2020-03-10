@@ -13,24 +13,20 @@ class GalleryController extends Controller
     public  function galleryAction(){
         $model = new Photo();
         $usr = $model->getUserData($_SESSION['authorize']['name']);
-        $avatar = $model->getNameImage($usr[0]['photo_id']);
-        $photos = $this->model->getAllPhotos($usr[0]['id']);
-        $ownersAvatars = $this->model->getAllAvatars();
 
-//        $likes = $model->getLikes($usr[0]['id']);
-//        $comments = $model->getComments();
-//        var_dump($likes);
-//
-//        var_dump($comments);
+        if ($usr){
+            $avatar = $model->getNameImage($usr[0]['photo_id'])[0]['path'];
+        } else {
+            $avatar = '/camagru_mvc/photos/male.svg';
+        }
+        $photos = $this->model->getAllPhotos();
+        $ownersAvatars = $this->model->getAllAvatars();
         $vars = [
             'photos' => $photos,
             'info' => $usr,
-            'avatar' => $avatar[0]['path'],
+            'avatar' => $avatar,
             'owners' => $ownersAvatars,
-//            'likes' => $likes,
-//            'comments' => $comments
         ];
-//        var_dump($vars);
         $this->view->render('Gallery PAGE', $vars);
     }
 
@@ -49,6 +45,7 @@ class GalleryController extends Controller
         $comments = $model->getComments($id);
         $numberLikes = count($model->getLikes($id));
 //        var_dump($avaPath);
+
         $vars = [
             'info' => $usr,
             'id' => $id,
@@ -60,7 +57,6 @@ class GalleryController extends Controller
             'comments' => $comments,
             'numberOfLikes' => $numberLikes,
         ];
-
         $this->view->render('Gallery PAGE', $vars);
     }
 }

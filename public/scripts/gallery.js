@@ -1,10 +1,17 @@
 let likeResponse = function(request) {
     let response = request.response;
-    // console.log(response);
+    console.log(response);
     if (response.status === 'ok') {
         let selector = '#like-' + response['id'];
         // + response['id']
         let like = document.querySelector(selector);
+        let numberLikes = document.querySelector('.number_likes');
+        let n = Number(numberLikes.innerHTML);
+        if(response['like'] === true)
+            n--;
+        else
+            n++;
+        numberLikes.innerHTML = n + '';
         like.classList.toggle("liked");
     }
 };
@@ -39,7 +46,7 @@ let commentResponse = function(request) {
 
     let div2 = document.createElement("div");
     div2.className = "comment_login";
-    div2.innerText = response['usr'];
+    div2.innerText = response['login'];
     div1.append(div2);
 
     let div3 = document.createElement("div");
@@ -49,6 +56,11 @@ let commentResponse = function(request) {
 
     let text = document.getElementById('text-' + response['id']);
     text.value = '';
+
+    // let numberComments = document.querySelector('.number_comments');
+    // let n = Number(numberComments.innerHTML);
+    // n++;
+    // numberComments.innerHTML = n + '';
 };
 
 function  postComment(e) {
@@ -72,4 +84,25 @@ function  postComment(e) {
         console.log('empty');
     }
 
+}
+
+
+let delCardResponse = function(request) {
+    let response = request.response;
+    console.log(response);
+    let del = document.querySelector('.img_card_' + response['id']);
+    del.remove();
+};
+
+function  deleteCard(e) {
+    let req = new Requests();
+    let id = e.target.id.split('_')[1] + '';
+    console.log(id);
+    let str ='';
+    let data = {
+        'id' : id,
+    };
+
+    req.post('/camagru_mvc/api/delete/photo', delCardResponse, str, data);
+    e.preventDefault();
 }

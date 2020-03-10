@@ -132,6 +132,8 @@ class ApiController extends Controller
     public function deletePhotoAction(){
         $model = new Photo();
         $file_name = $model->getNameImage($this->request['id']);
+        $del_likes = $model->deleteLikes($this->request['id']);
+        $del_comments = $model->deleteComments($this->request['id']);
         $model->delImage($this->request['id']);
         $name = explode('/', $file_name[0]['path']);
         $this->delete_file('photos/', $name[3]);
@@ -212,21 +214,36 @@ class ApiController extends Controller
             $this->view->apiRender($responseData);
     }
 
+//    private function sendNotification($email, $from, $text){
+//            $name_from = 'Camagru';
+//            $email_from = 'kkostrub@student.unit.ua';
+//            $email_to = $email;
+//            $email_subject = 'New comment';
+//            $email_message = 'Hi, you have a new comment from' . $from . ': "' . $text . '"';
+//            if(!$this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
+//               return 'error';
+//    }
+
     public function  commentAction(){
         $model = new Photo();
         $login = $_SESSION['authorize']['name'];
         $userModel = new Profile();
         $user = $userModel->getUser($login);
+
         $responseData = array(
             'status' => 'error',
         );
         if($user){
             $model->addComments($this->request['id'], $user[0]['id'], $this->request['text']);
+//            $sendNotification($user[0]['email'],  $login, $this->request['text']);
+
             $responseData = array(
                 'status' => 'ok',
                 'id' => $this->request['id'],
                 'usr' => $user[0]['id'],
+                'login' => $login,
                 'text' => $this->request['text'],
+                'email' => $user[0]['email'],
             );
         }
         $this->view->apiRender($responseData);
