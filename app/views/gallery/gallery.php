@@ -56,4 +56,5 @@
             </div>
         <?php }?>
 </div>
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/camagru_mvc/app/views/main/footer.php";?>
 <script src="/camagru_mvc/public/scripts/gallery.js"></script>

@@ -149,7 +149,7 @@ filter_container.addEventListener('click',  function(e){
                 filterCtx.drawImage(newImg, filterX - 100, filterY - 100, 200, 200);
                 takePhoto.removeAttribute('disabled');
                 classInactive[0].classList.add('active_click');
-                console.log(classInactive);
+                // console.log(classInactive);
             }
         }
     }
@@ -197,8 +197,8 @@ function addImage(response){
 
 let saveResponse = function(request) {
     let response = request.response;
-    console.log(response);
-    console.log("saved");
+    // console.log(response);
+    // console.log("saved");
     addImage(response);
     reset_btn.click();
 };

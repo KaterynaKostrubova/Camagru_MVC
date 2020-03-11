@@ -495,15 +495,44 @@ header {
 
 /*USER GALLERY*/
 #user_gallery {
-    width: 70%;
+    width: 60%;
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 auto;
+    padding: 10px 0;
+}
+.block {
+    width: 30%;
+    padding: 5px;
+}
+#user_gallery img {
+    width: 100%;
 }
 
-#user_gallery img {
-    margin: 15px;
+.block {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.change_ava,
+.change_bg {
+    background-color: #fde8ea;
+    color: #000;
+    font-size: 14px;
+    font-weight: normal;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    padding: 5px;
+    outline: none;
+}
+
+.btns {
+    padding: 5px;
+    text-align: center;
 }
 
 #user_settings {
@@ -816,7 +845,7 @@ footer {
     padding: 20px;
     background: #F06272;
     margin: 0 0 20px;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 5px 5px;
 }
 
 /*.avatar_min,*/
@@ -1119,6 +1148,19 @@ input[type="radio"]:checked+label{
     margin: 0 5px;
 }
 
+.dlt {
+    background-image: url(../image/delete64.svg);
+    width: 64px;
+    height: 64px;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    margin: 0 5px;
+}
+
 .like:active {
     transform: rotate(10deg);
 }
@@ -1155,6 +1197,25 @@ input[type="radio"]:checked+label{
     display: none;
 }
 
+.deleted-photo{
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    padding: 15px;
+    font-weight: bold;
+}
+
+
+footer {
+    width: 70%;
+    margin: 0 auto;
+    height: 80px;
+    background: #F06272;
+    border-radius: 5px 5px 0 0;
+    color: white;
+    line-height: 80px;
+}
 @media screen and (max-width: 768px) {
     .webcam_btns
     {

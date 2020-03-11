@@ -89,5 +89,5 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
     </div>
 
 </div>
-
+<?php include $_SERVER['DOCUMENT_ROOT'] . "/camagru_mvc/app/views/main/footer.php";?>
 <script src="/camagru_mvc/public/scripts/camera.js"></script>

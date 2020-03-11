@@ -20,7 +20,7 @@ let setBtn = document.getElementById("sett");
 
 if(galBtn){
     galBtn.onclick = function () {
-        galleryBlock.style.display = "block";
+        galleryBlock.style.display = "flex";
         settingsBlock.style.display = "none";
     }
 }

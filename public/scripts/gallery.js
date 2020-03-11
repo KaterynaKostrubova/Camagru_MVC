@@ -90,8 +90,19 @@ function  postComment(e) {
 let delCardResponse = function(request) {
     let response = request.response;
     console.log(response);
-    let del = document.querySelector('.img_card_' + response['id']);
-    del.remove();
+    if(response['flag'] === 'delete'){
+        let del = document.querySelector('.img_card_' + response['id']);
+        del.remove();
+    } else {
+        let del = document.querySelector('.card');
+        let wrap = document.querySelector('.wrapper');
+        let div = document.createElement("div");
+        div.className = 'deleted-photo';
+        div.innerText = 'PHOTO DELETED';
+        wrap.append(div);
+        console.log(del);
+        del.style.display = 'none';
+    }
     if(response['path'] !== ''){
         let ava = document.querySelector('.avatar_min');
         ava.src = response['path'];
@@ -100,11 +111,15 @@ let delCardResponse = function(request) {
 
 function  deleteCard(e) {
     let req = new Requests();
-    let id = e.target.id.split('_')[1] + '';
+    let el = e.target.id.split('_');
+    let id = el[1] + '';
+    let flag = el[0] + '';
+
 
     let str ='';
     let data = {
         'id' : id,
+        'flag': flag,
     };
     console.log(data);
     req.post('/camagru_mvc/api/delete/photo', delCardResponse, str, data);

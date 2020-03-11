@@ -155,6 +155,7 @@ class ApiController extends Controller
             '$file_name' => $name[3],
             'test' => $test,
             'path' => $path,
+            'flag' => $this->request['flag'],
         );
 
         $this->view->apiRender($responseData);
