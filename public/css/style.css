@@ -517,18 +517,17 @@ header {
 }
 
 
-.data input {
+.field {
     box-sizing: border-box;
-    padding: 0 16px;
+    padding: 0  0 0 16px;
     width: 100%;
     height: 50px;
     outline: none;
     border: none;
-    margin: 0 auto;
     background-color: #3A4149;
     color: #eee;
     font-weight: bold;
-    margin: 10px;
+    margin: 10px 0;
 }
 
 .data input[type="submit"] {
@@ -552,17 +551,35 @@ header {
     text-align: center;
 }
 
-.notification {
-    margin: 20px;
+.notification,
+.default-avatar {
+    margin: 20px 0;
 }
 
-/*.notification label {*/
-/*    line-height: 68px;*/
-/*}*/
+.bot {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 
+#defAvatar{
+    background-color: #F06272;
+    color: #eee;
+    font-weight: normal;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    outline: none;
+}
+
+#defAvatar:active {
+    background-color: #f48a97;
+}
 
 #sendToEmail {
- width: auto;
+    width: auto;
 }
 
 .container {

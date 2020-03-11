@@ -57,10 +57,10 @@ let commentResponse = function(request) {
     let text = document.getElementById('text-' + response['id']);
     text.value = '';
 
-    // let numberComments = document.querySelector('.number_comments');
-    // let n = Number(numberComments.innerHTML);
-    // n++;
-    // numberComments.innerHTML = n + '';
+    let numberComments = document.querySelector('.number_comments');
+    let n = Number(numberComments.innerHTML);
+    n++;
+    numberComments.innerHTML = n + '';
 };
 
 function  postComment(e) {
@@ -92,17 +92,21 @@ let delCardResponse = function(request) {
     console.log(response);
     let del = document.querySelector('.img_card_' + response['id']);
     del.remove();
+    if(response['path'] !== ''){
+        let ava = document.querySelector('.avatar_min');
+        ava.src = response['path'];
+    }
 };
 
 function  deleteCard(e) {
     let req = new Requests();
     let id = e.target.id.split('_')[1] + '';
-    console.log(id);
+
     let str ='';
     let data = {
         'id' : id,
     };
-
+    console.log(data);
     req.post('/camagru_mvc/api/delete/photo', delCardResponse, str, data);
     e.preventDefault();
 }

@@ -25,7 +25,6 @@ let form = document.getElementById("form");
 //
 
 const getFormData = function(form) {
-    let check = document.getElementById('sendToEmail');
     let res = {};
 
 
@@ -108,15 +107,26 @@ let changeResponse = function(request) {
 function  changeAvatar(e) {
     let req = new Requests();
     let el = e.target.id.split('_');
-    let photo_id = el[1] + '';
-    let id = el[2] + '';
-    // console.log(id);
+    console.log(el);
     let str ='';
-    let data = {
-        'id' : id,
-        'photo_id': photo_id,
-    };
-    req.post('/camagru_mvc/api/change/avatar', changeResponse, str, data);
+    if (el[1]){
+        let photo_id = el[1] + '';
+        let id = el[2] + '';
+        // console.log(id);
+        let data = {
+            'id' : id,
+            'photo_id': photo_id,
+        };
+        req.post('/camagru_mvc/api/change/avatar', changeResponse, str, data);
+    } else {
+        console.log('tut');
+        let data = {
+            'id': '0',
+            'photo_id': '1',
+        };
+        req.post('/camagru_mvc/api/change/avatar', changeResponse, str, data);
+    }
+
     e.preventDefault();
 }
 
@@ -142,24 +152,26 @@ function  changeBg(e) {
     e.preventDefault();
 }
 
+let send = document.getElementById('sendToEmail');
+
+let checkResponse = function(request){
+    let response = request.response;
+    console.log(response);
+    if(response['ntf'] === false)
+        send.checked = false;
+    else
+        send.checked = true;
+};
 
 
-// let test = document.getElementById("form2");
-//
-// onRes = function(request) {
-//     let req = new Requests();
-//     let response = request.response;
-//     console.log(response);
-//     hideLoader();
-//     popUp(response);
-// };
-//
-// //
-// test.addEventListener('submit', function(event) {
-//     event.preventDefault();
-//
-//     let req = new Requests();
-//     let str_data = '';
-//     req.post('/camagru_mvc/api/pagination', onRes, str_data, data);
-// //     console.log(str_data, '-', data);
-// });
+send.addEventListener('click', function (e) {
+    let req = new Requests();
+    let str ='';
+    let data = {
+        'ntf' : send.checked,
+    };
+    req.post('/camagru_mvc/api/notification', checkResponse, str, data);
+    e.preventDefault();
+});
+
+

@@ -18,6 +18,7 @@ class Photo extends Model {
         return $this->db->row("SELECT * FROM users WHERE login='$user';");
     }
 
+
     public function getEditedPhotos($id){
         return $this->db->row("SELECT * FROM photos WHERE user_id='$id';");
     }
@@ -93,6 +94,16 @@ class Photo extends Model {
 
     public function getOwnerInfo($id){
             return $this->db->row("SELECT photo_id, login FROM users WHERE id='$id';");
+    }
+
+    public function getNotification($id){
+        $result = $this->db->row("SELECT u.notification, p.user_id FROM users u JOIN photos p ON u.id = p.user_id AND p.id ='$id' ");
+        return $result;
+    }
+
+    public function checkAvatar($id){
+        $result = $this->db->row("SELECT u.photo_id, p.user_id, p.path FROM users u JOIN photos p ON u.id = p.user_id AND u.photo_id ='$id'");
+        return $result;
     }
 
 //    public function getLogin($id){

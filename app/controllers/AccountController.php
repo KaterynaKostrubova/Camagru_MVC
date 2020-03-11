@@ -22,7 +22,7 @@ class AccountController extends Controller{
         return implode('', $pieces);
     }
 
-    private function sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message){
+    public function sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message){
         $encoding = "utf-8";
         // Set preferences for Subject field
         $subject_preferences = array(

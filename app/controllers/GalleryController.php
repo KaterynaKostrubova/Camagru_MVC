@@ -34,7 +34,7 @@ class GalleryController extends Controller
         $model = new Photo();
         $usr = $model->getUserData($_SESSION['authorize']['name']);
         $avatar = $model->getNameImage($usr[0]['photo_id']);
-//        ----------------
+
         $id = $_GET['id'];
         $pictureData = $model->getPictureData($id);
         $owner = $model->getOwnerInfo($pictureData[0]['user_id']);
@@ -44,7 +44,6 @@ class GalleryController extends Controller
         $like = $model->isMyLike($id, $usr[0]['id']);
         $comments = $model->getComments($id);
         $numberLikes = count($model->getLikes($id));
-//        var_dump($avaPath);
 
         $vars = [
             'info' => $usr,
@@ -60,10 +59,3 @@ class GalleryController extends Controller
         $this->view->render('Gallery PAGE', $vars);
     }
 }
-
-//public function updateTable($table, $field, $value, $whereField, $whereValue){
-//    if($this->db->query("UPDATE $table SET $field='$value' WHERE $whereField='$whereValue'"))
-//        return true;
-//    else
-//        return false;
-//}

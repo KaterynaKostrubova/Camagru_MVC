@@ -40,6 +40,11 @@ $routes = [
         'controller' => 'api',
         'action' => 'comment',
     ],
+
+    'api/notification' => [
+        'controller' => 'api',
+        'action' => 'notification',
+    ],
 ];
 
 return $routes;

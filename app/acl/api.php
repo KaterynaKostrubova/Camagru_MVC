@@ -11,7 +11,8 @@ return [
         'changeAvatar',
         'changeBg',
         'like',
-        'comment'
+        'comment',
+        'notification',
     ],
     'guest' => [
     ],

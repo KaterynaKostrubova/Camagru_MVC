@@ -105,6 +105,20 @@ class Account extends Model {
         return $result;
     }
 
+    public function updateNotification($ntf, $id){
+        if($this->db->query("UPDATE users SET notification='$ntf' WHERE id='$id'"))
+            return true;
+        else
+            return false;
+    }
+
+//    public function checkNotification($user){
+////        $result = $this->db->row("SELECT notification FROM users WHERE id='$user'");
+////        return $result;
+////    }
+
+
+
 //    public function getPhoto(){
 //        return  $this->db->row("SELECT path FROM photos LIMIT 3");
 //

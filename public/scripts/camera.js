@@ -223,6 +223,10 @@ let delResponse = function(request) {
     console.log(response);
     let del = document.querySelector('.img_card_' + response['id']);
     del.remove();
+    if(response['path']){
+        let ava = document.querySelector('.avatar_min');
+        ava.src = response['path'];
+    }
 };
 
 function  deletePhoto(e) {
