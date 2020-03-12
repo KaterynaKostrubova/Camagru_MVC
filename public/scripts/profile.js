@@ -119,7 +119,6 @@ function  changeAvatar(e) {
         };
         req.post('/camagru_mvc/api/change/avatar', changeResponse, str, data);
     } else {
-        console.log('tut');
         let data = {
             'id': '0',
             'photo_id': '1',
@@ -133,22 +132,32 @@ function  changeAvatar(e) {
 let changeBgResponse = function(request) {
     let response = request.response;
     console.log(response);
-    let ava = document.querySelector('.bg_photo');
-    ava.src = response['path'];
+    let bg = document.querySelector('.photo-acc');
+    bg.style.backgroundImage = 'url(' + response['path'] + ')';
+    // bg.src = response['path'];
+    console.log(bg.style.backgroundImage);
 };
 
 function  changeBg(e) {
     let req = new Requests();
     let el = e.target.id.split('_');
-    let bg_id = el[1] + '';
-    let id = el[2] + '';
-    // console.log(id);
-    let str ='';
-    let data = {
-        'id' : id,
-        'bg_id': bg_id,
-    };
-    req.post('/camagru_mvc/api/change/bg', changeBgResponse, str, data);
+    let str = '';
+    if (el[1]) {
+        let bg_id = el[1] + '';
+        let id = el[2] + '';
+        let data = {
+            'id': id,
+            'bg_id': bg_id,
+        };
+        req.post('/camagru_mvc/api/change/bg', changeBgResponse, str, data);
+    } else {
+        let data = {
+            'id': '0',
+            'bg_id': '3',
+        };
+        console.log(data);
+        req.post('/camagru_mvc/api/change/bg', changeBgResponse, str, data);
+    }
     e.preventDefault();
 }
 

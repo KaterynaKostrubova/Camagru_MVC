@@ -132,16 +132,20 @@ class ApiController extends Controller
     public function deletePhotoAction(){
         $model = new Photo();
         $test = $model->checkAvatar($this->request['id']);
+        $testBg = $model->checkBg($this->request['id']);
         $path = '';
+        $acc = new Account();
+        $login = $_SESSION['authorize']['name'];
+        $usr = $acc->getUserBy('login', $login);
         if ($test){
-            $acc = new Account();
-            $login = $_SESSION['authorize']['name'];
-            $usr = $acc->getUserBy('login', $login);
             $photo_id = 1;
             if($usr[0]['sex'] === 'female')
                 $photo_id = 2;
             $model->changeAvatar($photo_id, $usr[0]['id']);
             $path = $model->getNameImage($photo_id)[0]['path'];
+        }
+        if($testBg){
+            $model->changeBg(3, $usr[0]['id']);
         }
         $file_name = $model->getNameImage($this->request['id']);
         $model->deleteLikes($this->request['id']);
@@ -203,15 +207,23 @@ class ApiController extends Controller
 
     public function  changeBgAction(){
         $model = new Photo();
-        $model->changeBg($this->request['bg_id'], $this->request['id']);
+
+        if($this->request['id'] === '0'){
+            $acc = new Account();
+            $login = $_SESSION['authorize']['name'];
+            $usr = $acc->getUserBy('login', $login);
+            $id = $usr[0]['id'];
+        } else {
+            $id = $this->request['id'];
+        }
+        $model->changeBg($this->request['bg_id'], $id);
         $path = $model->getNameImage($this->request['bg_id']);
         $responseData = array(
             'status' => 'ok',
-            'id' => $this->request['id'],
+            'id' => $id,
             'bg_id' => $this->request['bg_id'],
             'path' => $path[0]['path'],
         );
-
         $this->view->apiRender($responseData);
     }
 

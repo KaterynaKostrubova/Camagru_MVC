@@ -50,6 +50,11 @@
                             <input id="defAvatar" type="button" value="Set default avatar" onclick="changeAvatar(event)">
                         </label>
                     </div>
+                    <div class="default-bg">
+                        <label for="defBg">
+                            <input id="defBg" type="button" value="Set default cover photo" onclick="changeBg(event)">
+                        </label>
+                    </div>
                 </div>
                 <input type="submit" name="submit" id="save" class="hide field" value="save" onclick="myFunction()">
                 <div id="loader" style="flex: 1; color: white;">Saving...</div>

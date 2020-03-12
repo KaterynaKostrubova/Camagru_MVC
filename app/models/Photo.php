@@ -106,6 +106,11 @@ class Photo extends Model {
         return $result;
     }
 
+    public function checkBg($id){
+        $result = $this->db->row("SELECT u.bg_id, p.user_id, p.path FROM users u JOIN photos p ON u.id = p.user_id AND u.bg_id ='$id'");
+        return $result;
+    }
+
 //    public function getLogin($id){
 //        return $this->db->row("SELECT login FROM users WHERE id='$id';");
 //    }

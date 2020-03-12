@@ -22,8 +22,12 @@ body {
     background-color: #2B3338;
     height: 100%;
     width: 100%;
+    color: #BBC8CA;
 }
 
+/*.main {*/
+/*    color: #BBC8CA;*/
+/*}*/
 .wrap {
     display: flex;
     justify-content: center;
@@ -211,11 +215,11 @@ input:-webkit-autofill {
     outline: none;
 }
 
-.select li:hover,
-.login_signup input[type="submit"]:hover {
-    background-color: #f48a97;
-    color: #eee;
-}
+/*.select li:hover,*/
+/*.login_signup input[type="submit"]:hover {*/
+/*    background-color: #f48a97;*/
+/*    color: #eee;*/
+/*}*/
 
 #log_in {
     display: none;
@@ -227,7 +231,7 @@ input:-webkit-autofill {
 
 h1{
     text-align: center;
-    color: #eee;
+    /*color: #eee;*/
     font-weight: lighter;
 }
 
@@ -321,6 +325,7 @@ label:hover{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 10px 0 50px;
 }
 
 .data {
@@ -342,7 +347,7 @@ width: 70%;
 /*HEADER*/
 header {
     /*position: relative;*/
-    width: 70%;
+    width: 60%;
     display: block;
     margin: 0 auto;
 }
@@ -352,6 +357,11 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: url("/camagru_mvc/photos/5e67c7089548a.png");
+    background-position: center;
+    background-size: cover;
+    /*background-position: center;*/
+    height: 400px;
 }
 
 .bg_photo {
@@ -370,14 +380,35 @@ header {
     margin: 0px 0 0 -5px;
 }
 
+.avatar-block {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.login_min,
+.login {
+    font-family: 'Pacifico';
+    font-size: 24px;
+    line-height: 0px;
+    letter-spacing: 0.2em;
+    margin: 15px 0 0;
+}
+
+.login {
+    display: block;
+    padding: 25px;
+    font-size: 24px;
+}
+
 .crop{
     width: 150px;
     height: 150px;
-    float:left;
-    margin: -68px 10px .5em 0;
+    /*float:left;*/
+    margin: -80px auto .5em;
     overflow:hidden; /* this is important */
     border-radius: 50%;
-
 }
 
 .crop_min{
@@ -403,7 +434,7 @@ header {
 .crop img{
     width: 200px;
     height: 172px;
-    margin: -10px 0px 0px -10px;
+    margin: -10px 0px 0px -18px;
     /*margin:-41px -156px -40px -30px;*/
 }
 
@@ -437,12 +468,6 @@ header {
     height: 100%;
     margin: 0 auto;
     display: block;
-}
-.login {
-    display: block;
-    padding: 10px;
-    color: #eeeeee;
-    font-size: 24px;
 }
 
 .buttons input{
@@ -537,7 +562,7 @@ header {
 
 #user_settings {
     display: none;
-    width: 70%;
+    width: 60%;
     margin: 0 auto;
 }
 
@@ -554,21 +579,21 @@ header {
     outline: none;
     border: none;
     background-color: #3A4149;
-    color: #eee;
+    color: #BBC8CA;
     font-weight: bold;
     margin: 10px 0;
 }
 
 .data input[type="submit"] {
-    background-color: #F06272;
-    color: #eee;
+    background-color: #BBC8CA;
+    color: #2B3338;
     font-weight: bold;
     text-transform: uppercase;
     cursor:pointer;
 }
 
 #user_settings h1 {
-    color: white;
+    /*color: white;*/
     text-align: center;
     font-weight: bolder;
     margin: 25px;
@@ -576,13 +601,16 @@ header {
 }
 
 .data h2 {
-    color: white;
+    /*color: white;*/
     text-align: center;
 }
 
 .notification,
-.default-avatar {
+.default-avatar,
+.default-bg {
     margin: 20px 0;
+    color: #3F5561;
+
 }
 
 .bot {
@@ -592,10 +620,11 @@ header {
     justify-content: space-between;
 }
 
-#defAvatar{
-    background-color: #F06272;
-    color: #eee;
-    font-weight: normal;
+#defAvatar,
+#defBg {
+    background-color: #3F5561;
+    color: #2B3338;
+    font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
     border: none;
@@ -604,7 +633,7 @@ header {
 }
 
 #defAvatar:active {
-    background-color: #f48a97;
+    background-color: #2C4452;
 }
 
 #sendToEmail {
@@ -617,11 +646,12 @@ header {
     padding-left: 35px;
     margin-bottom: 12px;
     cursor: pointer;
-    font-size: 22px;
+    font-size: 20px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    color: #3F5561;
 }
 
 /* Hide the browser's default radio button */
@@ -629,6 +659,7 @@ header {
     position: absolute;
     opacity: 0;
     cursor: pointer;
+
 }
 
 /* Create a custom radio button */
@@ -636,8 +667,8 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    height: 25px;
-    width: 25px;
+    height: 26px;
+    width: 26px;
     background-color: #eee;
     border-radius: 50%;
 }
@@ -708,7 +739,7 @@ footer {
 }
 
 .top_container {
-    width: 70%;
+    width: 60%;
 }
 
 #stiker_container,
@@ -879,17 +910,6 @@ footer {
     height: 64px;
 }
 
-.login_min,
-.login {
-    font-family: 'Pacifico';
-    font-size: 24px;
-    line-height: 0px;
-    letter-spacing: 0.2em;
-    color: white;
-    margin: 15px 0 0;
-
-}
-
 .video video,
 .video canvas {
     border-radius: 1%;
@@ -985,7 +1005,7 @@ input[type="radio"]:checked+label{
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    width: 70%;
+    width: 60%;
     margin: 0 auto;
     justify-content: center;
 }
@@ -1063,7 +1083,7 @@ input[type="radio"]:checked+label{
     z-index: 1;
     top: 0px;
     right: 0px;
-    color: #fff;
+    /*color: #fff;*/
     border: none;
     background: #F06272;
     font-size: 12px;
@@ -1086,7 +1106,7 @@ input[type="radio"]:checked+label{
     border: none;
     outline: none !important;
     resize: none;
-    color: rgba(255, 255, 255, 1);
+    /*color: rgba(255, 255, 255, 1);*/
     font-size: 18px;
     margin: 0;
     /*padding-right: 20px;*/
@@ -1201,24 +1221,24 @@ input[type="radio"]:checked+label{
     display: block;
     text-align: center;
     font-size: 24px;
-    color: white;
     padding: 15px;
     font-weight: bold;
 }
 
 
 footer {
-    width: 70%;
+    width: 60%;
     margin: 0 auto;
     height: 80px;
     background: #F06272;
     border-radius: 5px 5px 0 0;
-    color: white;
+    color:#2B3338;
+    font-weight: bold;
+    font-size: 18px;
     line-height: 80px;
 }
 @media screen and (max-width: 768px) {
-    .webcam_btns
-    {
+    .webcam_btns {
         width: 99%;
     }
 }

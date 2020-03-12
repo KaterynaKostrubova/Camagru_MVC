@@ -1,12 +1,6 @@
 <div class="wrapper">
     <header>
         <div class="photo-acc">
-            <img class="bg_photo" src="<?php echo $vars['bg_photo']?>" alt="bg">
-            <p class="crop">
-                <img class="avatar" src="<?php echo $vars['avatar']?>" alt="avatar">
-            </p>
-
-            <div class="login"><?php echo $vars['info'][0]['login']?></div>
             <div class="top_buttons">
                 <div class="takePhoto">
                     <form action="/camagru_mvc/photo/take">
@@ -23,7 +17,6 @@
                     <input id="public_gallery" type="submit" name="submit" value="ok"/>
                 </form>
                 <div class="logout">
-
                     <form action="/camagru_mvc/account/logout">
                         <label for="logout">
                             <img src="/camagru_mvc/public/image/sign-out.png" alt="">
@@ -32,6 +25,12 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="avatar-block">
+            <p class="crop">
+                <img class="avatar" src="<?php echo $vars['avatar']?>" alt="avatar">
+            </p>
+            <div class="login"><?php echo $vars['info'][0]['login']?></div>
         </div>
         <div class="buttons">
             <ul class="select" id="select_block" onclick="addActiveClass(event)"">
@@ -44,4 +43,8 @@
             </ul>
         </div>
     </header>
+    <script>
+        let bg = document.querySelector('.photo-acc');
+        bg.style.backgroundImage = 'url(<?php echo $vars['bg_photo']?>)';
+    </script>
 
