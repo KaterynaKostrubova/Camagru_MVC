@@ -25,6 +25,12 @@ body {
     color: #BBC8CA;
 }
 
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    min-height: 100%;
+}
 /*.main {*/
 /*    color: #BBC8CA;*/
 /*}*/
@@ -33,6 +39,17 @@ body {
     justify-content: center;
     height: 100%;
     width: 100%;
+}
+
+.public_gallery,
+.main,
+.card,
+.wrap_webcam {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex: 0 0 auto;
 }
 
 .wrap_form,
@@ -816,7 +833,7 @@ footer {
 #edited_photos .img_card  {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 #edited_photos .img_card  img {
@@ -1022,7 +1039,7 @@ input[type="radio"]:checked+label{
 
 .mid {
    display: flex;
-    padding: 0 15px 0 0;
+    padding: 0 45px 0 0;
 }
 
 .card {
@@ -1225,10 +1242,13 @@ input[type="radio"]:checked+label{
     font-weight: bold;
 }
 
+.btns input {
+    margin: 3px 0;
+}
 
 footer {
     width: 60%;
-    margin: 0 auto;
+    margin: 20px auto 0;
     height: 80px;
     background: #F06272;
     border-radius: 5px 5px 0 0;
@@ -1237,8 +1257,160 @@ footer {
     font-size: 18px;
     line-height: 80px;
 }
+/*@media screen and (max-width: 768px) {*/
+/*    .webcam_btns {*/
+/*        width: 99%;*/
+/*    }*/
+/*}*/
+
+
+@media screen and (max-width: 1440px) {
+    header,
+    footer,
+    .top_container {
+        width: 75%;
+    }
+
+    #edited_photos {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    header,
+    footer,
+    .top_container {
+        width: 95%;
+    }
+
+    #edited_photos {
+        width: 85%;
+    }
+
+    #user_gallery,
+    #user_settings {
+        width: 95%;
+    }
+
+    .data {
+        width: 85%;
+    }
+
+    .public_gallery {
+        width: 85%;
+    }
+
+}
+
 @media screen and (max-width: 768px) {
-    .webcam_btns {
-        width: 99%;
+    header,
+    footer,
+    .top_container {
+        width: 100%;
+    }
+
+    .top_container {
+        flex-direction: column-reverse;
+    }
+
+    .video_wrapper {
+        order: 1;
+    }
+
+    #stiker_container,
+    #filter_container {
+        width: 100%;
+    }
+
+    #stiker_container img,
+    #filter_container img {
+        width: 5%;
+    }
+
+    #edited_photos {
+        width: 90%;
+    }
+
+    .card {
+        width: 97%;
+    }
+
+    .to_sign_up img {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 425px) {
+
+    #stiker_container,
+    #filter_container {
+        width: 94%;
+    }
+
+    #stiker_container img,
+    #filter_container img {
+        width: 11%;
+    }
+
+    #edited_photos {
+        width: 100%;
+       justify-content: space-around;
+    }
+
+    #edited_photos .img_card {
+        width: 25%;
+    }
+
+    #edited_photos .img_card input {
+        margin: 0;
+    }
+
+    .photo-acc {
+        height: 300px;
+    }
+
+    .public_gallery {
+        width: 98%;
+    }
+
+    .public_gallery .img_card {
+        width: 45%;
+    }
+
+    .mid {
+        padding-right: 65px;
+    }
+}
+
+
+@media screen and (max-width: 375px) {
+
+    .photo_acc_min {
+        padding: 20px 0;
+    }
+
+    .to_sign_up img {
+         margin: 0;
+    }
+
+    .bot {
+        flex-direction: column;
+        align-items: center;
+    }
+    .notification, .default-avatar, .default-bg {
+        margin: 3px 0;
+    }
+
+    .public_gallery .img_card {
+        width: 90%;
+    }
+
+    .to_profile img, .to_sign_up img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .login_min {
+        margin-left: -10px;
     }
 }

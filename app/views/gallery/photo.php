@@ -3,7 +3,6 @@
 
 if ($vars['picturePath']){
 ?>
-
 <div class="card">
         <div class="img_head">
             <p class="crop_min_min">
@@ -48,4 +47,5 @@ if ($vars['picturePath']){
     <div class="card" style="text-align: center">PHOTO NOT FOUND</div>
 <?php }?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/camagru_mvc/app/views/main/footer.php";?>
+</div>
 <script src="/camagru_mvc/public/scripts/gallery.js"></script>

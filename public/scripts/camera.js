@@ -24,8 +24,8 @@ let newImg = null;
 
 let canvasData   = null;
 let filterData = null;
-let width = 960;
-let height = 720;
+let width = 720;
+let height = 480;
 let stikerWidth = 200;
 let stikerHeight = 200;
 
@@ -43,7 +43,9 @@ if (widthWin > 720){
     height = 480;
     stikerWidth = 200;
     stikerHeight = 200;
-} else if (widthWin <= 720 && widthWin >= 480){
+}
+
+else if (widthWin <= 720 && widthWin >= 480){
     width = 480;
     height = 320;
     stikerWidth = 100;
@@ -171,19 +173,19 @@ function addImage(response){
     div.prepend(img);
 
 
-    let edit = document.createElement("input");
-    edit.className = 'edit';
-    edit.id = "edit_" + json_data['id'];
-    edit.type = "button";
-    // edit.onclick = editPhoto;
-    div.append(edit);
-
-    let comment = document.createElement("input");
-    comment.className = 'comment';
-    comment.id = "comment_" + json_data['id'];
-    edit.type = "button";
-    // edit.onclick = editPhoto;
-    div.append(comment);
+    // let edit = document.createElement("input");
+    // edit.className = 'edit';
+    // edit.id = "edit_" + json_data['id'];
+    // edit.type = "button";
+    // // edit.onclick = editPhoto;
+    // div.append(edit);
+    //
+    // let comment = document.createElement("input");
+    // comment.className = 'comment';
+    // comment.id = "comment_" + json_data['id'];
+    // edit.type = "button";
+    // // edit.onclick = editPhoto;
+    // div.append(comment);
 
     let del = document.createElement("input");
     del.className = 'delete';

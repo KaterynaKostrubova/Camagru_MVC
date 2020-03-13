@@ -13,22 +13,6 @@ class MainController extends Controller {
 //    }
 
     public function indexAction() {
-//        $vars = [
-//            'name' => 'Kate',
-//            'age'  => '26',
-//            'arr'  => [1, 2, 3],
-//        ];
-//        $this->view->render('MAIN PAGE', $vars);
-//        $db = new Db();
-
-//        $form = '2; DELETE FROM users';
-//        $params = [
-//            'id' => 1,
-//        ];
-//
-//        $data = $db->column('SELECT login FROM users WHERE id = :id', $params);
-//        debug($data);
-
 
         $model = new Account();
         $user = $model->getUser($_SESSION['authorize']['name']);
@@ -42,13 +26,8 @@ class MainController extends Controller {
             'bg_photo'=> $bgPath,
             'photos' => $photos
         ];
-//        var_dump($vars);
 
         $this->view->render('MAIN PAGE', $vars);
-//        debug($_SESSION);
-
-
-
     }
 
 //    public  function profileAction(){

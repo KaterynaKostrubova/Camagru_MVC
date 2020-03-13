@@ -47,12 +47,12 @@
                     </div>
                     <div class="default-avatar">
                         <label for="defAvatar">
-                            <input id="defAvatar" type="button" value="Set default avatar" onclick="changeAvatar(event)">
+                            <input id="defAvatar" type="button" value="default avatar" onclick="changeAvatar(event)">
                         </label>
                     </div>
                     <div class="default-bg">
                         <label for="defBg">
-                            <input id="defBg" type="button" value="Set default cover photo" onclick="changeBg(event)">
+                            <input id="defBg" type="button" value="default cover" onclick="changeBg(event)">
                         </label>
                     </div>
                 </div>
@@ -63,8 +63,7 @@
         <?php //var_dump($vars['info']); ?>
     </div>
 </div>
-
-</div>
 <?php include "footer.php";?>
+</div>
 <script src="/camagru_mvc/public/scripts/profile.js"></script>
 <script src="/camagru_mvc/public/scripts/scripts.js"></script>

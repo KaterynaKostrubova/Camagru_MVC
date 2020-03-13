@@ -38,9 +38,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
 ?>
 
 <div class="wrap_webcam">
-
-<!--    <div class="res"></div>-->
-
     <div class="top_container">
         <div id="stiker_container">
             <?php
@@ -81,13 +78,13 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
                 for($i = count($vars['edited_photos']) - 1; $i >= 0; $i--){ ?>
                     <div class="img_card img_card_<?php echo $vars['edited_photos'][$i]['id']?>">
                         <img id="edited_<?php echo $vars['edited_photos'][$i]['id']?>" src="<?php echo $vars['edited_photos'][$i]['path']?>">
-                            <input type="button" class="edit" id="edit_<?php echo $vars['edited_photos'][$i]['id']?>"  onclick="">
-                            <input type="button" class="comment" id="comment_<?php echo $vars['edited_photos'][$i]['id']?>"  onclick="">
+<!--                            <input type="button" class="edit" id="edit_--><?php //echo $vars['edited_photos'][$i]['id']?><!--"  onclick="">-->
+<!--                            <input type="button" class="comment" id="comment_--><?php //echo $vars['edited_photos'][$i]['id']?><!--"  onclick="">-->
                             <input type="button" class="delete" id="delete_<?php echo $vars['edited_photos'][$i]['id']?>"  onclick="deletePhoto(event)">
                     </div>
         <?php   } ?>
     </div>
-
 </div>
 <?php include $_SERVER['DOCUMENT_ROOT'] . "/camagru_mvc/app/views/main/footer.php";?>
+</div>
 <script src="/camagru_mvc/public/scripts/camera.js"></script>

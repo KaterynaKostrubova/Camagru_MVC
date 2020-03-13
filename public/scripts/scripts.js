@@ -4,7 +4,10 @@ function addActiveClass(e) {
     if(elems !== null){
         elems.classList.remove("active");
     }
-    e.target.className = "active";
+    if(e.target.tagName === 'LI')
+        e.target.className = "active";
+    else
+        e.target.parentElement.className = "active";
 }
 
 let registerBtn = document.getElementById("register");
