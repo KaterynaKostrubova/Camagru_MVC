@@ -6,17 +6,10 @@ let topBnt = document.querySelector('.top');
 
 topBnt.addEventListener('click', function (e) {
     document.documentElement.scrollTop = 0;
-    topBnt.style.display = 'none';
 });
-
-function addBtnTop(){
-    topBnt.style.display = 'block';
-}
-
 
 let paginationResponse = function(request) {
     let response = request.response;
-    // console.log('count p', response['n']);
     console.log(response);
     if(response['nextPhotos'].length){
         let div = document.createElement('div');
@@ -46,31 +39,23 @@ function nextPhoto(){
             'counter': count,
             'n': n,
         };
-
         let req = new Requests();
         req.post('/camagru_mvc/api/pagination', paginationResponse, str, data);
     }
-
-    if (yOffset > heightWin) {
-        addBtnTop();
-    }
 }
 
-
-
 window.addEventListener("scroll", function(e){
-    if (!stop) {
+    if (!stop)
         nextPhoto();
-
-    }
+    if (window.pageYOffset > window.innerHeight)
+        topBnt.style.display = 'block';
+    else
+        topBnt.style.display = 'none';
 });
 
 window.onload = function (e){
     let str = '';
     let n = 5;
-    let heightWin = window.innerHeight;
-    let widthWin = window.innerWidth;
-    console.log(heightWin, widthWin);
 
     let data = {
         'counter': count,

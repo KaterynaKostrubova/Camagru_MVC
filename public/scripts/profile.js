@@ -77,7 +77,7 @@ function popUp(response) {
 onResponse = function(request) {
     let req = new Requests();
     let response = request.response;
-    console.log(response);
+    // console.log(response);
     hideLoader();
     popUp(response);
 };
@@ -86,7 +86,7 @@ onResponse = function(request) {
 form.addEventListener('submit', function(event) {
     event.preventDefault();
     let data = new getFormData(form);
-    console.log(data);
+    // console.log(data);
     let req = new Requests();
     let str_data = '';
     showLoader();
@@ -99,7 +99,7 @@ form.addEventListener('submit', function(event) {
 
 let changeResponse = function(request) {
     let response = request.response;
-    console.log(response);
+    // console.log(response);
     let ava = document.querySelector('.avatar');
     ava.src = response['path'];
 };
@@ -107,12 +107,10 @@ let changeResponse = function(request) {
 function  changeAvatar(e) {
     let req = new Requests();
     let el = e.target.id.split('_');
-    console.log(el);
     let str ='';
     if (el[1]){
         let photo_id = el[1] + '';
         let id = el[2] + '';
-        // console.log(id);
         let data = {
             'id' : id,
             'photo_id': photo_id,
@@ -134,8 +132,6 @@ let changeBgResponse = function(request) {
     console.log(response);
     let bg = document.querySelector('.photo-acc');
     bg.style.backgroundImage = 'url(' + response['path'] + ')';
-    // bg.src = response['path'];
-    console.log(bg.style.backgroundImage);
 };
 
 function  changeBg(e) {
