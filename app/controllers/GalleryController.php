@@ -21,8 +21,9 @@ class GalleryController extends Controller
         }
         $photos = $this->model->getAllPhotos();
         $ownersAvatars = $this->model->getAllAvatars();
+        $partPhotos = $this->model->getPartPhotos(0, 6);
         $vars = [
-            'photos' => $photos,
+            'photos' => $partPhotos,
             'info' => $usr,
             'avatar' => $avatar,
             'owners' => $ownersAvatars,

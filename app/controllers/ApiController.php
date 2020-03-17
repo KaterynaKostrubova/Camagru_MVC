@@ -12,7 +12,8 @@ use PDOException;
 class ApiController extends Controller
 {
 
-    public  function profileEditAction(){
+    public function profileEditAction()
+    {
         $currentLogin = $_SESSION['authorize']['name'];
         $newLogin = $this->request['name'];
         $newEmail = $this->test_input($this->request['email']);
@@ -30,8 +31,8 @@ class ApiController extends Controller
         $currentNotification = $user[0]['notification'];
 //        $changedNotification = false;
 
-        if ($currentLogin != $newLogin || $currentEmail != $newEmail || $currentNotification != $newNotification){
-            if($model->checkValue($newLogin, 'users', 'login')) {
+        if ($currentLogin != $newLogin || $currentEmail != $newEmail || $currentNotification != $newNotification) {
+            if ($model->checkValue($newLogin, 'users', 'login')) {
                 $model->updateTable('users', 'login', $newLogin, 'login', $currentLogin);
                 $_SESSION['authorize']['name'] = $newLogin;
                 $cookie_name = $newLogin;
@@ -46,13 +47,12 @@ class ApiController extends Controller
 //                $changed_email = true;
             }
 
-            if ($this->request['notification'] === false){
-                $model->updateTable('users', 'notification',  '0', 'login', $currentLogin);
+            if ($this->request['notification'] === false) {
+                $model->updateTable('users', 'notification', '0', 'login', $currentLogin);
                 $currentNotification = $newNotification;
 //                $changedNotification = true;
-            }
-            elseif ($this->request['notification'] === true) {
-                $model->updateTable('users', 'notification',  '1', 'login', $currentLogin);
+            } elseif ($this->request['notification'] === true) {
+                $model->updateTable('users', 'notification', '1', 'login', $currentLogin);
                 $currentNotification = $newNotification;
 //                $changedNotification = true;
             }
@@ -85,7 +85,8 @@ class ApiController extends Controller
         }
     }
 
-    public function savePhotoAction(){
+    public function savePhotoAction()
+    {
         $model = new Photo();
         $usr = $model->getUserData($_SESSION['authorize']['name']);
 
@@ -110,26 +111,28 @@ class ApiController extends Controller
     }
 
 
-    function delete_file($directory,$filename){
+    function delete_file($directory, $filename)
+    {
         // открываем директорию (получаем дескриптор директории)
         $dir = opendir($directory);
 
         // считываем содержание директории
-        while(($file = readdir($dir))) {
+        while (($file = readdir($dir))) {
             // Если это файл и он равен удаляемому ...
-            if((is_file("$directory/$file")) && ("$directory/$file" == "$directory/$filename")) {
+            if ((is_file("$directory/$file")) && ("$directory/$file" == "$directory/$filename")) {
                 // ...удаляем его.
                 unlink("$directory/$file");
 
                 // Если файла нет по запрошенному пути, возвращаем TRUE - значит файл удалён.
-                if(!file_exists($directory."/".$filename)) return TRUE;
+                if (!file_exists($directory . "/" . $filename)) return TRUE;
             }
         }
         // Закрываем дескриптор директории.
         closedir($dir);
     }
 
-    public function deletePhotoAction(){
+    public function deletePhotoAction()
+    {
         $model = new Photo();
         $test = $model->checkAvatar($this->request['id']);
         $testBg = $model->checkBg($this->request['id']);
@@ -137,14 +140,14 @@ class ApiController extends Controller
         $acc = new Account();
         $login = $_SESSION['authorize']['name'];
         $usr = $acc->getUserBy('login', $login);
-        if ($test){
+        if ($test) {
             $photo_id = 1;
-            if($usr[0]['sex'] === 'female')
+            if ($usr[0]['sex'] === 'female')
                 $photo_id = 2;
             $model->changeAvatar($photo_id, $usr[0]['id']);
             $path = $model->getNameImage($photo_id)[0]['path'];
         }
-        if($testBg){
+        if ($testBg) {
             $model->changeBg(3, $usr[0]['id']);
         }
         $file_name = $model->getNameImage($this->request['id']);
@@ -165,24 +168,15 @@ class ApiController extends Controller
         $this->view->apiRender($responseData);
     }
 
-//    public  function paginationAction(){
-//        $model = new Gallery();
-//        $photo = $model->getPartOfPhotos();
-//        $test = array(
-//            'data' => $photo
-//        );
-//        var_dump($photo);
-//        $this->view->apiRender($test);
-//    }
-
-    public function  changeAvatarAction(){
+    public function changeAvatarAction()
+    {
         $model = new Photo();
-        if($this->request['id'] === '0'){
+        if ($this->request['id'] === '0') {
             $acc = new Account();
             $login = $_SESSION['authorize']['name'];
             $usr = $acc->getUserBy('login', $login);
             $photo_id = 1;
-            if($usr[0]['sex'] === 'female')
+            if ($usr[0]['sex'] === 'female')
                 $photo_id = 2;
             $model->changeAvatar($photo_id, $usr[0]['id']);
             $path = $model->getNameImage($photo_id);
@@ -205,10 +199,11 @@ class ApiController extends Controller
         $this->view->apiRender($responseData);
     }
 
-    public function  changeBgAction(){
+    public function changeBgAction()
+    {
         $model = new Photo();
 
-        if($this->request['id'] === '0'){
+        if ($this->request['id'] === '0') {
             $acc = new Account();
             $login = $_SESSION['authorize']['name'];
             $usr = $acc->getUserBy('login', $login);
@@ -227,53 +222,55 @@ class ApiController extends Controller
         $this->view->apiRender($responseData);
     }
 
-    public function  likeAction(){
-            $model = new Photo();
-            $userModel = new Profile();
-            $login = $_SESSION['authorize']['name'];
-            $user = $userModel->getUser($login);
-            $responseData = array(
-                'status' => 'error',
-            );
-            if ($user) {
-                $photo_id = $this->request['id'];
-                $usr_id = $user[0]['id'];
-                $like = $this->request['like'];
-                    if ($like) {
-                        $model->removeLike($photo_id, $usr_id);
-                    }
-                    else {
-                        $model->addLike($photo_id, $usr_id);
-                    }
-
-                $responseData = array(
-                    'status' => 'ok',
-                    'id' => $photo_id,
-                    'usr_id' => $usr_id,
-                    'like' => $like,
-                );
+    public function likeAction()
+    {
+        $model = new Photo();
+        $userModel = new Profile();
+        $login = $_SESSION['authorize']['name'];
+        $user = $userModel->getUser($login);
+        $responseData = array(
+            'status' => 'error',
+        );
+        if ($user) {
+            $photo_id = $this->request['id'];
+            $usr_id = $user[0]['id'];
+            $like = $this->request['like'];
+            if ($like) {
+                $model->removeLike($photo_id, $usr_id);
+            } else {
+                $model->addLike($photo_id, $usr_id);
             }
-            $this->view->apiRender($responseData);
-    }
 
-    private function sendNotification($email, $from, $text){
-            $arr = array(
-                'controller' => 'gallery',
-                'action' => 'photo',
+            $responseData = array(
+                'status' => 'ok',
+                'id' => $photo_id,
+                'usr_id' => $usr_id,
+                'like' => $like,
             );
-            $acc = new AccountController($arr);
-            $name_from = 'Camagru';
-            $email_from = 'kkostrub@student.unit.ua';
-            $email_to = $email;
-            $email_subject = 'New comment';
-            $email_message = 'Hi, you have a new comment from ' . $from . ': "' . $text . '"';
-            if(!$acc->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
-               return 'error';
-            else
-                return 'true';
+        }
+        $this->view->apiRender($responseData);
     }
 
-    public function  commentAction(){
+    private function sendNotification($email, $from, $text)
+    {
+        $arr = array(
+            'controller' => 'gallery',
+            'action' => 'photo',
+        );
+        $acc = new AccountController($arr);
+        $name_from = 'Camagru';
+        $email_from = 'kkostrub@student.unit.ua';
+        $email_to = $email;
+        $email_subject = 'New comment';
+        $email_message = 'Hi, you have a new comment from ' . $from . ': "' . $text . '"';
+        if (!$acc->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
+            return 'error';
+        else
+            return 'true';
+    }
+
+    public function commentAction()
+    {
         $model = new Photo();
         $login = $_SESSION['authorize']['name'];
         $userModel = new Profile();
@@ -283,10 +280,10 @@ class ApiController extends Controller
         $responseData = array(
             'status' => 'error',
         );
-        if($user){
+        if ($user) {
             $model->addComments($this->request['id'], $user[0]['id'], $this->request['text']);
-            if ($ntf === '1'){
-                $send = $this->sendNotification($user[0]['email'],  $login, $this->request['text']);
+            if ($ntf === '1') {
+                $send = $this->sendNotification($user[0]['email'], $login, $this->request['text']);
             }
             $responseData = array(
                 'status' => 'ok',
@@ -296,28 +293,61 @@ class ApiController extends Controller
                 'text' => $this->request['text'],
                 'email' => $user[0]['email'],
                 'send' => $send,
-                'ntf'=> $ntf,
+                'ntf' => $ntf,
             );
         }
         $this->view->apiRender($responseData);
     }
 
-    public function notificationAction(){
+    public function notificationAction()
+    {
         $model = new Account();
         $login = $_SESSION['authorize']['name'];
         $id = $model->getUserBy('login', $login)[0]['id'];
-        if($model->updateNotification((int)$this->request['ntf'], $id)){
+        if ($model->updateNotification((int)$this->request['ntf'], $id)) {
             $responseData = array(
                 'status' => 'ok',
                 'ntf' => $this->request['ntf'],
                 'id' => $id,
             );
-        }
-        else {
+        } else {
             $responseData = array(
                 'status' => 'error',
             );
         }
+        $this->view->apiRender($responseData);
+    }
+
+    public function paginationAction()
+    {
+        $model = new Gallery();
+        $photo = $model->getPartPhotos($this->request['counter'] * $this->request['n'], $this->request['n']);
+        $ownersAvatars = $model->getAllAvatars();
+        $newHtml = '';
+
+        for ($i = 0; $i < count($photo); $i++) {
+            $search = $photo[$i]['photo_id'];
+            $column = array_column($ownersAvatars, 'photo_id');
+            $row = array_search($search, $column);
+
+            $newHtml = $newHtml . '<div class="img_card img_card_' . $photo[$i]['id'] .
+                '"><div class="img_head"><p class="crop_min_min"><img src="' .
+                $ownersAvatars[$row]['path'] . '" alt="" class="avatar_min_min"></p><div class="usr_login">' .
+                $photo[$i]['login'] . '</div>';
+
+            if ($photo[$i]['login'] === $_SESSION['authorize']['name']) {
+                $newHtml = $newHtml . '<div class="del"><input type="button" class="delete" id="delete_' .
+                    $photo[$i]['id'] . '" onclick="deleteCard(event)"></div>';
+            }
+            $newHtml = $newHtml . '</div><a href="/camagru_mvc/gallery/photo?id=' . $photo[$i]['id'] .
+                '"><img class="photo photo-' . $photo[$i]['id'] . '" src="' . $photo[$i]['path'] . '" alt="picture"/></a></div>';
+
+        }
+
+        $responseData = array(
+            'n' => count($photo),
+            'nextPhotos' => $newHtml,
+        );
         $this->view->apiRender($responseData);
     }
 }

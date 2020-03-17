@@ -13,6 +13,7 @@ return [
         'like',
         'comment',
         'notification',
+        'pagination',
     ],
     'guest' => [
     ],
