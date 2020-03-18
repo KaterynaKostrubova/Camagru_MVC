@@ -302,6 +302,100 @@ filterCanvas.ondragstart = function() {
     return false;
 };
 
+//pagination
+let count = 0;
+let edited_block = document.getElementById("edited_photos");
+let prev = document.getElementById('prev');
+let next = document.getElementById('next');
+
+let simplePagination = function(request) {
+    let response = request.response;
+    console.log(response);
+    if(response['n'] * (response['c'] + 1) >= response['numberPhotos']){
+        next.setAttribute('disabled', 'true');
+    } else {
+        next.removeAttribute('disabled');
+    }
+    if (response['c'] === 0){
+        prev.setAttribute('disabled', 'true');
+    } else {
+        prev.removeAttribute('disabled');
+    }
+    if(response['nextPhotos'].length){
+        let div = document.createElement('div');
+        div.className = 'img_camera';
+        div.innerHTML = response['nextPhotos'];
+        let removeBlock = document.querySelector('.img_camera');
+        if(removeBlock){
+            console.log(removeBlock);
+            removeBlock.remove();
+        }
+        edited_block.append(div);
+    }
+};
+
+
+
+window.onload = function (e){
+    let str = '';
+    let n = 3;
+
+    let data = {
+        'counter': count,
+        'n': n,
+        'action': 'first',
+    };
+
+    let req = new Requests();
+    req.post('/camagru_mvc/api/pagination', simplePagination, str, data);
+};
+
+
+next.addEventListener("click", function(e){
+    let str = '';
+    let n = 3;
+    count++;
+    let data = {
+        'counter': count,
+        'n': n,
+        'action': 'next',
+    };
+
+    let req = new Requests();
+    req.post('/camagru_mvc/api/pagination', simplePagination, str, data);
+});
+
+prev.addEventListener("click", function(e){
+    let str = '';
+    let n = 3;
+    if(count > 0){
+        count--;
+        let data = {
+            'counter': count,
+            'n': n,
+            'action': 'prev',
+        };
+
+        let req = new Requests();
+        req.post('/camagru_mvc/api/pagination', simplePagination, str, data);
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

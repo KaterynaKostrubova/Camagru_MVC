@@ -14,6 +14,7 @@ return [
         'comment',
         'notification',
         'pagination',
+        'infinitePagination'
     ],
     'guest' => [
     ],

@@ -20,6 +20,4 @@ class Gallery extends Model {
     function getPartPhotos($i, $n){
         return  $this->db->row("SELECT p.id, p.path, u.login, u.photo_id FROM users u JOIN photos p ON u.id = p.user_id ORDER BY creation DESC LIMIT $n OFFSET $i");
     }
-
-
 }

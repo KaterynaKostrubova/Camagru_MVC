@@ -111,7 +111,11 @@ class Photo extends Model {
         return $result;
     }
 
-//    public function getLogin($id){
-//        return $this->db->row("SELECT login FROM users WHERE id='$id';");
-//    }
+    function getUsersPartPhotos($i, $n, $id){
+        return  $this->db->row("SELECT p.id, p.path FROM photos p WHERE user_id=$id ORDER BY creation DESC LIMIT $n OFFSET $i");
+    }
+
+    function getUsersAllPhotos($id){
+        return  $this->db->row("SELECT id FROM photos WHERE user_id=$id");
+    }
 }

@@ -11,6 +11,11 @@ $routes = [
         'action' => 'pagination',
     ],
 
+    'api/infinite/pagination' => [
+        'controller' => 'api',
+        'action' => 'infinitePagination',
+    ],
+
     'api/save/photo' => [
         'controller' => 'api',
         'action' => 'savePhoto',

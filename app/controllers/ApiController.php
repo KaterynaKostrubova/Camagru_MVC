@@ -162,7 +162,7 @@ class ApiController extends Controller
             '$file_name' => $name[3],
             'test' => $test,
             'path' => $path,
-            'flag' => $this->request['flag'],
+//            'flag' => $this->request['flag'],
         );
 
         $this->view->apiRender($responseData);
@@ -318,7 +318,7 @@ class ApiController extends Controller
         $this->view->apiRender($responseData);
     }
 
-    public function paginationAction()
+    public function infinitePaginationAction()
     {
         $model = new Gallery();
         $photo = $model->getPartPhotos($this->request['counter'] * $this->request['n'], $this->request['n']);
@@ -348,6 +348,32 @@ class ApiController extends Controller
             'n' => count($photo),
             'nextPhotos' => $newHtml,
         );
+        $this->view->apiRender($responseData);
+    }
+
+    public function paginationAction()
+    {   $Account = new Account();
+        $Photo = new Photo();
+        $login = $_SESSION['authorize']['name'];
+        $usr = $Account->getUserBy('login', $login);
+        $photo = $Photo->getUsersPartPhotos($this->request['counter'] * $this->request['n'], $this->request['n'], $usr[0]['id']);
+        $numberPhotos = $Photo->getUsersAllPhotos($usr[0]['id']);
+        $newHtml = '';
+
+        for ($i = 0; $i < count($photo); $i++) {
+                $newHtml = $newHtml . '<div class="img_card img_card_' . $photo[$i]['id'] . '"><img id="edited_' .
+                    $photo[$i]['id'] . '" src="' . $photo[$i]['path'] . '"><input type="button" class="delete" id="delete_' .
+                    $photo[$i]['id'] . '" onclick="deletePhoto(event)"></div>';
+        }
+
+        $responseData = array(
+            'c' => $this->request['counter'],
+            'n' => $this->request['n'],
+            'nextPhotos' => $newHtml,
+            'action' => $this->request['action'],
+            'numberPhotos' => count($numberPhotos),
+        );
+
         $this->view->apiRender($responseData);
     }
 }

@@ -10,7 +10,7 @@ topBnt.addEventListener('click', function (e) {
 
 let paginationResponse = function(request) {
     let response = request.response;
-    console.log(response);
+    // console.log(response);
     if(response['nextPhotos'].length){
         let div = document.createElement('div');
         div.className = 'img_block';
@@ -30,7 +30,7 @@ function nextPhoto(){
     let y  = yOffset + heightWin;
     let str = '';
     let n = 5;
-    console.log(yOffset, contentHeight);
+    // console.log(yOffset, contentHeight);
     if(y >= contentHeight)
     {
         count++;
@@ -40,7 +40,7 @@ function nextPhoto(){
             'n': n,
         };
         let req = new Requests();
-        req.post('/camagru_mvc/api/pagination', paginationResponse, str, data);
+        req.post('/camagru_mvc/api/infinite/pagination', paginationResponse, str, data);
     }
 }
 
@@ -56,13 +56,13 @@ window.addEventListener("scroll", function(e){
 window.onload = function (e){
     let str = '';
     let n = 5;
-
+    // console.log(count);
     let data = {
         'counter': count,
         'n': n,
     };
 
     let req = new Requests();
-    req.post('/camagru_mvc/api/pagination', paginationResponse, str, data);
+    req.post('/camagru_mvc/api/infinite/pagination', paginationResponse, str, data);
 };
 

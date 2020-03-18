@@ -1268,6 +1268,12 @@ input[type="radio"]:checked+label{
     background-color: rgba(150, 150, 150, 0.1);
 }
 
+.img_camera {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 footer {
     width: 60%;
     margin: 20px auto 0;
