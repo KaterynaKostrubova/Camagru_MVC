@@ -115,7 +115,9 @@ class Photo extends Model {
         return  $this->db->row("SELECT p.id, p.path FROM photos p WHERE user_id=$id ORDER BY creation DESC LIMIT $n OFFSET $i");
     }
 
-    function getUsersAllPhotos($id){
-        return  $this->db->row("SELECT id FROM photos WHERE user_id=$id");
+    function getUserPhotosNumber($id){
+        return  $this->db->column("SELECT COUNT(id) as num FROM photos WHERE user_id=$id;");
     }
+
+
 }

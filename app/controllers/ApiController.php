@@ -90,13 +90,14 @@ class ApiController extends Controller
         $model = new Photo();
         $usr = $model->getUserData($_SESSION['authorize']['name']);
 
-        $img = imagecreatefrompng($_POST["data"]);
-        $png = imagecreatefrompng($_POST["filter"]);
-        imagecolortransparent($png, imagecolorat($png, 0, 0));
-        imagecopymerge($img, $png, 0, 0, 0, 0, 960, 720, 100);
+        $photo = imagecreatefrompng($_POST["data"]);
+        $filter = imagecreatefrompng($_POST["filter"]);
+        imagecolortransparent($filter, imagecolorat($filter, 0, 0));
+        imagecopymerge($photo, $filter, 0, 0, 0, 0, 960, 720, 100);
+
         $rnd_file_name = uniqid() . ".png";
         $file_name = "photos/" . $rnd_file_name;
-        imagepng($img, $file_name, 5);
+        imagepng($photo, $file_name, 5);
         $path = '/camagru_mvc/' . $file_name;
         $model->addPhoto($path, $usr[0]['id'], $_SESSION['authorize']['name'], 'description');
         $id = $model->getIdPhoto($path);
@@ -351,27 +352,34 @@ class ApiController extends Controller
         $this->view->apiRender($responseData);
     }
 
+
+
     public function paginationAction()
     {   $Account = new Account();
         $Photo = new Photo();
         $login = $_SESSION['authorize']['name'];
         $usr = $Account->getUserBy('login', $login);
-        $photo = $Photo->getUsersPartPhotos($this->request['counter'] * $this->request['n'], $this->request['n'], $usr[0]['id']);
-        $numberPhotos = $Photo->getUsersAllPhotos($usr[0]['id']);
-        $newHtml = '';
+        $numberPhotos = $Photo->getUserPhotosNumber($usr[0]['id']);
 
-        for ($i = 0; $i < count($photo); $i++) {
-                $newHtml = $newHtml . '<div class="img_card img_card_' . $photo[$i]['id'] . '"><img id="edited_' .
-                    $photo[$i]['id'] . '" src="' . $photo[$i]['path'] . '"><input type="button" class="delete" id="delete_' .
-                    $photo[$i]['id'] . '" onclick="deletePhoto(event)"></div>';
+
+        if($this->request['counter'] < 0){
+            $page = floor($numberPhotos / $this->request['perPage']);
+            $nPage = $page;
+
+        }
+        else {
+            $page = $this->request['counter'];
+            $nPage = $this->request['counter'];
         }
 
+        $photo = $Photo->getUsersPartPhotos($page * $this->request['perPage'], $this->request['perPage'], $usr[0]['id']);
         $responseData = array(
-            'c' => $this->request['counter'],
-            'n' => $this->request['n'],
-            'nextPhotos' => $newHtml,
+            'photos' => $photo,
+            'user_id' => $usr[0]['id'],
+            'numPage' => $nPage,
+            'perPage' => $this->request['perPage'],
             'action' => $this->request['action'],
-            'numberPhotos' => count($numberPhotos),
+            'numberPhotos' => (int)$numberPhotos,
         );
 
         $this->view->apiRender($responseData);

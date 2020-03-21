@@ -1,20 +1,16 @@
 <?php include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header.php';?>
 <div class="main">
     <div id="user_gallery">
-        <?php if (count($vars['photos']) > 0){
-            for($i = 0; $i < count($vars['photos']); $i++) {?>
-                <div class="block">
-                    <img class="photo photo-<?php echo $vars['photos'][$i]['id']?>" src="<?php echo $vars['photos'][$i]['path']?>" alt="">
-                    <div class="btns">
-                        <input type="button" class="change_ava" id="change_<?php echo $vars['photos'][$i]['id']?>_<?php echo $vars['photos'][$i]['user_id']?>" onclick="changeAvatar(event)" value="avatar">
-                        <input type="button" class="change_bg" id="changebg_<?php echo $vars['photos'][$i]['id']?>_<?php echo $vars['photos'][$i]['user_id']?>" onclick="changeBg(event)" value="background">
-                    </div>
-                </div>
-            <?php }
-        } else {
-            echo "There will be your photo!";
-        } ?>
+        <div id="photo_block">
 
+        </div>
+        <div class="pagination">
+            <input type="button" id="first" value="<<">
+            <input type="button" id="prev" value="<">
+            <button id="num-page">1</button>
+            <input type="button" id="next" value=">">
+            <input type="button" id="last" value=">>">
+        </div>
     </div>
     <div id="user_settings">
         <h1>You can edit your profile info</h1>

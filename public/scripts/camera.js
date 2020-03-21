@@ -1,23 +1,20 @@
 
 let filter = null;
 let streaming = false;
-let video = document.querySelector('#video');
+
 let videoClass = document.querySelector('.video');
 let constraints = {};
 
-let canvas = document.querySelector('#photo_canvas');
-let filterCanvas = document.querySelector('#filter_canvas');
-let filterCtx = filterCanvas.getContext('2d');
+// let canvas = document.querySelector('#photo_canvas');
+// let filterCanvas = document.querySelector('#filter_canvas');
+// let filterCtx = filterCanvas.getContext('2d');
 
 let uploadfile = document.querySelector('#fileupload');
 
 let saveBtn = document.querySelector('#save_btn');
 let reset_btn = document.querySelector('#reset_btn');
 let takePhoto = document.querySelector('#stopbt');
-
-// let filter_list = document.querySelector('#filter_container').getElementsByTagName('img');
 let filter_container = document.querySelector('#filter_container');
-
 let classInactive = document.querySelectorAll('.inactive_click');
 
 let newImg = null;
@@ -29,36 +26,23 @@ let height = 480;
 let stikerWidth = 200;
 let stikerHeight = 200;
 
-// document.addEventListener('click',e => console.log(e.target))
-
-
-navigator.getUserMedia = navigator.getUserMedia ||
-    navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia;
-
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 let widthWin = document.documentElement.clientWidth;
-if (widthWin > 720){
-    width = 720;
-    height = 480;
-    stikerWidth = 200;
-    stikerHeight = 200;
-}
 
-else if (widthWin <= 720 && widthWin >= 480){
+if (widthWin <= 720 && widthWin >= 480){
     width = 480;
     height = 320;
     stikerWidth = 100;
     stikerHeight = 100;
-} else {
+} else if (widthWin < 480){
     width = 320;
     height = 256;
     stikerWidth = 50;
     stikerHeight = 50;
 }
 
-let filterX = width / 2 - 100;
-let filterY = height / 2 - 100;
+let video = document.querySelector('#video');
 
 if (navigator.getUserMedia) {
     navigator.getUserMedia({
@@ -79,6 +63,10 @@ if (navigator.getUserMedia) {
     console.log("getUserMedia not supported");
 }
 
+let canvas = document.querySelector('#photo_canvas');
+let filterCanvas = document.querySelector('#filter_canvas');
+let filterCtx = filterCanvas.getContext('2d');
+
 video.addEventListener('canplay', function(e){
     if (!streaming) {
         height = video.videoHeight / (video.videoWidth/width);
@@ -91,6 +79,123 @@ video.addEventListener('canplay', function(e){
         streaming = true;
     }
 }, false);
+
+let filterX = width / 2 - stikerWidth / 2;
+let filterY = height / 2 - stikerHeight / 2;
+
+filter_container.addEventListener('click',  function(e){
+    if (e.target.id !== "filter_container")
+    {
+        if (filter != null){
+            filter.classList.remove('selected_stick');
+        }
+        if (e.target === filter){
+            filter = null;
+            filterCtx.clearRect(0, 0, width, height);
+        } else {
+            e.target.classList.add('selected_stick');
+            filter = e.target;
+            newImg = new Image();
+            newImg.src = filter.src;
+            if (filter)
+            {
+                filterCtx.clearRect(0, 0, width, height);
+                filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
+                takePhoto.removeAttribute('disabled');
+                classInactive[0].classList.add('active_click');
+            }
+        }
+    }
+});
+
+filterCanvas.onmousedown = function(event) { // (1) отследить нажатие
+
+//     // (2) подготовить к перемещению:
+//     // разместить поверх остального содержимого и в абсолютных координатах
+    let coordsVideo = video.getBoundingClientRect();
+    let coordsFilters = filterCanvas.getBoundingClientRect();
+    filterCanvas.style.position = 'absolute';
+    filterCanvas.style.top = String(video.getBoundingClientRect().top) + 'px';
+    filterCanvas.style.left = String(video.getBoundingClientRect().left) + 'px';
+    filterCanvas.style.zIndex = '1000';
+//     // переместим в body, чтобы мяч был точно не внутри position:relative
+    let wrap = document.querySelector('.wrapper');
+    wrap.append(filterCanvas);
+//     // и установим абсолютно спозиционированный мяч под курсор
+    moveAt(event.pageX, event.pageY);
+//
+//     // передвинуть под координаты курсора
+//     // и сдвинуть на половину ширины/высоты для центрирования
+    function moveAt(pageX, pageY) {
+        console.log(filterCanvas.style.top);
+        console.log(video.getBoundingClientRect());
+        console.log(filterCanvas.getBoundingClientRect());
+        console.log(filterCanvas.getBoundingClientRect().y / 10);
+        console.log(video.getBoundingClientRect().y - (height/2 - stikerHeight/2));
+        filterCanvas.style.left = pageX  + 'px';
+        filterCanvas.style.top = pageY - filterCanvas.offsetHeight / 2 + 'px';
+        if(filterCanvas.getBoundingClientRect().x <= video.getBoundingClientRect().x - (width/2 - stikerWidth/2))
+            filterCanvas.style.left = (video.getBoundingClientRect().x - (width/2 - stikerWidth/2))*(-1)  + 'px';
+        if(filterCanvas.getBoundingClientRect().y / 10 <= video.getBoundingClientRect().y - (height/2 - stikerHeight/2)){
+            console.log(video.getBoundingClientRect().y - (height/2 - stikerHeight/2) + ' kjhkbgkhgkh');
+            filterCanvas.style.top = video.getBoundingClientRect().y - (height/2 - stikerHeight/2) + 'px';
+        }
+
+
+
+
+
+    }
+//
+    function onMouseMove(event) {
+
+        moveAt(event.pageX, event.pageY);
+        // if(coordsFilters.x <= coordsVideo.x - (coordsVideo.width/2 - filterX)){
+        //     filterCanvas.style.left = coordsVideo.left - filterX + 'px';
+        // }
+    }
+//
+//     // (3) перемещать по экрану
+    document.addEventListener('mousemove', onMouseMove);
+
+// (4) положить мяч, удалить более ненужные обработчики событий
+    filterCanvas.onmouseup = function() {
+        document.removeEventListener('mousemove', onMouseMove);
+        filterCanvas.onmouseup = null;
+
+        console.log(filterX, filterY);
+        console.log(filterCanvas.offsetHeight, filterCanvas.offsetWidth);
+    };
+};
+filterCanvas.ondragstart = function() {
+    return false;
+};
+
+
+function addImage(response){
+    let edited_block = document.getElementById("edited_photos");
+    // console.log(response);
+    let json_data = JSON.parse(response);
+
+    let div = document.createElement("div");
+
+    div.className = "img_card img_card_" + json_data['id'];
+    edited_block.prepend(div);
+
+    let img = document.createElement("img");
+    img.id = "edited_" + json_data['id'];
+    img.className = "edited";
+    img.src = json_data['photo'];
+    div.prepend(img);
+
+    let del = document.createElement("input");
+    del.className = 'delete';
+    del.id = "delete_" + json_data['id'];
+    del.type = "button";
+    del.onclick = deletePhoto;
+    div.append(del);
+}
+
 
 uploadfile.addEventListener('change', function(e){
     canvas.width = width;
@@ -112,7 +217,6 @@ takePhoto.addEventListener(
         canvasData = canvas.toDataURL("image/png");
         saveBtn.removeAttribute('disabled');
         classInactive[1].classList.add('active_click');
-        // console.log(canvasData);
         e.preventDefault();
     }, false);
 
@@ -130,77 +234,10 @@ reset_btn.addEventListener('click', function(){
     document.querySelector('.selected_stick').classList.remove('selected_stick');
 }, false);
 
-filter_container.addEventListener('click',  function(e){
-    if (e.target.id != "filter_container")
-    {
-        if (filter != null){
-            filter.classList.remove('selected_stick');
-        }
-        if (e.target == filter){
-            filter = null;
-            filterCtx.clearRect(0, 0, width, height);
-        } else {
-            // e.target.style.border = "2px solid white";
-            e.target.classList.add('selected_stick');
-            filter = e.target;
-            newImg = new Image();
-            newImg.src = filter.src;
-            if (filter)
-            {
-                filterCtx.clearRect(0, 0, width, height);
-                filterCtx.drawImage(newImg, filterX - 100, filterY - 100, 200, 200);
-                takePhoto.removeAttribute('disabled');
-                classInactive[0].classList.add('active_click');
-                // console.log(classInactive);
-            }
-        }
-    }
-});
-
-function addImage(response){
-    let edited_block = document.getElementById("edited_photos");
-    let json_data = JSON.parse(response);
-
-    let div = document.createElement("div");
-
-    div.className = "img_card img_card_" + json_data['id'];
-    edited_block.prepend(div);
-
-    let img = document.createElement("img");
-    img.id = "edited_" + json_data['id'];
-    img.className = "edited";
-    img.src = json_data['photo'];
-    div.prepend(img);
-
-
-    // let edit = document.createElement("input");
-    // edit.className = 'edit';
-    // edit.id = "edit_" + json_data['id'];
-    // edit.type = "button";
-    // // edit.onclick = editPhoto;
-    // div.append(edit);
-    //
-    // let comment = document.createElement("input");
-    // comment.className = 'comment';
-    // comment.id = "comment_" + json_data['id'];
-    // edit.type = "button";
-    // // edit.onclick = editPhoto;
-    // div.append(comment);
-
-    let del = document.createElement("input");
-    del.className = 'delete';
-    del.id = "delete_" + json_data['id'];
-    del.type = "button";
-    del.onclick = deletePhoto;
-    div.append(del);
-}
-
 
 
 let saveResponse = function(request) {
     let response = request.response;
-    // console.log(response);
-    // console.log("saved");
     addImage(response);
     reset_btn.click();
 };
@@ -239,20 +276,13 @@ function  deletePhoto(e) {
     let data = {
         'id' : id,
     };
-
     req.post('/camagru_mvc/api/delete/photo', delResponse, str, data);
     e.preventDefault();
 }
 
-// function editImage() {
-//bonus
-// }
-
-
-
 function create_param(param){
-    var parameterString = "";
-    var isFirst = true;
+    let parameterString = "";
+    let isFirst = true;
     for(let i in param) {
         if(!isFirst) {
             parameterString += "&";
@@ -262,143 +292,6 @@ function create_param(param){
     }
     return (parameterString);
 }
-
-
-
-filterCanvas.onmousedown = function(event) { // (1) отследить нажатие
-    // (2) подготовить к перемещению:
-    // разместить поверх остального содержимого и в абсолютных координатах
-    filterCanvas.style.position = 'absolute';
-    filterCanvas.style.zIndex = 1000;
-    // переместим в body, чтобы мяч был точно не внутри position:relative
-    document.body.append(filterCanvas);
-    // и установим абсолютно спозиционированный мяч под курсор
-
-    moveAt(event.pageX, event.pageY);
-
-    // передвинуть под координаты курсора
-    // и сдвинуть на половину ширины/высоты для центрирования
-    function moveAt(pageX, pageY) {
-        filterCanvas.style.left = pageX - filterCanvas.offsetWidth / 2 + 'px';
-        filterCanvas.style.top = pageY - filterCanvas.offsetHeight / 2 + 'px';
-    }
-
-    function onMouseMove(event) {
-        moveAt(event.pageX, event.pageY);
-    }
-
-    // (3) перемещать по экрану
-    document.addEventListener('mousemove', onMouseMove);
-
-    // (4) положить мяч, удалить более ненужные обработчики событий
-    filterCanvas.onmouseup = function() {
-        document.removeEventListener('mousemove', onMouseMove);
-        filterCanvas.onmouseup = null;
-    };
-
-};
-
-filterCanvas.ondragstart = function() {
-    return false;
-};
-
-//pagination
-let count = 0;
-let edited_block = document.getElementById("edited_photos");
-let prev = document.getElementById('prev');
-let next = document.getElementById('next');
-
-let simplePagination = function(request) {
-    let response = request.response;
-    console.log(response);
-    if(response['n'] * (response['c'] + 1) >= response['numberPhotos']){
-        next.setAttribute('disabled', 'true');
-    } else {
-        next.removeAttribute('disabled');
-    }
-    if (response['c'] === 0){
-        prev.setAttribute('disabled', 'true');
-    } else {
-        prev.removeAttribute('disabled');
-    }
-    if(response['nextPhotos'].length){
-        let div = document.createElement('div');
-        div.className = 'img_camera';
-        div.innerHTML = response['nextPhotos'];
-        let removeBlock = document.querySelector('.img_camera');
-        if(removeBlock){
-            console.log(removeBlock);
-            removeBlock.remove();
-        }
-        edited_block.append(div);
-    }
-};
-
-
-
-window.onload = function (e){
-    let str = '';
-    let n = 3;
-
-    let data = {
-        'counter': count,
-        'n': n,
-        'action': 'first',
-    };
-
-    let req = new Requests();
-    req.post('/camagru_mvc/api/pagination', simplePagination, str, data);
-};
-
-
-next.addEventListener("click", function(e){
-    let str = '';
-    let n = 3;
-    count++;
-    let data = {
-        'counter': count,
-        'n': n,
-        'action': 'next',
-    };
-
-    let req = new Requests();
-    req.post('/camagru_mvc/api/pagination', simplePagination, str, data);
-});
-
-prev.addEventListener("click", function(e){
-    let str = '';
-    let n = 3;
-    if(count > 0){
-        count--;
-        let data = {
-            'counter': count,
-            'n': n,
-            'action': 'prev',
-        };
-
-        let req = new Requests();
-        req.post('/camagru_mvc/api/pagination', simplePagination, str, data);
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

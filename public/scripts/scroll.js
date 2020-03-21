@@ -28,7 +28,6 @@ function nextPhoto(){
     let yOffset   = window.pageYOffset;
     let heightWin = window.innerHeight;
     let y  = yOffset + heightWin;
-    let str = '';
     let n = 5;
     // console.log(yOffset, contentHeight);
     if(y >= contentHeight)
@@ -40,7 +39,7 @@ function nextPhoto(){
             'n': n,
         };
         let req = new Requests();
-        req.post('/camagru_mvc/api/infinite/pagination', paginationResponse, str, data);
+        req.post('/camagru_mvc/api/infinite/pagination', paginationResponse, '', data);
     }
 }
 

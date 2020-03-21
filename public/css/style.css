@@ -539,12 +539,23 @@ header {
 #user_gallery {
     width: 60%;
     display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+#photo_block {
+    width: 100%;
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 auto;
     padding: 10px 0;
 }
+
 .block {
     width: 30%;
     padding: 5px;
@@ -553,10 +564,20 @@ header {
     width: 100%;
 }
 
+.photo-wrap{
+    display: flex;
+    flex-direction: row;
+   justify-content: center;
+}
+
 .block {
     display: flex;
     flex-direction: column;
 
+}
+
+.pagination {
+    text-align: center;
 }
 
 .change_ava,
@@ -573,8 +594,34 @@ header {
 }
 
 .btns {
-    padding: 5px;
+    display: flex;
+    justify-content: space-between;
     text-align: center;
+}
+
+.btns input,
+.pagination input,
+#num-page{
+    background-color: #2B3338;
+    color: #3F5561;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 3px solid #3F5561;
+    padding: 3px;
+    outline: none;
+
+}
+
+.pagination input,
+#num-page {
+    width: 30px;
+    height: 30px;
+    line-height: 15px;
+}
+
+#num-page {
+    cursor: default;
 }
 
 #user_settings {
@@ -750,6 +797,15 @@ footer {
     display: block;
     /*position: relative;*/
 }
+
+
+#filter_canvas,
+#photo_canvas {
+    left: 50%;
+    transform: translateX(-50%)
+}
+
+
 
 .wrap_webcam .photo {
     position: absolute;

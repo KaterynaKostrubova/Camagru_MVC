@@ -180,3 +180,120 @@ send.addEventListener('click', function (e) {
 });
 
 
+//pagination
+let count = 0;
+let perPage = 3;
+let photo_block = document.getElementById("photo_block");
+let prev = document.getElementById('prev');
+let next = document.getElementById('next');
+let numberPage = document.getElementById('num-page');
+let first = document.getElementById('first');
+let last = document.getElementById('last');
+
+let simplePagination = function(request) {
+    let response = request.response;
+    console.log(response);
+    if(response['action'] === 'last')
+        count = response['numPage'];
+    numberPage.innerText = response['numPage'] + 1;
+    if(response['perPage'] * (response['numPage'] + 1) >= response['numberPhotos']){
+        next.setAttribute('disabled', 'true');
+        last.setAttribute('disabled', 'true');
+        next.style.opacity = "0.5";
+        last.style.opacity = "0.5";
+    } else {
+        next.removeAttribute('disabled');
+        last.removeAttribute('disabled');
+        next.style.opacity = "1";
+        last.style.opacity = "1";
+    }
+    if (response['numPage'] === 0){
+        prev.setAttribute('disabled', 'true');
+        first.setAttribute('disabled', 'true');
+        prev.style.opacity = "0.5";
+        first.style.opacity = "0.5";
+    } else {
+        prev.removeAttribute('disabled');
+        first.removeAttribute('disabled');
+        prev.style.opacity = "1";
+        first.style.opacity = "1";
+
+    }
+    console.log(response['photos']);
+    if(response['photos'].length){
+        let div = document.createElement('div');
+        div.className = 'photo-wrap';
+        for(let i = 0; i < response['photos'].length; i++) {
+            div.innerHTML = div.innerHTML + '<div class="block"><img class="photo photo-' + response['photos'][i]['id'] + '" src="' +
+                response['photos'][i]['path'] + '" alt="photo"><div class="btns"><input type="button" class="change_ava" id="change_' +
+                response['photos'][i]['id'] + '_' + response['user_id'] +
+                '" onclick="changeAvatar(event)" value="avatar"><input type="button" class="change_bg" id="changebg_' +
+                response['photos'][i]['id'] + '_' + response['user_id'] +
+                '" onclick="changeBg(event)" value="cover"></div></div></div>';
+        }
+        let removeBlock = document.querySelector('.photo-wrap');
+        if(removeBlock){
+            removeBlock.remove();
+        }
+        photo_block.append(div);
+    }
+};
+
+window.onload = function (e){
+    let data = {
+        'counter': count,
+        'perPage': perPage,
+        'action': 'onload',
+    };
+
+    let req = new Requests();
+    req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+};
+
+
+next.addEventListener("click", function(e){
+    count++;
+    let data = {
+        'counter': count,
+        'perPage': perPage,
+        'action': 'next',
+    };
+
+    let req = new Requests();
+    req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+});
+
+prev.addEventListener("click", function(e){
+    if(count > 0){
+        count--;
+        let data = {
+            'counter': count,
+            'perPage': perPage,
+            'action': 'prev',
+        };
+
+        let req = new Requests();
+        req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+    }
+});
+
+first.addEventListener("click", function(e){
+        count = 0;
+        let data = {
+            'counter': count,
+            'perPage': perPage,
+            'action': 'first',
+        };
+        let req = new Requests();
+        req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+});
+
+last.addEventListener("click", function(e){
+    let data = {
+        'counter': -1,
+        'perPage': perPage,
+        'action': 'last',
+    };
+    let req = new Requests();
+    req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+});

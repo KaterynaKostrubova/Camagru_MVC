@@ -18,37 +18,14 @@ class MainController extends Controller {
         $user = $model->getUser($_SESSION['authorize']['name']);
         $avatarPath = $this->model->getPath($user[0]['photo_id']);
         $bgPath = $this->model->getPath($user[0]['bg_id']);
-        $photos = $this->model->getUserPhotos($user[0]['id']);
 
         $vars = [
             'info' => $user,
             'avatar'=> $avatarPath,
             'bg_photo'=> $bgPath,
-            'photos' => $photos
         ];
 
         $this->view->render('MAIN PAGE', $vars);
     }
-
-//    public  function profileAction(){
-//        $userInfo = $this->model->getUser($_SESSION['authorize']['name']);
-////        debug($name);
-//        $vars = [
-//            'info' => $userInfo
-//        ];
-//        $this->view->render('PROFILE PAGE', $vars);
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
