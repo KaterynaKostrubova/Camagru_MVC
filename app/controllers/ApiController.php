@@ -84,20 +84,19 @@ class ApiController extends Controller
             $this->view->apiRender($responseData);
         }
     }
-
     public function savePhotoAction()
     {
         $model = new Photo();
         $usr = $model->getUserData($_SESSION['authorize']['name']);
-
-        $photo = imagecreatefrompng($_POST["data"]);
-        $filter = imagecreatefrompng($_POST["filter"]);
-        imagecolortransparent($filter, imagecolorat($filter, 0, 0));
-        imagecopymerge($photo, $filter, 0, 0, 0, 0, 960, 720, 100);
-
+        $img = imagecreatefrompng($_POST["data"]);
+        $png = imagecreatefrompng($_POST["filter"]);
+        $cut = imagecreatetruecolor(960, 720);
+        imagecopy($cut, $img, 0, 0, 0, 0, 960, 720);
+        imagecopy($cut, $png, 0, 0, 0, 0, 960, 720);
+        imagecopymerge($img, $cut, 0, 0, 0, 0, 960, 720, 100);
         $rnd_file_name = uniqid() . ".png";
         $file_name = "photos/" . $rnd_file_name;
-        imagepng($photo, $file_name, 5);
+        imagepng($img, $file_name, 5);
         $path = '/camagru_mvc/' . $file_name;
         $model->addPhoto($path, $usr[0]['id'], $_SESSION['authorize']['name'], 'description');
         $id = $model->getIdPhoto($path);
@@ -107,7 +106,6 @@ class ApiController extends Controller
             'photo' => $path,
             'file_name' => $rnd_file_name,
         );
-
         $this->view->apiRender($responseData);
     }
 

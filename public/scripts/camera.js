@@ -80,8 +80,10 @@ video.addEventListener('canplay', function(e){
     }
 }, false);
 
-let filterX = width / 2 - stikerWidth / 2;
-let filterY = height / 2 - stikerHeight / 2;
+// let filterX = width / 2 - stikerWidth / 2;
+// let filterY = height / 2 - stikerHeight / 2;
+let filterX = 0;
+let filterY = 0;
 
 filter_container.addEventListener('click',  function(e){
     if (e.target.id !== "filter_container")
@@ -108,65 +110,29 @@ filter_container.addEventListener('click',  function(e){
     }
 });
 
-filterCanvas.onmousedown = function(event) { // (1) отследить нажатие
+filterCanvas.onmousedown = function(event) {
 
-//     // (2) подготовить к перемещению:
-//     // разместить поверх остального содержимого и в абсолютных координатах
-    let coordsVideo = video.getBoundingClientRect();
-    let coordsFilters = filterCanvas.getBoundingClientRect();
-    filterCanvas.style.position = 'absolute';
-    filterCanvas.style.top = String(video.getBoundingClientRect().top) + 'px';
-    filterCanvas.style.left = String(video.getBoundingClientRect().left) + 'px';
-    filterCanvas.style.zIndex = '1000';
-//     // переместим в body, чтобы мяч был точно не внутри position:relative
-    let wrap = document.querySelector('.wrapper');
-    wrap.append(filterCanvas);
-//     // и установим абсолютно спозиционированный мяч под курсор
-    moveAt(event.pageX, event.pageY);
-//
-//     // передвинуть под координаты курсора
-//     // и сдвинуть на половину ширины/высоты для центрирования
+    moveAt(event.clientX, event.clientY);
+
     function moveAt(pageX, pageY) {
-        console.log(filterCanvas.style.top);
-        console.log(video.getBoundingClientRect());
-        console.log(filterCanvas.getBoundingClientRect());
-        console.log(filterCanvas.getBoundingClientRect().y / 10);
-        console.log(video.getBoundingClientRect().y - (height/2 - stikerHeight/2));
-        filterCanvas.style.left = pageX  + 'px';
-        filterCanvas.style.top = pageY - filterCanvas.offsetHeight / 2 + 'px';
-        if(filterCanvas.getBoundingClientRect().x <= video.getBoundingClientRect().x - (width/2 - stikerWidth/2))
-            filterCanvas.style.left = (video.getBoundingClientRect().x - (width/2 - stikerWidth/2))*(-1)  + 'px';
-        if(filterCanvas.getBoundingClientRect().y / 10 <= video.getBoundingClientRect().y - (height/2 - stikerHeight/2)){
-            console.log(video.getBoundingClientRect().y - (height/2 - stikerHeight/2) + ' kjhkbgkhgkh');
-            filterCanvas.style.top = video.getBoundingClientRect().y - (height/2 - stikerHeight/2) + 'px';
-        }
-
-
-
-
-
+        let x = pageX - ((document.body.offsetWidth - filterCanvas.offsetWidth) / 2) - stikerWidth / 2;
+        let y = pageY - (filterCanvas.getBoundingClientRect().top) - stikerHeight / 2;
+        filterCtx.clearRect(0, 0, width, height);
+        filterCtx.drawImage(newImg, x, y, stikerWidth, stikerHeight);
     }
-//
+
     function onMouseMove(event) {
-
-        moveAt(event.pageX, event.pageY);
-        // if(coordsFilters.x <= coordsVideo.x - (coordsVideo.width/2 - filterX)){
-        //     filterCanvas.style.left = coordsVideo.left - filterX + 'px';
-        // }
+        moveAt(event.clientX, event.clientY);
     }
-//
-//     // (3) перемещать по экрану
-    document.addEventListener('mousemove', onMouseMove);
 
-// (4) положить мяч, удалить более ненужные обработчики событий
-    filterCanvas.onmouseup = function() {
-        document.removeEventListener('mousemove', onMouseMove);
-        filterCanvas.onmouseup = null;
+    filterCanvas.addEventListener('mousemove', onMouseMove);
 
-        console.log(filterX, filterY);
-        console.log(filterCanvas.offsetHeight, filterCanvas.offsetWidth);
+    document.body.onmouseup = function() {
+        filterCanvas.removeEventListener('mousemove', onMouseMove);
+        document.body.onmouseup = null;
     };
 };
+
 filterCanvas.ondragstart = function() {
     return false;
 };
