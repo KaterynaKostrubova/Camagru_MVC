@@ -34,15 +34,28 @@ $btns = [
     ]
 ];
 
+$filters = [
+        'grayscale',
+        'brightness',
+        'sepia',
+        'blur',
+        'contrast',
+        'drop-shadow',
+        'hue-rotate',
+        'invert',
+        'opacity',
+        'saturate',
+];
+
 include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.php';
 ?>
 
 <div class="wrap_webcam">
     <div class="top_container">
-        <div id="stiker_container">
+        <div id="filter_container">
             <?php
-            for($i = 0; $i < count($vars['filters']); $i++){ ?>
-                <img id="stiker_<?php echo $i?>" src="<?php echo $vars['filters'][$i]['path']?>" draggable="true">
+            for($i = 0; $i < count($filters); $i++){ ?>
+                <button id="<?php echo $filters[$i]?>"><?php echo $filters[$i]?></button>
             <?php   }
             ?>
         </div>
@@ -65,10 +78,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
                 ?>
             </div>
         </div>
-        <div id="filter_container">
+        <div id="sticker_container">
             <?php
             for($i = 0; $i < count($vars['filters']); $i++){ ?>
-                <img id="filter_<?php echo $i?>" src="<?php echo $vars['filters'][$i]['path']?>" draggable="true">
+                <img id="sticker_<?php echo $i?>" src="<?php echo $vars['filters'][$i]['path']?>" draggable="true">
             <?php   }
             ?>
         </div>

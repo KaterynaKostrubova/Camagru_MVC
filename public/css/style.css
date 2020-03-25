@@ -815,7 +815,7 @@ footer {
     width: 60%;
 }
 
-#stiker_container,
+#sticker_container,
 #filter_container {
     width: 20%;
     /*display: flex;*/
@@ -826,7 +826,7 @@ footer {
 
 }
 
-#stiker_container img,
+#sticker_container img,
 #filter_container img {
     width: 30%;
     padding: 5px;
@@ -988,16 +988,26 @@ footer {
     border-radius: 1%;
 }
 
+#filter_container button {
+    background-color: #2B3338;
+    color: #3F5561;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 3px solid #3F5561;
+    padding: 3px;
+    outline: none;
+    margin: 5px 0;
+}
+
 /*чб*/
 .grayscale {
     filter: grayscale(1);
 }
-
 /*яркость*/
 .brightness {
     filter: grayscale(50%);
 }
-
 /*ретро*/
 .sepia {
     filter: sepia(1);
@@ -1401,12 +1411,12 @@ footer {
         order: 1;
     }
 
-    #stiker_container,
+    #sticker_container,
     #filter_container {
         width: 100%;
     }
 
-    #stiker_container img,
+    #sticker_container img,
     #filter_container img {
         width: 5%;
     }
@@ -1430,12 +1440,12 @@ footer {
 
 @media screen and (max-width: 425px) {
 
-    #stiker_container,
+    #sticker_container,
     #filter_container {
         width: 94%;
     }
 
-    #stiker_container img,
+    #sticker_container img,
     #filter_container img {
         width: 11%;
     }

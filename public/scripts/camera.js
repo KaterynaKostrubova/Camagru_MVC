@@ -1,23 +1,17 @@
 
-let filter = null;
+let sticker = null;
+
 let streaming = false;
-
-let videoClass = document.querySelector('.video');
-let constraints = {};
-
-// let canvas = document.querySelector('#photo_canvas');
-// let filterCanvas = document.querySelector('#filter_canvas');
-// let filterCtx = filterCanvas.getContext('2d');
-
 let uploadfile = document.querySelector('#fileupload');
 
 let saveBtn = document.querySelector('#save_btn');
 let reset_btn = document.querySelector('#reset_btn');
 let takePhoto = document.querySelector('#stopbt');
-let filter_container = document.querySelector('#filter_container');
+
 let classInactive = document.querySelectorAll('.inactive_click');
 
 let newImg = null;
+let uploadImg = null;
 
 let canvasData   = null;
 let filterData = null;
@@ -25,6 +19,19 @@ let width = 720;
 let height = 480;
 let stikerWidth = 200;
 let stikerHeight = 200;
+
+let filtersName = {
+    'grayscale' : 'grayscale(1)',
+    'brightness' : 'grayscale(50%)',
+    'sepia' : 'sepia(1)',
+    'blur' : 'blur(3px)',
+    'contrast' : 'contrast(100%)',
+    'drop-shadow' : 'drop-shadow(2px 3px 5px black)',
+    'hue-rotate' : 'hue-rotate(180deg)',
+    'invert' : 'invert(100%)',
+    'opacity' : 'opacity(30%)',
+    'saturate' : 'saturate(300%)',
+};
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -64,6 +71,7 @@ if (navigator.getUserMedia) {
 }
 
 let canvas = document.querySelector('#photo_canvas');
+let canvasCtx = canvas.getContext('2d');
 let filterCanvas = document.querySelector('#filter_canvas');
 let filterCtx = filterCanvas.getContext('2d');
 
@@ -80,28 +88,30 @@ video.addEventListener('canplay', function(e){
     }
 }, false);
 
-// let filterX = width / 2 - stikerWidth / 2;
-// let filterY = height / 2 - stikerHeight / 2;
+let sticker_container = document.querySelector('#sticker_container');
 let filterX = 0;
 let filterY = 0;
+let filter = '';
 
-filter_container.addEventListener('click',  function(e){
-    if (e.target.id !== "filter_container")
+
+sticker_container.addEventListener('click',  function(e){
+    if (e.target.id !== "sticker_container")
     {
-        if (filter != null){
-            filter.classList.remove('selected_stick');
+        if (sticker != null){
+            sticker.classList.remove('selected_stick');
         }
-        if (e.target === filter){
-            filter = null;
+        if (e.target === sticker){
+            sticker = null;
             filterCtx.clearRect(0, 0, width, height);
         } else {
             e.target.classList.add('selected_stick');
-            filter = e.target;
+            sticker = e.target;
             newImg = new Image();
-            newImg.src = filter.src;
-            if (filter)
+            newImg.src = sticker.src;
+            if (sticker)
             {
                 filterCtx.clearRect(0, 0, width, height);
+                filterCtx.filter = filter;
                 filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
                 takePhoto.removeAttribute('disabled');
                 classInactive[0].classList.add('active_click');
@@ -111,14 +121,16 @@ filter_container.addEventListener('click',  function(e){
 });
 
 filterCanvas.onmousedown = function(event) {
-
     moveAt(event.clientX, event.clientY);
 
     function moveAt(pageX, pageY) {
-        let x = pageX - ((document.body.offsetWidth - filterCanvas.offsetWidth) / 2) - stikerWidth / 2;
-        let y = pageY - (filterCanvas.getBoundingClientRect().top) - stikerHeight / 2;
+        filterX = pageX - ((document.body.offsetWidth - filterCanvas.offsetWidth) / 2) - stikerWidth / 2;
+        filterY = pageY - (filterCanvas.getBoundingClientRect().top) - stikerHeight / 2;
         filterCtx.clearRect(0, 0, width, height);
-        filterCtx.drawImage(newImg, x, y, stikerWidth, stikerHeight);
+        if(filter !== ''){
+            filterCtx.filter = filter;
+        }
+        filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
     }
 
     function onMouseMove(event) {
@@ -140,14 +152,10 @@ filterCanvas.ondragstart = function() {
 
 function addImage(response){
     let edited_block = document.getElementById("edited_photos");
-    // console.log(response);
     let json_data = JSON.parse(response);
-
     let div = document.createElement("div");
-
     div.className = "img_card img_card_" + json_data['id'];
     edited_block.prepend(div);
-
     let img = document.createElement("img");
     img.id = "edited_" + json_data['id'];
     img.className = "edited";
@@ -162,25 +170,67 @@ function addImage(response){
     div.append(del);
 }
 
+let onLoad = false;
+let k = 1;
+let xImg = 0;
+let yImg = 0;
 
 uploadfile.addEventListener('change', function(e){
     canvas.width = width;
     canvas.height = height;
-    let img = new Image;
-    img.src = URL.createObjectURL(e.target.files[0]);
-    img.onload = function() {
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+    uploadImg = new Image;
+    uploadImg.src = URL.createObjectURL(e.target.files[0]);
+    uploadImg.onload = function() {
+        canvasCtx.clearRect(0, 0, width, height);
+        canvasCtx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
         canvasData = canvas.toDataURL("image/png");
-    }
+        onLoad = true;
+    };
+    document.addEventListener('keydown', function(event) {
+        if (event.defaultPrevented) {
+            return; // Do nothing if the event was already processed
+        }
+        if (event.code == 'Equal') {
+            k -= 0.1;
+        }
+        else if (event.code == 'Minus') {
+            k += 0.1;
+        }
+        else if (event.code == 'ArrowRight') {
+            xImg -= 10;
+        }
+        else if (event.code == 'ArrowLeft') {
+            xImg += 10;
+        }
+        else if (event.code == 'ArrowUp') {
+            yImg += 10;
+        }
+        else if (event.code == 'ArrowDown') {
+            yImg -= 10;
+        }
+
+        console.log(k, yImg);
+        canvasCtx.clearRect(0, 0, width, height);
+        canvasCtx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
+        canvasData = canvas.toDataURL("image/png");
+        event.preventDefault();
+    }, true);
+
 });
 
 takePhoto.addEventListener(
     'click',
     function(e){
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-        canvasData = canvas.toDataURL("image/png");
+        if(onLoad === false){
+            canvas.width = width;
+            canvas.height = height;
+            let ctx = canvas.getContext('2d');
+            if(filter !== ''){
+                ctx.filter = filter;
+            }
+            ctx.drawImage(video, 0, 0, width, height);
+            canvasData = canvas.toDataURL("image/png");
+        }
         saveBtn.removeAttribute('disabled');
         classInactive[1].classList.add('active_click');
         e.preventDefault();
@@ -188,10 +238,15 @@ takePhoto.addEventListener(
 
 reset_btn.addEventListener('click', function(){
     filterCtx.clearRect(0, 0, width, height);
-    filter = null;
+    sticker = null;
     canvas.getContext('2d').clearRect(0, 0, width, height);
     canvasData = null;
     uploadfile.value = "";
+    onLoad = false;
+    video.className = '';
+    filterX = 0;
+    filterY = 0;
+    filter = '';
     if(!takePhoto.hasAttribute('disabled')){
         takePhoto.setAttribute('disabled', 'true');
     }
@@ -260,19 +315,27 @@ function create_param(param){
 }
 
 
+let filter_container = document.querySelector('#filter_container');
 
-// var idx = 0;
-// var filters = ['grayscale', 'sepia', 'blur', 'brightness', 'contrast', 'hue-rotate',
-//     'hue-rotate2', 'hue-rotate3', 'saturate', 'invert', ''];
-//
-// function changeFilter(e) {
-//     // var el = e.target;
-//     var el = document.querySelector('#video');
-//     el.className = '';
-//     var effect = filters[idx++ % filters.length]; // loop through filters.
-//     if (effect) {
-//         el.classList.add(effect);
-//     }
-// }
-//
-// document.querySelector('#stiker_container #stiker_0').addEventListener('click', changeFilter, false);
+
+
+filter_container.addEventListener('click', function (e) {
+    if (e.target.id !== "filter_container")
+    {
+        let idFilter = e.target.id;
+        filter = filtersName[idFilter];
+        console.log(filter, idFilter);
+        video.className = idFilter;
+        if (sticker){
+            filterCtx.clearRect(0, 0, width, height);
+            filterCtx.filter = filter;
+            filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
+        }
+        if(onLoad){
+            let ctx = canvas.getContext('2d');
+            ctx.filter = filter;
+            ctx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
+        }
+    }
+    console.log( video.classList);
+});
