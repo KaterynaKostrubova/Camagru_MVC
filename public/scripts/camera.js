@@ -75,6 +75,11 @@ let canvasCtx = canvas.getContext('2d');
 let filterCanvas = document.querySelector('#filter_canvas');
 let filterCtx = filterCanvas.getContext('2d');
 
+let sticker_container = document.querySelector('#sticker_container');
+let filterX = 0;
+let filterY = 0;
+let filter = 'none';
+
 video.addEventListener('canplay', function(e){
     if (!streaming) {
         height = video.videoHeight / (video.videoWidth/width);
@@ -87,12 +92,6 @@ video.addEventListener('canplay', function(e){
         streaming = true;
     }
 }, false);
-
-let sticker_container = document.querySelector('#sticker_container');
-let filterX = 0;
-let filterY = 0;
-let filter = '';
-
 
 sticker_container.addEventListener('click',  function(e){
     if (e.target.id !== "sticker_container")
@@ -121,28 +120,28 @@ sticker_container.addEventListener('click',  function(e){
 });
 
 filterCanvas.onmousedown = function(event) {
-    moveAt(event.clientX, event.clientY);
-
-    function moveAt(pageX, pageY) {
-        filterX = pageX - ((document.body.offsetWidth - filterCanvas.offsetWidth) / 2) - stikerWidth / 2;
-        filterY = pageY - (filterCanvas.getBoundingClientRect().top) - stikerHeight / 2;
-        filterCtx.clearRect(0, 0, width, height);
-        if(filter !== ''){
-            filterCtx.filter = filter;
-        }
-        filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
-    }
-
-    function onMouseMove(event) {
+    if(sticker) {
         moveAt(event.clientX, event.clientY);
+
+        function moveAt(pageX, pageY) {
+            filterX = pageX - ((document.body.offsetWidth - filterCanvas.offsetWidth) / 2) - stikerWidth / 2;
+            filterY = pageY - (filterCanvas.getBoundingClientRect().top) - stikerHeight / 2;
+            filterCtx.clearRect(0, 0, width, height);
+            filterCtx.filter = filter;
+            filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
+        }
+
+        function onMouseMove(event) {
+            moveAt(event.clientX, event.clientY);
+        }
+
+        filterCanvas.addEventListener('mousemove', onMouseMove);
+
+        document.body.onmouseup = function() {
+            filterCanvas.removeEventListener('mousemove', onMouseMove);
+            document.body.onmouseup = null;
+        };
     }
-
-    filterCanvas.addEventListener('mousemove', onMouseMove);
-
-    document.body.onmouseup = function() {
-        filterCanvas.removeEventListener('mousemove', onMouseMove);
-        document.body.onmouseup = null;
-    };
 };
 
 filterCanvas.ondragstart = function() {
@@ -182,6 +181,7 @@ uploadfile.addEventListener('change', function(e){
     uploadImg.src = URL.createObjectURL(e.target.files[0]);
     uploadImg.onload = function() {
         canvasCtx.clearRect(0, 0, width, height);
+        canvasCtx.filter = filter;
         canvasCtx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
         canvasData = canvas.toDataURL("image/png");
         onLoad = true;
@@ -209,8 +209,8 @@ uploadfile.addEventListener('change', function(e){
             yImg -= 10;
         }
 
-        console.log(k, yImg);
         canvasCtx.clearRect(0, 0, width, height);
+        canvasCtx.filter = filter;
         canvasCtx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
         canvasData = canvas.toDataURL("image/png");
         event.preventDefault();
@@ -224,11 +224,12 @@ takePhoto.addEventListener(
         if(onLoad === false){
             canvas.width = width;
             canvas.height = height;
-            let ctx = canvas.getContext('2d');
-            if(filter !== ''){
-                ctx.filter = filter;
-            }
-            ctx.drawImage(video, 0, 0, width, height);
+            canvasCtx.filter = filter;
+            canvasCtx.drawImage(video, 0, 0, width, height);
+            canvasData = canvas.toDataURL("image/png");
+        } else {
+            canvasCtx.filter = filter;
+            canvasCtx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
             canvasData = canvas.toDataURL("image/png");
         }
         saveBtn.removeAttribute('disabled');
@@ -237,22 +238,27 @@ takePhoto.addEventListener(
     }, false);
 
 reset_btn.addEventListener('click', function(){
-    filterCtx.clearRect(0, 0, width, height);
+    filter = 'none';
+    filterCtx.filter = filter ;
     sticker = null;
-    canvas.getContext('2d').clearRect(0, 0, width, height);
     canvasData = null;
     uploadfile.value = "";
     onLoad = false;
     video.className = '';
     filterX = 0;
     filterY = 0;
-    filter = '';
+    filterCtx.clearRect(0, 0, width, height);
+    canvas.getContext('2d').clearRect(0, 0, width, height);
+
     if(!takePhoto.hasAttribute('disabled')){
         takePhoto.setAttribute('disabled', 'true');
     }
+    saveBtn.setAttribute('disabled', 'true');
     classInactive[0].classList.remove('active_click');
     classInactive[1].classList.remove('active_click');
-    document.querySelector('.selected_stick').classList.remove('selected_stick');
+    let selected = document.querySelector('.selected_stick');
+    if (selected)
+        selected.classList.remove('selected_stick');
 }, false);
 
 
@@ -314,28 +320,26 @@ function create_param(param){
     return (parameterString);
 }
 
-
 let filter_container = document.querySelector('#filter_container');
-
-
 
 filter_container.addEventListener('click', function (e) {
     if (e.target.id !== "filter_container")
     {
         let idFilter = e.target.id;
         filter = filtersName[idFilter];
-        console.log(filter, idFilter);
         video.className = idFilter;
+
         if (sticker){
             filterCtx.clearRect(0, 0, width, height);
             filterCtx.filter = filter;
             filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
         }
         if(onLoad){
-            let ctx = canvas.getContext('2d');
-            ctx.filter = filter;
-            ctx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
+            filterCtx.clearRect(0, 0, width, height);
+            canvasCtx.filter = filter;
+            canvasCtx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
         }
+        takePhoto.removeAttribute('disabled');
+        classInactive[0].classList.add('active_click');
     }
-    console.log( video.classList);
 });
