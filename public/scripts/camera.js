@@ -22,22 +22,21 @@ let stikerHeight = 200;
 
 let filtersName = {
     'grayscale' : 'grayscale(1)',
-    'brightness' : 'grayscale(50%)',
+    'brightness' : 'grayscale(20%)',
     'sepia' : 'sepia(1)',
     'blur' : 'blur(3px)',
-    'contrast' : 'contrast(100%)',
-    'drop-shadow' : 'drop-shadow(2px 3px 5px black)',
+    'contrast' : 'contrast(120%)',
     'hue-rotate' : 'hue-rotate(180deg)',
     'invert' : 'invert(100%)',
     'opacity' : 'opacity(30%)',
-    'saturate' : 'saturate(300%)',
+    'saturate' : 'saturate(200%)',
 };
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
 let widthWin = document.documentElement.clientWidth;
 
-if (widthWin <= 720 && widthWin >= 480){
+if (widthWin <= 1024 && widthWin >= 480){
     width = 480;
     height = 320;
     stikerWidth = 100;
@@ -332,6 +331,7 @@ filter_container.addEventListener('click', function (e) {
         if (sticker){
             filterCtx.clearRect(0, 0, width, height);
             filterCtx.filter = filter;
+            filterCtx.scale(-1, 1);
             filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
         }
         if(onLoad){
@@ -343,3 +343,4 @@ filter_container.addEventListener('click', function (e) {
         classInactive[0].classList.add('active_click');
     }
 });
+

@@ -40,7 +40,6 @@ $filters = [
         'sepia',
         'blur',
         'contrast',
-        'drop-shadow',
         'hue-rotate',
         'invert',
         'opacity',
@@ -52,10 +51,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
 
 <div class="wrap_webcam">
     <div class="top_container">
-        <div id="filter_container">
+        <div id="sticker_container">
             <?php
-            for($i = 0; $i < count($filters); $i++){ ?>
-                <button id="<?php echo $filters[$i]?>"><?php echo $filters[$i]?></button>
+            for($i = 0; $i < count($vars['filters']); $i++){ ?>
+                <img id="sticker_<?php echo $i?>" src="<?php echo $vars['filters'][$i]['path']?>" draggable="true">
             <?php   }
             ?>
         </div>
@@ -78,10 +77,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
                 ?>
             </div>
         </div>
-        <div id="sticker_container">
+        <div id="filter_container">
             <?php
-            for($i = 0; $i < count($vars['filters']); $i++){ ?>
-                <img id="sticker_<?php echo $i?>" src="<?php echo $vars['filters'][$i]['path']?>" draggable="true">
+            for($i = 0; $i < count($filters); $i++){ ?>
+                <button id="<?php echo $filters[$i]?>"><?php echo $filters[$i]?></button>
             <?php   }
             ?>
         </div>

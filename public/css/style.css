@@ -815,6 +815,10 @@ footer {
     width: 60%;
 }
 
+#sticker_container{
+    min-width: 200px;
+}
+
 #sticker_container,
 #filter_container {
     width: 20%;
@@ -998,6 +1002,7 @@ footer {
     padding: 3px;
     outline: none;
     margin: 5px 0;
+    width: 100%;
 }
 
 /*чб*/
@@ -1010,7 +1015,7 @@ footer {
 }
 /*ретро*/
 .sepia {
-    filter: sepia(1);
+    filter: contrast(1.5) brightness(.9) sepia(1);
 }
 /*размытие по Гауссу*/
 .blur {
@@ -1019,12 +1024,12 @@ footer {
 
 /**/
 .contrast {
-    filter: contrast(100%);
+    filter: contrast(120%);
 }
 
-.drop-shadow {
-    filter: drop-shadow(2px 3px 5px black);
-}
+/*.drop-shadow {*/
+/*    filter: drop-shadow(2px 3px 5px black);*/
+/*}*/
 /**/
 .hue-rotate {
     filter: hue-rotate(180deg);
@@ -1039,14 +1044,14 @@ footer {
 }
 
 .saturate {
-    filter: saturate(300%);
+    filter: saturate(200%);
 }
+
 /**/
 .sex {
     display: flex;
     justify-content: center;
     position: relative;
-
 }
 
 .sex label {
@@ -1396,6 +1401,11 @@ footer {
 
 }
 
+@media (min-width: 768px) and (max-width: 1024px) {
+
+
+}
+
 @media screen and (max-width: 768px) {
     header,
     footer,
@@ -1435,6 +1445,11 @@ footer {
 
     .public_gallery .img_card {
         width: 85%;
+    }
+
+    #filter_container button {
+        width: 20%;
+        font-size: 7px;
     }
 }
 
