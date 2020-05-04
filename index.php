@@ -2,6 +2,7 @@
 
 require 'app/lib/Dev.php';
 define('APP_ROOT_DIR', __DIR__);
+define('DIR_NAME', trim(str_replace($_SERVER['DOCUMENT_ROOT'], '', APP_ROOT_DIR)));
 
 //use app\core\Router;
 //use app\lib\Db;

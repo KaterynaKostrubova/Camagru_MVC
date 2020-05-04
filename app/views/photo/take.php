@@ -46,7 +46,7 @@ $filters = [
         'saturate',
 ];
 
-include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.php';
+include $_SERVER['DOCUMENT_ROOT'] . DIR_NAME . '/app/views/layouts/header_min.php';
 ?>
 
 <div class="wrap_webcam">
@@ -69,7 +69,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
                 for($i = 0; $i < count($btns); $i++){
                     ?>
                     <label  class="<?php echo $btns[$i]["class"]?>" for="<?php echo $btns[$i]["id"]?>">
-                        <img src="/camagru_mvc/public/image/<?php echo $btns[$i]["photo"] ?><?php echo $btns[$i]["ext"] ?>" alt="<?php echo $btns[$i]["photo"]?>">
+                        <img src="<?php echo DIR_NAME; ?>/public/image/<?php echo $btns[$i]["photo"] ?><?php echo $btns[$i]["ext"] ?>" alt="<?php echo $btns[$i]["photo"]?>">
                         <input type="<?php echo $btns[$i]["type"]?>" id="<?php echo $btns[$i]["id"]?>" <?php if($i == 0 || $i == 3) echo "disabled"?> >
                     </label>
                     <?php
@@ -95,6 +95,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.p
         <?php   } ?>
     </div>
 </div>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/camagru_mvc/app/views/main/footer.php";?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . DIR_NAME . "/app/views/main/footer.php";?>
 </div>
-<script src="/camagru_mvc/public/scripts/camera.js"></script>
+<script src="<?php echo DIR_NAME; ?>/public/scripts/camera.js"></script>

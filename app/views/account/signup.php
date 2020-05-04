@@ -1,24 +1,8 @@
 <div id="video-bg">
     <video width="100%" height="auto" preload="auto" autoplay="autoplay" loop="loop" poster="">
-        <source src="/camagru_mvc/public/image/bg-video.mp4" type="video/mp4"></source>
+        <source src="<?php echo DIR_NAME?>/public/image/bg-video.mp4" type="video/mp4"></source>
     </video>
 </div>
-<!--<div class="wrap">-->
-<!--    <section class='gallery'>-->
-<!--        --><?php //for($i = 0; $i < count($vars['photo']); $i++){?>
-<!--            <input type="radio" id="--><?php //echo 'id-' . $i ?><!--" value="--><?php //echo $i ?><!--" name="tractor" --><?php //if($i === 0) echo "checked='checked'" ?><!-- />-->
-<!--            <article class="card --><?php //echo 'photo-' . $i ?><!--">-->
-<!--                <label for="--><?php //echo 'id-' . $i ?><!--" class="--><?php //echo 'label-' . $i ?><!--">-->
-<!--                    <img src="--><?php //echo $vars['photo'][$i]['path']?><!--" alt="">-->
-<!--                </label>-->
-<!--            </article>-->
-<!--        --><?php //}?>
-<!--    </section>-->
-<!--    <section class='gallery'>-->
-<!--        --><?php //for($i = 0; $i < count($vars['photo']); $i++){?>
-<!--            <img class="photo photo---><?php //echo $i?><!--" src="--><?php //echo $vars['photo'][$i]['path']?><!--" alt="">-->
-<!--        --><?php //}?>
-<!--    </section>-->
     <div class="wrap_form">
         <div class="form">
             <ul class="select" onclick="addActiveClass(event)"">
@@ -34,7 +18,7 @@
                 <div <?php if(isset($_COOKIE['login'])){?> style="display: none;"<?php }?> id="sign_up">
                     <h1>Welcome to Camagru!</h1>
                     <!--            onsubmit="alert('Please, confirm email!')"-->
-                    <form class="login_signup" action="/camagru_mvc/account/signup?action=signup" method="post" class="sign_up_form" >
+                    <form class="login_signup" action="<?php echo DIR_NAME; ?>/account/signup?action=signup" method="post" class="sign_up_form" >
                         <p>
                             <span><i class="fas fa-user"></i></span>
                             <input type="text" name="name" value="" placeholder="Name" pattern="[A-Za-z]{1}[A-Za-z-0-9]{3,32}"
@@ -61,7 +45,7 @@
                 </div>
                 <div <?php if(isset($_COOKIE['login'])){?> style="display: block;" <?php }?> id="log_in">
                     <h1>Welcome Back!</h1>
-                    <form class="login_signup" action="/camagru_mvc/account/signup?action=login" method="post" class="log_in_form">
+                    <form class="login_signup" action="<?php echo DIR_NAME; ?>/account/signup?action=login" method="post" class="log_in_form">
                         <p>
                             <span><i class="fas fa-user"></i></span>
                             <input  type="text" name="name" value="" placeholder="Name"  required />
@@ -72,13 +56,13 @@
                         </p>
                         <p><input class="button_subm" type="submit" name="submit" value="OK" autofocus /></p>
                     </form>
-                    <form class="invisible_btn" action="/camagru_mvc/account/changepass">
+                    <form class="invisible_btn" action="<?php echo DIR_NAME; ?>/account/changepass">
                         <label for="forgot_input">Forgot your password?</label>
                         <input id="forgot_input" type="submit" name="submit" value="ok"/>
                     </form>
                 </div>
             </div>
-            <form class="invisible_btn" action="/camagru_mvc/gallery/gallery" class="sign_up_form" >
+            <form class="invisible_btn" action="<?php echo DIR_NAME; ?>/gallery/gallery" class="sign_up_form" >
                 <label for="gallary_btn">Go to Gallery</label>
                 <input id="gallary_btn" type="submit" name="submit" value="ok"/>
             </form>
@@ -86,4 +70,4 @@
     </div>
 <!--</div>-->
 
-<script src="/camagru_mvc/public/scripts/scripts.js"></script>
+<script src="<?php echo DIR_NAME; ?>/public/scripts/scripts.js"></script>

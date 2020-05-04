@@ -97,7 +97,7 @@ class ApiController extends Controller
         $rnd_file_name = uniqid() . ".png";
         $file_name = "photos/" . $rnd_file_name;
         imagepng($img, $file_name, 5);
-        $path = '/camagru_mvc/' . $file_name;
+        $path = DIR_NAME  . '/' . $file_name;
         $model->addPhoto($path, $usr[0]['id'], $_SESSION['authorize']['name'], 'description');
         $id = $model->getIdPhoto($path);
         $responseData = array(
@@ -338,7 +338,7 @@ class ApiController extends Controller
                 $newHtml = $newHtml . '<div class="del"><input type="button" class="delete" id="delete_' .
                     $photo[$i]['id'] . '" onclick="deleteCard(event)"></div>';
             }
-            $newHtml = $newHtml . '</div><a href="/camagru_mvc/gallery/photo?id=' . $photo[$i]['id'] .
+            $newHtml = $newHtml . '</div><a href="' . DIR_NAME . '/gallery/photo?id=' . $photo[$i]['id'] .
                 '"><img class="photo photo-' . $photo[$i]['id'] . '" src="' . $photo[$i]['path'] . '" alt="picture"/></a></div>';
 
         }

@@ -1,3 +1,5 @@
+let _dirname = document.location.pathname.split('/')[1];
+// console.log(_dirname);
 let likeResponse = function(request) {
     let response = request.response;
     console.log(response);
@@ -26,7 +28,8 @@ function  like(e) {
         'id' : id,
         'like': like,
     };
-    req.post('/camagru_mvc/api/like', likeResponse, str, data);
+    // console.log(window.location.href.substr(0, window.location.href.length - window.location.href.split('/').pop().length));
+    req.post('/' + _dirname + '/api/like', likeResponse, str, data);
     e.preventDefault();
 }
 
@@ -74,7 +77,7 @@ function  postComment(e) {
             'text': text,
         };
         console.log(data);
-        req.post('/camagru_mvc/api/comment', commentResponse, str, data);
+        req.post( '/' + _dirname + '/api/comment', commentResponse, str, data);
         e.preventDefault();
     } else {
         console.log('empty');
@@ -97,7 +100,7 @@ let delCardResponse = function(request) {
                 'n': 5,
             };
             let req = new Requests();
-            req.post('/camagru_mvc/api/pagination', paginationResponse, str, data);
+            req.post( '/' + _dirname + '/api/pagination', paginationResponse, str, data);
         }
     } else {
         let del = document.querySelector('.card');
@@ -106,7 +109,10 @@ let delCardResponse = function(request) {
         div.className = 'deleted-photo';
         div.innerText = 'PHOTO DELETED';
         wrap.append(div);
-        del.style.display = 'none';
+        if(del)
+            del.style.display = 'none';
+        else
+            document.querySelector('.img_card').style.display = 'none';
     }
     if(response['path'] !== ''){
         let ava = document.querySelector('.avatar_min');
@@ -124,6 +130,6 @@ function  deleteCard(e) {
         'id' : id,
         'flag': flag,
     };
-    req.post('/camagru_mvc/api/delete/photo', delCardResponse, str, data);
+    req.post( '/' + _dirname + '/api/delete/photo', delCardResponse, str, data);
     e.preventDefault();
 }

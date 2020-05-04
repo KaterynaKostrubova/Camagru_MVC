@@ -1,4 +1,4 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header_min.php';
+<?php include $_SERVER['DOCUMENT_ROOT'] . DIR_NAME . '/app/views/layouts/header_min.php';
 //var_dump($vars);
 
 if ($vars['picturePath']){
@@ -46,6 +46,6 @@ if ($vars['picturePath']){
 <?php } else { ?>
     <div class="card" style="text-align: center">PHOTO NOT FOUND</div>
 <?php }?>
-<?php include $_SERVER['DOCUMENT_ROOT'] . "/camagru_mvc/app/views/main/footer.php";?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . DIR_NAME . "/app/views/main/footer.php";?>
 </div>
-<script src="/camagru_mvc/public/scripts/gallery.js"></script>
+<script src="<?php echo DIR_NAME; ?>/public/scripts/gallery.js"></script>

@@ -66,9 +66,9 @@ $exec = "INSERT INTO users (login, photo_id, bg_id, password, token, isadmin, is
 
 db_request($exec, $login, $password, $dsn);
 
-$pathdef = [   "/camagru_mvc/photos/male.svg",
-    "/camagru_mvc/photos/female.svg",
-    "/camagru_mvc/photos/bg_default.jpeg",
+$pathdef = [ DIR_NAME . "/photos/male.svg",
+    DIR_NAME . "/photos/female.svg",
+    DIR_NAME . "/photos/bg_default.jpeg",
 ];
 
 try {
@@ -84,10 +84,10 @@ try {
 }
 
 //add photo for admin users
-$path = [   "/camagru_mvc/photos/2.jpg",
-            "/camagru_mvc/photos/3.jpg",
-            "/camagru_mvc/photos/4.jpg",
-            "/camagru_mvc/photos/5.jpg",
+$path = [   DIR_NAME . "/photos/2.jpg",
+            DIR_NAME . "/photos/3.jpg",
+            DIR_NAME . "/photos/4.jpg",
+            DIR_NAME . "/photos/5.jpg",
 ];
 
 try {
@@ -115,7 +115,7 @@ $exec = 'CREATE TABLE filters(
 db_request($exec, $login, $password, $dsn);
 
 $numberOfStikers = 12;
-$path = '/camagru_mvc/public/image/stiker_';
+$path = DIR_NAME . '/public/image/stiker_';
 $ext = '.png';
 try {
     $pdo = new PDO($dsn, $login, $password);
@@ -150,4 +150,4 @@ db_request($exec, $login, $password, $dsn);
 
 
 
-header('Location: /camagru_mvc/account/signup');
+header('Location: ' . DIR_NAME . '/account/signup');

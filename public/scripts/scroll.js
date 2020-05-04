@@ -1,3 +1,4 @@
+// let _dirname = document.location.pathname.split('/')[1];
 let block = document.querySelector('.public_gallery');
 let count = 0;
 let stop = 0;
@@ -39,7 +40,7 @@ function nextPhoto(){
             'n': n,
         };
         let req = new Requests();
-        req.post('/camagru_mvc/api/infinite/pagination', paginationResponse, '', data);
+        req.post('/' + _dirname + '/api/infinite/pagination', paginationResponse, '', data);
     }
 }
 
@@ -62,6 +63,6 @@ window.onload = function (e){
     };
 
     let req = new Requests();
-    req.post('/camagru_mvc/api/infinite/pagination', paginationResponse, str, data);
+    req.post('/' + _dirname + '/api/infinite/pagination', paginationResponse, str, data);
 };
 

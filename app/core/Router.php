@@ -33,6 +33,7 @@ class Router {
         $rootDirPath1 = trim(str_replace(APP_ROOT_DIR, '', $docRoot . $uri), '/');
         $arr = explode("?", $rootDirPath1);
         $rootDirPath = $arr[0];
+//        debug(trim(str_replace($_SERVER['DOCUMENT_ROOT'], '', APP_ROOT_DIR)));
         $url = ($rootDirPath) ? $rootDirPath : 'default/index';
         //перевіряєм чи є такий роут
         foreach ($this->routes as $route => $params){

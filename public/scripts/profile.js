@@ -1,3 +1,4 @@
+let _dirname = document.location.pathname.split('/')[1];
 let form = document.getElementById("form");
 // let hideEl = document.getElementsByClassName("hide");
 // let activeEl = document.getElementsByClassName("active");
@@ -91,7 +92,7 @@ form.addEventListener('submit', function(event) {
     let str_data = '';
     showLoader();
     // console.log('RESPONSE:', data);
-    req.post('/camagru_mvc/api/profile/edit', onResponse, str_data, data);
+    req.post( '/' + _dirname + '/api/profile/edit', onResponse, str_data, data);
     console.log(str_data, '-', data);
 
 });
@@ -115,13 +116,13 @@ function  changeAvatar(e) {
             'id' : id,
             'photo_id': photo_id,
         };
-        req.post('/camagru_mvc/api/change/avatar', changeResponse, str, data);
+        req.post('/' + _dirname + '/api/change/avatar', changeResponse, str, data);
     } else {
         let data = {
             'id': '0',
             'photo_id': '1',
         };
-        req.post('/camagru_mvc/api/change/avatar', changeResponse, str, data);
+        req.post('/' + _dirname + '/api/change/avatar', changeResponse, str, data);
     }
 
     e.preventDefault();
@@ -145,14 +146,14 @@ function  changeBg(e) {
             'id': id,
             'bg_id': bg_id,
         };
-        req.post('/camagru_mvc/api/change/bg', changeBgResponse, str, data);
+        req.post('/' + _dirname + '/api/change/bg', changeBgResponse, str, data);
     } else {
         let data = {
             'id': '0',
             'bg_id': '3',
         };
         console.log(data);
-        req.post('/camagru_mvc/api/change/bg', changeBgResponse, str, data);
+        req.post('/' + _dirname + '/api/change/bg', changeBgResponse, str, data);
     }
     e.preventDefault();
 }
@@ -175,7 +176,7 @@ send.addEventListener('click', function (e) {
     let data = {
         'ntf' : send.checked,
     };
-    req.post('/camagru_mvc/api/notification', checkResponse, str, data);
+    req.post('/' + _dirname + '/api/notification', checkResponse, str, data);
     e.preventDefault();
 });
 
@@ -247,7 +248,7 @@ window.onload = function (e){
     };
 
     let req = new Requests();
-    req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+    req.post('/' + _dirname +'/api/pagination', simplePagination, '', data);
 };
 
 
@@ -260,7 +261,7 @@ next.addEventListener("click", function(e){
     };
 
     let req = new Requests();
-    req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+    req.post('/' + _dirname + '/api/pagination', simplePagination, '', data);
 });
 
 prev.addEventListener("click", function(e){
@@ -273,7 +274,7 @@ prev.addEventListener("click", function(e){
         };
 
         let req = new Requests();
-        req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+        req.post('/' + _dirname +'/api/pagination', simplePagination, '', data);
     }
 });
 
@@ -285,7 +286,7 @@ first.addEventListener("click", function(e){
             'action': 'first',
         };
         let req = new Requests();
-        req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+        req.post('/' + _dirname + '/api/pagination', simplePagination, '', data);
 });
 
 last.addEventListener("click", function(e){
@@ -295,5 +296,5 @@ last.addEventListener("click", function(e){
         'action': 'last',
     };
     let req = new Requests();
-    req.post('/camagru_mvc/api/pagination', simplePagination, '', data);
+    req.post('/' + _dirname + '/api/pagination', simplePagination, '', data);
 });

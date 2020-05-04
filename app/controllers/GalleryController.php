@@ -17,7 +17,7 @@ class GalleryController extends Controller
         if ($usr){
             $avatar = $model->getNameImage($usr[0]['photo_id'])[0]['path'];
         } else {
-            $avatar = '/camagru_mvc/photos/male.svg';
+            $avatar = DIR_NAME . '/photos/male.svg';
         }
         $photos = $this->model->getAllPhotos();
         $ownersAvatars = $this->model->getAllAvatars();

@@ -23,7 +23,7 @@ abstract class Controller {
 //
         if(!$this->checkAcl()){
 //            View::errorCode(403);
-            header('Location: /camagru_mvc/account/signup');
+            header('Location: ' . DIR_NAME .'/account/signup');
         };
 //        echo 323232;
         $this->view = new View($route);

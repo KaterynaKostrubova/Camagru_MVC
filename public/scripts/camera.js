@@ -1,4 +1,4 @@
-
+let _dirname = document.location.pathname.split('/')[1];
 let sticker = null;
 
 let streaming = false;
@@ -277,7 +277,7 @@ saveBtn.addEventListener('click', function(e){
 
             let string_param = create_param(data_param);
             let req = new Requests();
-            req.post('/camagru_mvc/api/save/photo', saveResponse, string_param);
+            req.post('/' + _dirname + '/api/save/photo', saveResponse, string_param);
         e.preventDefault();
 }, false);
 
@@ -302,7 +302,7 @@ function  deletePhoto(e) {
     let data = {
         'id' : id,
     };
-    req.post('/camagru_mvc/api/delete/photo', delResponse, str, data);
+    req.post( '/' + _dirname + '/api/delete/photo', delResponse, str, data);
     e.preventDefault();
 }
 

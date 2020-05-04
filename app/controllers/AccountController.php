@@ -68,7 +68,7 @@ class AccountController extends Controller{
                     $hostname = 'localhost';
                     $port = '8081';
                     $email_message = 'Hello '.$login.'. Please follow this link to confirm your email address and finish creating your Camagru account: http://'
-                        . $hostname.':'.$port.'/camagru_mvc/account/confirm?token='.$token;
+                        . $hostname . ':' . $port . DIR_NAME . '/account/confirm?token='.$token;
                     if($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message))
                         debug("email successfully sent");
                     else
@@ -86,7 +86,7 @@ class AccountController extends Controller{
                     $cookie_name = "login";
                     $cookie_value = $name;
                     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
-                    header('Location: /camagru_mvc/default/index');
+                    header('Location: ' . DIR_NAME .'/default/index');
                 } else
                     debug("invalid password");
             }
@@ -103,7 +103,7 @@ class AccountController extends Controller{
         foreach ($_SESSION as $key => $value){
             $_SESSION[$key] = FALSE;
         }
-        header('Location: /camagru_mvc/account/signup');
+        header('Location: ' . DIR_NAME . '/account/signup');
     }
 
     public function changepassAction() {
@@ -123,7 +123,7 @@ class AccountController extends Controller{
             $sql = ($sqlLogin) ? $sqlLogin : $sqlEmail;
             $email_to = $sql[0]['email'];
             $email_message = 'Hello '.$sql[0]['login'].'. Please follow this link to create new password. If it is not you, ignore this email: http://'
-                    . $hostname.':'.$port.'/camagru_mvc/account/confirmpass?token='.$token;
+                    . $hostname.':'.$port. DIR_NAME .'/account/confirmpass?token='.$token;
             $this->model->updateTable('users', 'token', $token, 'login', $sql[0]['login']);
             if ($this->sendEmail($name_from, $email_from, $email_to, $email_subject, $email_message)){
                 $this->model->updateDate($token, 'sendLinkDate');
@@ -147,7 +147,7 @@ class AccountController extends Controller{
             $currentDate = time();
             $passedTime = $currentDate - strtotime($getDate);
             if($userInfo && $passedTime <= $timeForConfirm)
-                header('Location: /camagru_mvc/account/newpass?token=' . $userInfo[0]['token']);
+                header('Location: ' . DIR_NAME .'/account/newpass?token=' . $userInfo[0]['token']);
             else
                 debug("Sorry, a link not valid. Send link again");//View::errorCode(404);
         } else
@@ -161,7 +161,7 @@ class AccountController extends Controller{
             if($passFirst == $passSecond){
                 $this->model->updateTable('users', 'password', $passFirst, 'token', $this->test_input($_GET['token']));
                 //TODO:modal pass successfully changed
-                header('Location: /camagru_mvc/account/signup');
+                header('Location: ' . DIR_NAME .'/account/signup');
             } else
                 debug("pass1 != pass2");
 //                View::errorCode(404);

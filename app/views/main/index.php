@@ -1,4 +1,4 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/camagru_mvc/app/views/layouts/header.php';?>
+<?php include $_SERVER['DOCUMENT_ROOT'] . DIR_NAME . '/app/views/layouts/header.php';?>
 <div class="main">
     <div id="user_gallery">
         <div id="photo_block">
@@ -61,5 +61,5 @@
 </div>
 <?php include "footer.php";?>
 </div>
-<script src="/camagru_mvc/public/scripts/profile.js"></script>
-<script src="/camagru_mvc/public/scripts/scripts.js"></script>
+<script src="<?php echo DIR_NAME; ?>/public/scripts/profile.js"></script>
+<script src="<?php echo DIR_NAME; ?>/public/scripts/scripts.js"></script>
