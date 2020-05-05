@@ -44,7 +44,7 @@ if ($vars['picturePath']){
 </div>
 
 <?php } else { ?>
-    <div class="card" style="text-align: center">PHOTO NOT FOUND</div>
+    <div class="card" style="text-align: center; padding: 123px 0;">PHOTO NOT FOUND</div>
 <?php }?>
 <?php include $_SERVER['DOCUMENT_ROOT'] . DIR_NAME . "/app/views/main/footer.php";?>
 </div>

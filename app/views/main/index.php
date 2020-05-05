@@ -30,8 +30,8 @@
                 </div>
                 <div class="password">
                     <h2>Password</h2>
-                    <input type="password"  class="field" name="password" id ="editEmail" value="23134234234">
-                    <input type="password" class="field"  name="password" id ="editEmail" value="23134234234">
+                    <input type="password"  class="field" name="password" id ="editPass" value="23134234234">
+                    <input type="password" class="field"  name="password" id ="editPass2" value="23134234234">
                 </div>
                 <div class="bot">
                     <div class="notification">

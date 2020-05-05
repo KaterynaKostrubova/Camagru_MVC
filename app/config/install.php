@@ -1,5 +1,6 @@
 <?php
 
+
 if ($_POST["login"] == false || $_POST["passwd"] == false || $_POST["submit"] != "OK") {
     exit("BAD INPUT" . PHP_EOL);
 }
@@ -66,9 +67,11 @@ $exec = "INSERT INTO users (login, photo_id, bg_id, password, token, isadmin, is
 
 db_request($exec, $login, $password, $dsn);
 
-$pathdef = [ DIR_NAME . "/photos/male.svg",
-    DIR_NAME . "/photos/female.svg",
-    DIR_NAME . "/photos/bg_default.jpeg",
+//debug(DIR_NAME);
+
+$pathdef = [ '/' . $DIR . "/photos/male.svg",
+    '/' . $DIR . "/photos/female.svg",
+    '/' . $DIR . "/photos/bg_default.jpeg",
 ];
 
 try {
@@ -84,10 +87,10 @@ try {
 }
 
 //add photo for admin users
-$path = [   DIR_NAME . "/photos/2.jpg",
-            DIR_NAME . "/photos/3.jpg",
-            DIR_NAME . "/photos/4.jpg",
-            DIR_NAME . "/photos/5.jpg",
+$path = [   '/' . $DIR . "/photos/2.jpg",
+    '/' . $DIR . "/photos/3.jpg",
+    '/' . $DIR . "/photos/4.jpg",
+    '/' . $DIR . "/photos/5.jpg",
 ];
 
 try {
@@ -115,7 +118,7 @@ $exec = 'CREATE TABLE filters(
 db_request($exec, $login, $password, $dsn);
 
 $numberOfStikers = 12;
-$path = DIR_NAME . '/public/image/stiker_';
+$path = '/' . $DIR . '/public/image/stiker_';
 $ext = '.png';
 try {
     $pdo = new PDO($dsn, $login, $password);
@@ -150,4 +153,4 @@ db_request($exec, $login, $password, $dsn);
 
 
 
-header('Location: ' . DIR_NAME . '/account/signup');
+header('Location: /' . $DIR . '/account/signup');

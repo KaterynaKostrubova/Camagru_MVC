@@ -50,11 +50,12 @@ if (widthWin <= 1024 && widthWin >= 480){
 
 let video = document.querySelector('#video');
 
+
 if (navigator.getUserMedia) {
     navigator.getUserMedia({
-            video: true,
-            audio: false
-        },
+        video: true,
+        audio: false
+    },
         function(stream) {
             video.srcObject = stream;
             video.onloadedmetadata = function(e) {
@@ -117,6 +118,32 @@ sticker_container.addEventListener('click',  function(e){
         }
     }
 });
+
+let filter_container = document.querySelector('#filter_container');
+
+filter_container.addEventListener('click', function (e) {
+    if (e.target.id !== "filter_container")
+    {
+        let idFilter = e.target.id;
+        filter = filtersName[idFilter];
+        video.className = idFilter;
+
+        if (sticker){
+            filterCtx.clearRect(0, 0, width, height);
+            filterCtx.filter = filter;
+            // filterCtx.scale(-1, 1);
+            filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
+        }
+        if(onLoad){
+            filterCtx.clearRect(0, 0, width, height);
+            canvasCtx.filter = filter;
+            canvasCtx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
+        }
+        takePhoto.removeAttribute('disabled');
+        classInactive[0].classList.add('active_click');
+    }
+});
+
 
 filterCanvas.onmousedown = function(event) {
     if(sticker) {
@@ -285,7 +312,6 @@ saveBtn.addEventListener('click', function(e){
 
 let delResponse = function(request) {
     let response = request.response;
-    console.log(response);
     let del = document.querySelector('.img_card_' + response['id']);
     del.remove();
     if(response['path']){
@@ -297,10 +323,10 @@ let delResponse = function(request) {
 function  deletePhoto(e) {
     let req = new Requests();
     let id = e.target.id.split('_')[1] + '';
-    console.log(id);
     let str ='';
     let data = {
         'id' : id,
+        'flag': -1,
     };
     req.post( '/' + _dirname + '/api/delete/photo', delResponse, str, data);
     e.preventDefault();
@@ -319,28 +345,4 @@ function create_param(param){
     return (parameterString);
 }
 
-let filter_container = document.querySelector('#filter_container');
-
-filter_container.addEventListener('click', function (e) {
-    if (e.target.id !== "filter_container")
-    {
-        let idFilter = e.target.id;
-        filter = filtersName[idFilter];
-        video.className = idFilter;
-
-        if (sticker){
-            filterCtx.clearRect(0, 0, width, height);
-            filterCtx.filter = filter;
-            filterCtx.scale(-1, 1);
-            filterCtx.drawImage(newImg, filterX, filterY, stikerWidth, stikerHeight);
-        }
-        if(onLoad){
-            filterCtx.clearRect(0, 0, width, height);
-            canvasCtx.filter = filter;
-            canvasCtx.drawImage(uploadImg, xImg, yImg, width * k, height * k, 0, 0, width, height);
-        }
-        takePhoto.removeAttribute('disabled');
-        classInactive[0].classList.add('active_click');
-    }
-});
 

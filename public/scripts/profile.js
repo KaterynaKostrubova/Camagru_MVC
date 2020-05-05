@@ -193,7 +193,6 @@ let last = document.getElementById('last');
 
 let simplePagination = function(request) {
     let response = request.response;
-    console.log(response);
     if(response['action'] === 'last')
         count = response['numPage'];
     numberPage.innerText = response['numPage'] + 1;
@@ -220,7 +219,6 @@ let simplePagination = function(request) {
         first.style.opacity = "1";
 
     }
-    console.log(response['photos']);
     if(response['photos'].length){
         let div = document.createElement('div');
         div.className = 'photo-wrap';

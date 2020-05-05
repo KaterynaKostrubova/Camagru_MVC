@@ -1,8 +1,6 @@
 let _dirname = document.location.pathname.split('/')[1];
-// console.log(_dirname);
 let likeResponse = function(request) {
     let response = request.response;
-    console.log(response);
     if (response.status === 'ok') {
         let selector = '#like-' + response['id'];
         let like = document.querySelector(selector);
@@ -105,12 +103,13 @@ let delCardResponse = function(request) {
     } else {
         let del = document.querySelector('.card');
         let wrap = document.querySelector('.wrapper');
+        let h = document.querySelector('header');
         let div = document.createElement("div");
         div.className = 'deleted-photo';
         div.innerText = 'PHOTO DELETED';
-        wrap.append(div);
+        h.after(div);
         if(del)
-            del.style.display = 'none';
+            del.style.visibility = 'hidden';
         else
             document.querySelector('.img_card').style.display = 'none';
     }

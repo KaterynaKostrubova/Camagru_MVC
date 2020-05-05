@@ -25,11 +25,7 @@ class ApiController extends Controller
 
         $currentEmail = $user[0]['email'];
 
-//        $changed_name = false;
-//        $changed_email = false;
-
         $currentNotification = $user[0]['notification'];
-//        $changedNotification = false;
 
         if ($currentLogin != $newLogin || $currentEmail != $newEmail || $currentNotification != $newNotification) {
             if ($model->checkValue($newLogin, 'users', 'login')) {
@@ -39,22 +35,18 @@ class ApiController extends Controller
                 $cookie_value = "login";
                 setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
                 $currentLogin = $newLogin;
-//                $changed_name = true;
             }
             if ($model->checkValue($newEmail, 'users', 'email')) {
                 $model->updateTable('users', 'email', $newEmail, 'email', $currentEmail);
                 $currentEmail = $newEmail;
-//                $changed_email = true;
             }
 
             if ($this->request['notification'] === false) {
                 $model->updateTable('users', 'notification', '0', 'login', $currentLogin);
                 $currentNotification = $newNotification;
-//                $changedNotification = true;
             } elseif ($this->request['notification'] === true) {
                 $model->updateTable('users', 'notification', '1', 'login', $currentLogin);
                 $currentNotification = $newNotification;
-//                $changedNotification = true;
             }
 
             $responseData = array(
@@ -64,23 +56,6 @@ class ApiController extends Controller
                 'notification' => '',
                 'data' => $currentLogin . ' | ' . $currentEmail . ' | ' . $currentNotification,
             );
-
-//            if ($changed_name === true) {
-//                $responseData['name'] = 'yes';
-//            } else {
-//                $responseData['name'] = 'no';
-//            }
-//            if ($changed_email === true) {
-//                $responseData['email'] = 'yes';
-//
-//            } else {
-//                $responseData['email'] = 'no';
-//            }
-//            if ($changedNotification === true){
-//                $responseData['notification'] = 'yes';
-//            } else {
-//                $responseData['notification'] = 'no';
-//            }
             $this->view->apiRender($responseData);
         }
     }
@@ -161,7 +136,7 @@ class ApiController extends Controller
             '$file_name' => $name[3],
             'test' => $test,
             'path' => $path,
-//            'flag' => $this->request['flag'],
+            'flag' => $this->request['flag'],
         );
 
         $this->view->apiRender($responseData);
