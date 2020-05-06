@@ -22,16 +22,13 @@ class Db {
     function query($sql, $params = []){
         //защпта от иньекций
         $stmt = $this->db->prepare($sql);
-//        debug($params);
         if (!empty($params)){
             foreach ($params as $key => $val){
                 $stmt->bindValue(':'.$key, $val);
-
             }
         }
         $stmt->execute();
         return $stmt;
-
     }
 
     public function row($sql, $params = []){
@@ -44,23 +41,18 @@ class Db {
         return $result->fetchColumn();
     }
 
-
-    // TODO: проверить
     public function insertto($sql){
         try {
-//            $this->db->exec($sql);
             $this->query($sql);
         } catch (PDOException $e) {
-            exit($e->getMessage());
+            $e->getMessage();
         }
     }
     public function delete($sql){
         try {
-//            $this->db->exec($sql);
             $this->query($sql);
         } catch (PDOException $e) {
-            exit($e->getMessage());
+            $e->getMessage();
         }
     }
-
 }

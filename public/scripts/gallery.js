@@ -26,7 +26,6 @@ function  like(e) {
         'id' : id,
         'like': like,
     };
-    // console.log(window.location.href.substr(0, window.location.href.length - window.location.href.split('/').pop().length));
     req.post('/' + _dirname + '/api/like', likeResponse, str, data);
     e.preventDefault();
 }
@@ -34,7 +33,7 @@ function  like(e) {
 
 let commentResponse = function(request) {
     let response = request.response;
-    // console.log(response);
+    console.log(response);
     let comments = document.querySelector(".comments");
 
     let div1 = document.createElement("div");
@@ -68,19 +67,18 @@ function  postComment(e) {
     let text = document.getElementById('text-' + id).value;
     if(text !== ""){
         let req = new Requests();
-        console.log(text);
+        // console.log(text);
         let str ='';
         let data = {
             'id' : id,
             'text': text,
         };
-        console.log(data);
         req.post( '/' + _dirname + '/api/comment', commentResponse, str, data);
         e.preventDefault();
-    } else {
-        console.log('empty');
     }
-
+    // else {
+    //     console.log('empty');
+    // }
 }
 
 
@@ -92,7 +90,6 @@ let delCardResponse = function(request) {
         let checkVisionImgCard = document.querySelector('.img_card');
         if (!checkVisionImgCard){
             let str = '';
-
             let data = {
                 'counter': count,
                 'n': 5,
@@ -102,7 +99,6 @@ let delCardResponse = function(request) {
         }
     } else {
         let del = document.querySelector('.card');
-        let wrap = document.querySelector('.wrapper');
         let h = document.querySelector('header');
         let div = document.createElement("div");
         div.className = 'deleted-photo';

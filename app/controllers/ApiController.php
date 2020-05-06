@@ -15,8 +15,8 @@ class ApiController extends Controller
     public function profileEditAction()
     {
         $currentLogin = $_SESSION['authorize']['name'];
-        $newLogin = $this->request['name'];
-        $newEmail = $this->test_input($this->request['email']);
+        $newLogin = addslashes($this->request['name']);
+        $newEmail = addslashes($this->test_input($this->request['email']));
         $newNotification = $this->request['notification'];
 
         // TODO update user`s data
@@ -255,16 +255,17 @@ class ApiController extends Controller
             'status' => 'error',
         );
         if ($user) {
-            $model->addComments($this->request['id'], $user[0]['id'], $this->request['text']);
+            $text = addslashes($this->test_input($this->request['text']));
+            $model->addComments($this->request['id'], $user[0]['id'], $text);
             if ($ntf === '1') {
-                $send = $this->sendNotification($user[0]['email'], $login, $this->request['text']);
+                $send = $this->sendNotification($user[0]['email'], $login, $text);
             }
             $responseData = array(
                 'status' => 'ok',
                 'id' => $this->request['id'],
                 'usr' => $user[0]['id'],
                 'login' => $login,
-                'text' => $this->request['text'],
+                'text' => $text,
                 'email' => $user[0]['email'],
                 'send' => $send,
                 'ntf' => $ntf,
