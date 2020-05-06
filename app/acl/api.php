@@ -2,7 +2,7 @@
 
 return [
     'all' => [
-
+        'infinitePagination'
     ],
     'authorize' => [
         'profileEdit',
@@ -14,10 +14,21 @@ return [
         'comment',
         'notification',
         'pagination',
-        'infinitePagination'
+        'infinitePagination',
     ],
     'guest' => [
+
     ],
     'admin' => [
+        'profileEdit',
+        'savePhoto',
+        'deletePhoto',
+        'changeAvatar',
+        'changeBg',
+        'like',
+        'comment',
+        'notification',
+        'pagination',
+        'infinitePagination'
     ],
 ];

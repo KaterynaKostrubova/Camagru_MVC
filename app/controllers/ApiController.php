@@ -315,7 +315,6 @@ class ApiController extends Controller
             }
             $newHtml = $newHtml . '</div><a href="' . DIR_NAME . '/gallery/photo?id=' . $photo[$i]['id'] .
                 '"><img class="photo photo-' . $photo[$i]['id'] . '" src="' . $photo[$i]['path'] . '" alt="picture"/></a></div>';
-
         }
 
         $responseData = array(

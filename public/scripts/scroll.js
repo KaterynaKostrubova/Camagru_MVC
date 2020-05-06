@@ -11,7 +11,6 @@ topBnt.addEventListener('click', function (e) {
 
 let paginationResponse = function(request) {
     let response = request.response;
-    // console.log(response);
     if(response['nextPhotos'].length){
         let div = document.createElement('div');
         div.className = 'img_block';
@@ -30,7 +29,6 @@ function nextPhoto(){
     let heightWin = window.innerHeight;
     let y  = yOffset + heightWin;
     let n = 5;
-    // console.log(yOffset, contentHeight);
     if(y >= contentHeight)
     {
         count++;
@@ -56,12 +54,10 @@ window.addEventListener("scroll", function(e){
 window.onload = function (e){
     let str = '';
     let n = 5;
-    // console.log(count);
     let data = {
         'counter': count,
         'n': n,
     };
-
     let req = new Requests();
     req.post('/' + _dirname + '/api/infinite/pagination', paginationResponse, str, data);
 };
