@@ -99,7 +99,7 @@ class AccountController extends Controller{
     }
 
     public function logoutAction(){
-        session_start();
+//        session_start();
         foreach ($_SESSION as $key => $value){
             $_SESSION[$key] = FALSE;
         }
