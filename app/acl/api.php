@@ -2,7 +2,7 @@
 
 return [
     'all' => [
-        'infinitePagination'
+        'infinitePagination',
     ],
     'authorize' => [
         'profileEdit',
@@ -29,6 +29,6 @@ return [
         'comment',
         'notification',
         'pagination',
-        'infinitePagination'
+        'infinitePagination',
     ],
 ];

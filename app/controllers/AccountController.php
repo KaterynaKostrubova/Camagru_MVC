@@ -86,7 +86,7 @@ class AccountController extends Controller{
                     $cookie_name = "login";
                     $cookie_value = $name;
                     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
-                    header('Location: ' . DIR_NAME .'photo/take');
+                    header('Location: ' . DIR_NAME .'/photo/take');
                 } else
                     debug("invalid password");
             }

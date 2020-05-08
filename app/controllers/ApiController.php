@@ -14,50 +14,78 @@ class ApiController extends Controller
 
     public function profileEditAction()
     {
+
+        $responseData = array(
+            'Login' => '',
+            'Email' => '',
+            'Notification' => '',
+            'Password' => '',
+//            'data' => $currentLogin . ' | ' . $currentEmail . ' | ' . $currentNotification . ' | ' . $currentPass,
+        );
+
         $currentLogin = $_SESSION['authorize']['name'];
-        $newLogin = addslashes($this->request['name']);
+
+        $newLogin = addslashes($this->test_input($this->request['name']));
         $newEmail = addslashes($this->test_input($this->request['email']));
         $newNotification = $this->request['notification'];
 
-        // TODO update user`s data
+        $oldPass = hash('whirlpool', $this->test_input($this->request['oldPass']));
+        $newPass = hash('whirlpool', $this->test_input($this->request['newPass']));
+        $confirmPass = hash('whirlpool', $this->test_input($this->request['newPassConfirm']));
+
         $model = new Account();
         $user = $model->getUser($currentLogin);
-
+        $currentPass = $user[0]['password'];
         $currentEmail = $user[0]['email'];
-
         $currentNotification = $user[0]['notification'];
 
-        if ($currentLogin != $newLogin || $currentEmail != $newEmail || $currentNotification != $newNotification) {
-            if ($model->checkValue($newLogin, 'users', 'login')) {
-                $model->updateTable('users', 'login', $newLogin, 'login', $currentLogin);
-                $_SESSION['authorize']['name'] = $newLogin;
-                $cookie_name = $newLogin;
-                $cookie_value = "login";
-                setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
-                $currentLogin = $newLogin;
+        if ($oldPass !== '' && $newPass !== '' &&
+            $confirmPass !== '' && $oldPass !== $newPass &&
+            $newPass === $confirmPass && $oldPass === $currentPass){
+            if($model->updateTable('users', 'password', $newPass, 'login', $currentLogin)){
+                $responseData['password'] = $newPass;
             }
-            if ($model->checkValue($newEmail, 'users', 'email')) {
-                $model->updateTable('users', 'email', $newEmail, 'email', $currentEmail);
-                $currentEmail = $newEmail;
-            }
-
-            if ($this->request['notification'] === false) {
-                $model->updateTable('users', 'notification', '0', 'login', $currentLogin);
-                $currentNotification = $newNotification;
-            } elseif ($this->request['notification'] === true) {
-                $model->updateTable('users', 'notification', '1', 'login', $currentLogin);
-                $currentNotification = $newNotification;
-            }
-
-            $responseData = array(
-                'status' => 'ok',
-                'name' => '',
-                'email' => '',
-                'notification' => '',
-                'data' => $currentLogin . ' | ' . $currentEmail . ' | ' . $currentNotification,
-            );
-            $this->view->apiRender($responseData);
         }
+
+        if($currentLogin != $newLogin){
+            if ($model->checkValue($newLogin, 'users', 'login')) {
+                if($model->updateTable('users', 'login', $newLogin, 'login', $currentLogin)){
+                    $_SESSION['authorize']['name'] = $newLogin;
+                    $cookie_name = $newLogin;
+                    $cookie_value = "login";
+                    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
+                    $responseData['login'] = $newLogin;
+                }
+            }
+        }
+
+        if($currentEmail != $newEmail){
+            if ($model->checkValue($newEmail, 'users', 'email')) {
+                if($model->updateTable('users', 'email', $newEmail, 'email', $currentEmail)){
+                    $responseData['email'] = $newEmail;
+                }
+            }
+        }
+
+        if($currentNotification != $newNotification ) {
+            $value = '1';
+            if ($this->request['notification'] === false) {
+                $value = '0';
+            }
+            if($model->updateTable('users', 'notification', $value, 'login', $currentLogin)){
+                $responseData['notification'] = $value;
+            }
+        }
+
+//        $responseData = array(
+//            'status' => 'ok',
+//            'name' => '',
+//            'email' => '',
+//            'notification' => '',
+//            'data' => $currentLogin . ' | ' . $currentEmail . ' | ' . $currentNotification . ' | ' . $currentPass,
+//        );
+        $this->view->apiRender($responseData);
+
     }
     public function savePhotoAction()
     {
@@ -274,24 +302,24 @@ class ApiController extends Controller
         $this->view->apiRender($responseData);
     }
 
-    public function notificationAction()
-    {
-        $model = new Account();
-        $login = $_SESSION['authorize']['name'];
-        $id = $model->getUserBy('login', $login)[0]['id'];
-        if ($model->updateNotification((int)$this->request['ntf'], $id)) {
-            $responseData = array(
-                'status' => 'ok',
-                'ntf' => $this->request['ntf'],
-                'id' => $id,
-            );
-        } else {
-            $responseData = array(
-                'status' => 'error',
-            );
-        }
-        $this->view->apiRender($responseData);
-    }
+//    public function notificationAction()
+//    {
+//        $model = new Account();
+//        $login = $_SESSION['authorize']['name'];
+//        $id = $model->getUserBy('login', $login)[0]['id'];
+//        if ($model->updateNotification((int)$this->request['ntf'], $id)) {
+//            $responseData = array(
+//                'status' => 'ok',
+//                'ntf' => $this->request['ntf'],
+//                'id' => $id,
+//            );
+//        } else {
+//            $responseData = array(
+//                'status' => 'error',
+//            );
+//        }
+//        $this->view->apiRender($responseData);
+//    }
 
     public function infinitePaginationAction()
     {
