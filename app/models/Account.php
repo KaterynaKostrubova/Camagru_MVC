@@ -56,9 +56,7 @@ class Account extends Model {
         elseif (!$this->checkValue($email, $table, 'email')){
             debug("email is alredy in use");
             return false;
-        }
-        //elseif query??
-        else {
+        } else {
             $this->db->insertto("INSERT INTO $table (login, sex, photo_id, email, password, token) VALUE ('$login', '$sex', '$photo_id','$email', '$pass', '$token')");
             return true;
         }
